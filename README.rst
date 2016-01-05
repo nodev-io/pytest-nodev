@@ -9,17 +9,15 @@ pytest-wish
     :target: https://ci.appveyor.com/project/alexamici/pytest-wish/branch/master
     :alt: See Build Status on AppVeyor
 
-Test-Driven-non-Development for Pytest
+Test-Driven-Nondevelopment for Pytest
 
 ----
-
-This `Pytest`_ plugin was generated with `Cookiecutter`_ along with `@hackebrot`_'s `Cookiecutter-pytest-plugin`_ template.
 
 
 Features
 --------
 
-* TODO
+ * Runs a set of tests over all objects contained in a list of modules.
 
 
 Requirements
