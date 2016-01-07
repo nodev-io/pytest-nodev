@@ -3,11 +3,11 @@ pytest-wish
 
 .. image:: https://travis-ci.org/alexamici/pytest-wish.svg?branch=master
     :target: https://travis-ci.org/alexamici/pytest-wish
-    :alt: See Build Status on Travis CI
+    :alt: Build Status on Travis CI
 
-.. image:: https://ci.appveyor.com/api/projects/status/github/alexamici/pytest-wish?branch=master
-    :target: https://ci.appveyor.com/project/alexamici/pytest-wish/branch/master
-    :alt: See Build Status on AppVeyor
+.. image:: https://coveralls.io/repos/alexamici/pytest-wish/badge.svg?branch=master&service=github
+    :target: https://coveralls.io/github/alexamici/pytest-wish
+    :alt: Coverage Status on Coveralls
 
 Test-Driven-Nondevelopment for Pytest
 
@@ -17,7 +17,7 @@ Test-Driven-Nondevelopment for Pytest
 Features
 --------
 
- * Runs a set of tests over all objects contained in a list of modules.
+* Runs a set of tests over all objects contained in a list of modules.
 
 
 Requirements
