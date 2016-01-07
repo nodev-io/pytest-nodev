@@ -15,7 +15,7 @@ install:
   - "TOX_ENV=${TRAVIS_PYTHON_VERSION/[0-9].[0-9]/py${TRAVIS_PYTHON_VERSION/.}}"
 script: tox -e $TOX_ENV
 after_success:
-  - if [[ $ENV == python=3.5* ]]; then
+  - if [[ $TRAVIS_PYTHON_VERSION == "3.5" ]]; then
       coveralls;
     fi
 
