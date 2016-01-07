@@ -20,7 +20,7 @@ def test_generate_tests(testdir):
 
     # fnmatch_lines does an assertion internally
     result.stdout.fnmatch_lines([
-        '*::test_factorial*XPASS',
+        '*::test_factorial*math:factorial*XPASS',
     ])
 
     # make sure that that we get a '0' exit code for the testsuite
