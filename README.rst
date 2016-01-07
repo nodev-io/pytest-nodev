@@ -1,5 +1,5 @@
 pytest-wish
-===================================
+===========
 
 .. image:: https://travis-ci.org/alexamici/pytest-wish.svg?branch=master
     :target: https://travis-ci.org/alexamici/pytest-wish
@@ -9,10 +9,7 @@ pytest-wish
     :target: https://coveralls.io/github/alexamici/pytest-wish
     :alt: Coverage Status on Coveralls
 
-Test-Driven-Nondevelopment for Pytest
-
-----
-
+Test-Driven-Nondevelopment plugin for `pytest`_. This code is Pre-Alpha.
 
 Features
 --------
@@ -55,12 +52,7 @@ Issues
 
 If you encounter any problems, please `file an issue`_ along with a detailed description.
 
-.. _`Cookiecutter`: https://github.com/audreyr/cookiecutter
-.. _`@hackebrot`: https://github.com/hackebrot
 .. _`MIT`: http://opensource.org/licenses/MIT
-.. _`BSD-3`: http://opensource.org/licenses/BSD-3-Clause
-.. _`GNU GPL v3.0`: http://www.gnu.org/licenses/gpl-3.0.txt
-.. _`cookiecutter-pytest-plugin`: https://github.com/pytest-dev/cookiecutter-pytest-plugin
 .. _`file an issue`: https://github.com/alexamici/pytest-wish/issues
 .. _`pytest`: https://github.com/pytest-dev/pytest
 .. _`tox`: https://tox.readthedocs.org/en/latest/

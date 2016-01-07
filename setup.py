@@ -13,15 +13,15 @@ def read(fname):
 
 setup(
     name='pytest-wish',
-    version='0.1.0',
+    version='0.2.0',
     author='Alessandro Amici',
     author_email='alexamici@gmail.com',
     maintainer='Alessandro Amici',
     maintainer_email='alexamici@gmail.com',
     license='MIT',
     url='https://github.com/alexamici/pytest-wish',
-    download_url = 'https://github.com/peterldowns/mypackage/tarball/0.1.0',
-    description='Test-Driven-Nondevelopment for Pytest',
+    download_url='https://github.com/peterldowns/mypackage/tarball/0.2.0',
+    description='Test-Driven-Nondevelopment plugin for pytest',
     long_description=read('README.rst'),
     py_modules=['pytest_wish'],
     install_requires=[
