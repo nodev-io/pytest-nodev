@@ -13,21 +13,21 @@ def read(fname):
 
 setup(
     name='pytest-wish',
-    version='0.3.1',
+    version='0.4.0',
     author='Alessandro Amici',
     author_email='alexamici@gmail.com',
     maintainer='Alessandro Amici',
     maintainer_email='alexamici@gmail.com',
     license='MIT',
     url='https://github.com/alexamici/pytest-wish',
-    download_url='https://github.com/alexamici/pytest-wish/archive/0.3.1.tar.gz',
+    download_url='https://github.com/alexamici/pytest-wish/archive/0.4.0.tar.gz',
     description='Test-Driven no-Development plugin for pytest',
     long_description=read('README.rst'),
     py_modules=['pytest_wish'],
     install_requires=[
         'pytest>=2.8.1',
     ],
-    zip_safe=False,
+    zip_safe=True,
     classifiers=[
         'Development Status :: 3 - Alpha',
         'Intended Audience :: Developers',
