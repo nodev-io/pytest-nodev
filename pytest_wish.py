@@ -14,11 +14,10 @@ BLACKLIST = (
     '_pytest.runner:skip',
     '_pytest.skipping:xfail',
 
-    # SystemExit bypass
+    # unconditional exit
     'posix:_exit',
-
-    # KeyboardError
     '_signal:default_int_handler',
+    'atexit.register',
 
     # low level crashes
     'numpy.fft.fftpack_lite:cffti',
