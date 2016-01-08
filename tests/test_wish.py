@@ -40,7 +40,7 @@ def test_skip_tests(testdir):
 
     # fnmatch_lines does an assertion internally
     result.stdout.fnmatch_lines([
-        '*::test_factorial*wish*SKIPPED',
+        '*test_factorial*wish*SKIPPED',
     ])
 
     # make sure that that we get a '0' exit code for the testsuite
@@ -61,8 +61,23 @@ def test_generate_tests(testdir):
 
     # fnmatch_lines does an assertion internally
     result.stdout.fnmatch_lines([
-        '*::test_factorial*math:factorial*XPASS',
+        '*test_factorial*math:fabs*xfail',
+        '*test_factorial*math:factorial*XPASS',
     ])
 
     # make sure that that we get a '0' exit code for the testsuite
     assert result.ret == 0
+
+
+def test_generate_fail_tests(testdir):
+    testdir.makepyfile(TEST_FACTORIAL)
+    result = testdir.runpytest(
+        '--wish-modules=math',
+        '--wish-fail',
+        '-v',
+    )
+    result.stdout.fnmatch_lines([
+        '*test_factorial*math:fabs*FAILED',
+        '*test_factorial*math:factorial*PASSED',
+    ])
+    assert result.ret == 1
