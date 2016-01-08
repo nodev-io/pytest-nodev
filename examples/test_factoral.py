@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+
 def test_factorial(wish):
     factorial = wish
     assert factorial(0) == 1
