@@ -82,3 +82,13 @@ def test_generate_fail_tests(testdir):
         '*test_factorial*math:factorial*PASSED',
     ])
     assert result.ret == 1
+
+
+def test_wish_blacklist(testdir):
+    testdir.makepyfile(TEST_FACTORIAL)
+    result = testdir.runpytest(
+        '--wish-modules=math',
+        '--wish-includes=.*exit',
+        '-v',
+    )
+    assert result.ret == 0
