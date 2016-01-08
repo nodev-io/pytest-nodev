@@ -5,11 +5,25 @@ import inspect
 import re
 import sys
 
-import pkg_resources
 import pytest
 
 
-BLACKLIST = pkg_resources.resource_string('pytest_wish', 'wish_blacklist.txt').decode('utf-8').splitlines()
+BLACKLIST = (
+    # pytest internals
+    '_pytest.runner:exit',
+    '_pytest.runner:skip',
+    '_pytest.skipping:xfail',
+
+    # SystemExit bypass
+    'posix:_exit',
+
+    # KeyboardError
+    '_signal:default_int_handler',
+
+    # low level crashes
+    'numpy.fft.fftpack_lite:cffti',
+    'numpy.fft.fftpack_lite:rffti',
+)
 
 
 def pytest_addoption(parser):
