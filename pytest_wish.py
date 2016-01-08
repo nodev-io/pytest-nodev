@@ -14,7 +14,7 @@ def pytest_addoption(parser):
                     help="Space separated list of module names.")
     group.addoption('--wish-includes', nargs='+',
                     help="Space separated list of regexs matching full object names to include.")
-    group.addoption('--wish-excludes', nargs='+',
+    group.addoption('--wish-excludes', default=(), nargs='+',
                     help="Space separated list of regexs matching full object names to exclude.")
     group.addoption('--wish-fail', action='store_true', help="Show wish failures.")
 
@@ -50,8 +50,9 @@ def pytest_generate_tests(metafunc):
         importlib.import_module(module_name)
 
     wish_includes = metafunc.config.getoption('wish_includes') or wish_modules
+    wish_excludes = metafunc.config.getoption('wish_excludes')
     # NOTE: 'copy' is needed here because index_modules may unexpectedly trigger a module load
-    object_index = index_modules(sys.modules.copy(), tuple(wish_includes))
+    object_index = index_modules(sys.modules.copy(), wish_includes, wish_excludes)
     object_items = sorted(object_index.items())
     ids, params = list(zip(*object_items)) or [[], []]
     metafunc.parametrize('wish', params, ids=ids, scope='module')
