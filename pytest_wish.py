@@ -13,7 +13,7 @@ def pytest_addoption(parser):
     group.addoption('--wish-modules', default=(), nargs='+',
                     help="Space separated list of module names.")
     group.addoption('--wish-includes', nargs='+',
-                    help="Space separed list of regex of fully qualified object names to include.")
+                    help="Space separated list of regexs matching full object names to include.")
     group.addoption('--wish-fail', action='store_true', help="Show wish failures.")
 
 
@@ -27,8 +27,8 @@ def generate_module_objects(module):
         yield obj_name, obj
 
 
-def index_modules(modules, include_regexs):
-    include_res = [re.compile(regex) for regex in include_regexs]
+def index_modules(modules, include_patterns, exclude_patterns):
+    include_res = [re.compile(pattern) for pattern in include_patterns]
     object_index = {}
     for module_name, module in modules.items():
         for object_name, object_ in generate_module_objects(module):
