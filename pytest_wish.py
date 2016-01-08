@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+import argparse
 import importlib
 import inspect
 import re
@@ -33,6 +34,8 @@ def pytest_addoption(parser):
                     help="Space separated list of regexs matching full object names to include.")
     group.addoption('--wish-excludes', default=(), nargs='+',
                     help="Space separated list of regexs matching full object names to exclude.")
+    group.addoption('--wish-objects', type=argparse.FileType('r'),
+                    help="File of full object names to include.")
     group.addoption('--wish-fail', action='store_true', help="Show wish failures.")
 
 
@@ -65,6 +68,23 @@ def index_modules(modules, include_patterns, exclude_patterns=(), blacklist=BLAC
     return object_index
 
 
+def index_objects(stream):
+    module_index = {}
+    object_index = {}
+    for line in stream:
+        full_object_name = line.partition('#')[0].strip()
+        if full_object_name:
+            module_name, _, object_name = full_object_name.partition(':')
+            try:
+                module = module_index.setdefault(module_name, importlib.import_module(module_name))
+                object_index[full_object_name] = getattr(module, object_name)
+            except ImportError:
+                pass
+            except AttributeError:
+                pass
+    return object_index
+
+
 def pytest_generate_tests(metafunc):
     if 'wish' not in metafunc.fixturenames:
         return
@@ -78,8 +98,12 @@ def pytest_generate_tests(metafunc):
 
     # NOTE: 'copy' is needed here because index_modules may unexpectedly trigger a module load
     object_index = index_modules(sys.modules.copy(), wish_includes, wish_excludes)
-    object_items = sorted(object_index.items())
-    ids, params = list(zip(*object_items)) or [[], []]
+
+    wish_objects = metafunc.config.getoption('wish_objects')
+    if wish_objects is not None:
+        object_index.update(index_objects(wish_objects))
+
+    ids, params = list(zip(*sorted(object_index.items()))) or [(), ()]
     metafunc.parametrize('wish', params, ids=ids, scope='module')
 
     wish_fail = metafunc.config.getoption('wish_fail')
