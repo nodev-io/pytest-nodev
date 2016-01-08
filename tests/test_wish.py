@@ -2,9 +2,10 @@
 
 TEST_FACTORIAL = """
 def test_factorial(wish):
-    assert wish(0) == 1
-    assert wish(1) == 1
-    assert wish(21) == 51090942171709440000
+    factorial = wish
+    assert factorial(0) == 1
+    assert factorial(1) == 1
+    assert factorial(21) == 51090942171709440000
 """
 
 
