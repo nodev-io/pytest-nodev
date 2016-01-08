@@ -9,7 +9,7 @@ pytest-wish
     :target: https://coveralls.io/github/alexamici/pytest-wish
     :alt: Coverage Status on Coveralls
 
-Test-Driven-Nondevelopment plugin for `pytest`_. This code is Pre-Alpha.
+Test-Driven no-Development plugin for `pytest`_. The development status of this project is early Alpha.
 
 Features
 --------
