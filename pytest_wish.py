@@ -18,16 +18,14 @@ def pytest_addoption(parser):
 
 
 def generate_module_objects(module):
-    for obj_name, obj in inspect.getmembers(module):
-        if obj_name.startswith('__'):
-            continue
-        obj_module = inspect.getmodule(obj)
+    for object_name, object_ in inspect.getmembers(module):
+        obj_module = inspect.getmodule(object_)
         if obj_module is not module:
             continue
-        yield obj_name, obj
+        yield object_name, object_
 
 
-def index_modules(modules, include_patterns, exclude_patterns):
+def index_modules(modules, include_patterns, exclude_patterns=()):
     include_res = [re.compile(pattern) for pattern in include_patterns]
     object_index = {}
     for module_name, module in modules.items():
