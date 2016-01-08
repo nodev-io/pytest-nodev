@@ -34,7 +34,7 @@ You can install "pytest-wish" via `pip`_ from `PyPI`_::
 Usage
 -----
 
-Example usage:
+Example usage::
 
     $ py.test -vv examples/ --wish-modules math | grep -v xfail$
     [...]
