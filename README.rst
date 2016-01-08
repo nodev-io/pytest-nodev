@@ -36,8 +36,12 @@ Usage
 
 Example usage:
 
-    $ py.test -vv examples/ --wish-modules=math | grep -v xfail$
+    $ py.test -vv examples/ --wish-modules math | grep -v xfail$
+    [...]
+    examples/test_factoral.py::test_factorial[math:factorial] XPASS
+    [...]
 
+the function `factorial` in the module `math` passes the `test_factorial` test.
 
 Contributing
 ------------

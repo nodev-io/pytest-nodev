@@ -9,7 +9,8 @@ import pytest
 
 def pytest_addoption(parser):
     group = parser.getgroup('wish')
-    group.addoption('--wish-modules', default='', help="Comma separated list of module names.")
+    group.addoption('--wish-modules', default=(), nargs='+',
+                    help="Comma separated list of module names.")
     group.addoption('--wish-fail', action='store_true', help="Show wish failures.")
 
 
@@ -36,11 +37,10 @@ def pytest_generate_tests(metafunc):
     if 'wish' not in metafunc.fixturenames:
         return
     wish_modules = metafunc.config.getoption('wish_modules')
-    module_names = wish_modules.split(',') if wish_modules else []
-    for module_name in module_names:
+    for module_name in wish_modules:
         importlib.import_module(module_name)
     # NOTE: 'copy' is needed here because index_modules may unexpectedly trigger a module load
-    object_index = index_modules(sys.modules.copy(), tuple(module_names))
+    object_index = index_modules(sys.modules.copy(), tuple(wish_modules))
     object_items = sorted(object_index.items())
     ids, params = list(zip(*object_items)) or [[], []]
     metafunc.parametrize('wish', params, ids=ids, scope='module')
