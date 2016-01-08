@@ -27,6 +27,12 @@ def generate_module_objects(module):
         yield object_name, object_
 
 
+def valid_name(name, include_res, exclude_res):
+    include_name = any(include_re.match(name) for include_re in include_res)
+    exclude_name = any(exclude_re.match(name) for exclude_re in exclude_res)
+    return include_name and not exclude_name
+
+
 def index_modules(modules, include_patterns, exclude_patterns=()):
     include_res = [re.compile(pattern) for pattern in include_patterns]
     exclude_res = [re.compile(pattern) for pattern in exclude_patterns]
@@ -34,9 +40,7 @@ def index_modules(modules, include_patterns, exclude_patterns=()):
     for module_name, module in modules.items():
         for object_name, object_ in generate_module_objects(module):
             full_object_name = '{}:{}'.format(module_name, object_name)
-            include_name = any(include_re.match(full_object_name) for include_re in include_res)
-            exclude_name = any(exclude_re.match(full_object_name) for exclude_re in exclude_res)
-            if include_name and not exclude_name:
+            if valid_name(full_object_name, include_res, exclude_res):
                 object_index[full_object_name] = object_
     return object_index
 
