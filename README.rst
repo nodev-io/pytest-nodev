@@ -9,7 +9,7 @@ pytest-wish
     :target: https://coveralls.io/github/alexamici/pytest-wish
     :alt: Coverage Status on Coveralls
 
-Test-Driven no-Development plugin for `pytest`_. The development status of this project is early Alpha.
+Test-Driven no-Development plugin for `pytest`_. The development status of this project is Alpha.
 
 Features
 --------
@@ -33,6 +33,20 @@ You can install "pytest-wish" via `pip`_ from `PyPI`_::
 
 Usage
 -----
+
+The plugin adds the follwing options to pytest::
+
+    wish:
+      --wish-modules=WISH_MODULES=[WISH_MODULES=...]
+                            Space separated list of module names.
+      --wish-includes=WISH_INCLUDES=[WISH_INCLUDES=...]
+                            Space separated list of regexs matching full object
+                            names to include.
+      --wish-excludes=WISH_EXCLUDES=[WISH_EXCLUDES=...]
+                            Space separated list of regexs matching full object
+                            names to exclude.
+      --wish-fail           Show wish failures.
+
 
 Example usage::
 
