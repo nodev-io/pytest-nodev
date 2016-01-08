@@ -14,6 +14,8 @@ def pytest_addoption(parser):
                     help="Space separated list of module names.")
     group.addoption('--wish-includes', nargs='+',
                     help="Space separated list of regexs matching full object names to include.")
+    group.addoption('--wish-excludes', nargs='+',
+                    help="Space separated list of regexs matching full object names to exclude.")
     group.addoption('--wish-fail', action='store_true', help="Show wish failures.")
 
 
@@ -27,14 +29,15 @@ def generate_module_objects(module):
 
 def index_modules(modules, include_patterns, exclude_patterns=()):
     include_res = [re.compile(pattern) for pattern in include_patterns]
+    exclude_res = [re.compile(pattern) for pattern in exclude_patterns]
     object_index = {}
     for module_name, module in modules.items():
         for object_name, object_ in generate_module_objects(module):
-            fully_qualified_object_name = '{}:{}'.format(module_name, object_name)
-            for include_re in include_res:
-                if include_re.match(fully_qualified_object_name):
-                    object_index[fully_qualified_object_name] = object_
-                    break
+            full_object_name = '{}:{}'.format(module_name, object_name)
+            include_name = any(include_re.match(full_object_name) for include_re in include_res)
+            exclude_name = any(exclude_re.match(full_object_name) for exclude_re in exclude_res)
+            if include_name and not exclude_name:
+                object_index[full_object_name] = object_
     return object_index
 
 
