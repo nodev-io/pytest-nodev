@@ -21,10 +21,8 @@ def pytest_addoption(parser):
 
 def generate_module_objects(module):
     for object_name, object_ in inspect.getmembers(module):
-        obj_module = inspect.getmodule(object_)
-        if obj_module is not module:
-            continue
-        yield object_name, object_
+        if inspect.getmodule(object_) is module:
+            yield object_name, object_
 
 
 def valid_name(name, include_res, exclude_res):
