@@ -49,12 +49,12 @@ The plugin adds the follwing options to pytest::
 
 Example usage, find a function that returns the factorial of a number::
 
-    $ py.test -vv examples/test_factoral.py --wish-modules math | grep -v xfail$
+    $ py.test -vv examples/test_factorial.py --wish-modules math | grep -v xfail$
     [...]
-    examples/test_factoral.py::test_factorial[math:factorial] XPASS
+    examples/test_factorial.py::test_factorial[math:factorial] XPASS
     [...]
 
-the function `factorial` in the module `math` passes the `test_factorial` test.
+the function ``factorial`` in the module ``math`` passes the ``test_factorial`` test.
 
 Another example, find a function that decomposes a URL into individual rfc3986 components::
 
@@ -64,8 +64,8 @@ Another example, find a function that decomposes a URL into individual rfc3986 c
     examples/test_rfc3986_parse.py::test_rfc3986_parse_basic[urllib.parse:urlsplit] XPASS
     [...]
 
-the two functions `urlparse` and `urlsplit` pass the basic rfc3986 parsing test, but do not
-pass the more complex `test_rfc3986_parse_full` test.
+the two functions ``urlparse`` and ``urlsplit`` pass the basic rfc3986 parsing test, but do not
+pass the more complex ``test_rfc3986_parse_full`` test.
 
 More advanced functions are available on PyPI::
 
@@ -76,7 +76,7 @@ More advanced functions are available on PyPI::
     examples/test_rfc3986_parse.py::test_rfc3986_parse_full[urllib3.util.url:parse_url] XPASS
     [...]
 
-now the function `parse_url` in the module `urllib3.util.url` passes both tests.
+now the function ``parse_url`` in the module ``urllib3.util.url`` passes both tests.
 
 
 Contributing
