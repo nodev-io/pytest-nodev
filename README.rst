@@ -47,20 +47,43 @@ The plugin adds the follwing options to pytest::
                             names to exclude.
       --wish-fail           Show wish failures.
 
+Example usage, find a function that returns the factorial of a number::
 
-Example usage::
-
-    $ py.test -vv examples/ --wish-modules math | grep -v xfail$
+    $ py.test -vv examples/test_factoral.py --wish-modules math | grep -v xfail$
     [...]
     examples/test_factoral.py::test_factorial[math:factorial] XPASS
     [...]
 
 the function `factorial` in the module `math` passes the `test_factorial` test.
 
+Another example, find a function that decomposes a URL into individual rfc3986 components::
+
+    $ py.test -vv examples/test_rfc3986_parse.py --wish-modules urllib.parse | grep -v xfail$
+    [...]
+    examples/test_rfc3986_parse.py::test_rfc3986_parse_basic[urllib.parse:urlparse] XPASS
+    examples/test_rfc3986_parse.py::test_rfc3986_parse_basic[urllib.parse:urlsplit] XPASS
+    [...]
+
+the two functions `urlparse` and `urlsplit` pass the basic rfc3986 parsing test, but do not
+pass the more complex `test_rfc3986_parse_full` test.
+
+More advanced functions are available on PyPI::
+
+    $ pip install urllib3
+    $ py.test -vv examples/test_rfc3986_parse.py --wish-modules urllib3 | grep -v xfail$
+    [...]
+    examples/test_rfc3986_parse.py::test_rfc3986_parse_basic[urllib3.util.url:parse_url] XPASS
+    examples/test_rfc3986_parse.py::test_rfc3986_parse_full[urllib3.util.url:parse_url] XPASS
+    [...]
+
+now the function `parse_url` in the module `urllib3.util.url` passes both tests.
+
+
 Contributing
 ------------
 Contributions are very welcome. Tests can be run with `tox`_, please ensure
 the coverage at least stays the same before you submit a pull request.
+
 
 License
 -------
