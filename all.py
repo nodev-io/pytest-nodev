@@ -3,8 +3,8 @@
 
 import pkg_resources
 
-import wish_utils
+import pytest_wish.utils
 
 
-if wish_utils.ENABLE_IMPORT_ALL:
-    wish_utils.import_modules(pkg_resources.working_set)
+if pytest_wish.utils.ENABLE_IMPORT_ALL:
+    pytest_wish.utils.import_modules(pkg_resources.working_set)

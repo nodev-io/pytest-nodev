@@ -3,7 +3,7 @@
 
 import os
 import codecs
-from setuptools import setup
+from setuptools import setup, find_packages
 
 
 def read(fname):
@@ -23,7 +23,8 @@ setup(
     download_url='https://github.com/alexamici/pytest-wish/archive/0.6.0.tar.gz',
     description='Test-Driven no-Development plugin for pytest',
     long_description=read('README.rst'),
-    py_modules=['pytest_wish', 'wish_utils', 'all'],
+    packages=find_packages(),
+    py_modules=['all'],
     install_requires=[
         'pytest>=2.8.1',
     ],

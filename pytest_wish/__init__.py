@@ -8,7 +8,7 @@ import sys
 
 import pytest
 
-import wish_utils
+from pytest_wish import utils
 
 
 OBJECT_BLACKLIST = (
@@ -58,7 +58,7 @@ def pytest_addoption(parser):
     group.addoption('--wish-includes', nargs='+',
                     help="Space separated list of regexs matching full object names to include.")
     # enable support for '--wish-includes all'
-    wish_utils.ENABLE_IMPORT_ALL = True
+    utils.ENABLE_IMPORT_ALL = True
     group.addoption('--wish-excludes', default=(), nargs='+',
                     help="Space separated list of regexs matching full object names to exclude.")
     group.addoption('--wish-objects', type=argparse.FileType('r'),

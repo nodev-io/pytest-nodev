@@ -1,5 +1,8 @@
 # -*- coding: utf-8 -*-
 
+import pytest_wish
+
+
 TEST_FACTORIAL_PY = '''
 def test_factorial(wish):
     factorial = wish
@@ -19,7 +22,6 @@ dummy:dummy
 def test_import_coverage():
     """Fix the coverage by pytest-cov, that may trigger after pytest_wish is already imported."""
     from imp import reload  # Python 2 and 3 reload
-    import pytest_wish
     reload(pytest_wish)
 
 
