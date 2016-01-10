@@ -23,7 +23,7 @@ setup(
     download_url='https://github.com/alexamici/pytest-wish/archive/0.5.1.tar.gz',
     description='Test-Driven no-Development plugin for pytest',
     long_description=read('README.rst'),
-    py_modules=['pytest_wish'],
+    py_modules=['pytest_wish', 'wish_utils', 'all'],
     install_requires=[
         'pytest>=2.8.1',
     ],
