@@ -8,9 +8,7 @@ import re
 ENABLE_IMPORT_ALL = False
 
 # blacklists
-DISTRIBUTION_BLACKLIST = {
-    'pytest-wish',
-}
+DISTRIBUTION_BLACKLIST = set()
 OBJECT_BLACKLIST = {
     # pytest internals
     '_pytest.runner:exit',
@@ -51,19 +49,18 @@ OBJECT_BLACKLIST = {
 }
 
 
-def import_modules(distributions):
+def import_modules(distributions, distribution_blacklist=DISTRIBUTION_BLACKLIST):
     distribution_modules = []
     for distribution in distributions:
-        if distribution.project_name in DISTRIBUTION_BLACKLIST:
-            continue
-        if not distribution.has_metadata('top_level.txt'):
+        if distribution.project_name in distribution_blacklist \
+                or not distribution.has_metadata('top_level.txt'):
             continue
         module_names = distribution.get_metadata('top_level.txt').splitlines()
         for module_name in module_names:
             try:
                 importlib.import_module(module_name)
-            except:  # pragma: no cover
-                pass
+            except:
+                pass   # pragma: no cover
         distribution_requirement = str(distribution.as_requirement())
         distribution_modules.append((distribution_requirement, module_names))
     return distribution_modules
@@ -72,8 +69,8 @@ def import_modules(distributions):
 def generate_module_objects(module):
     try:
         module_members = inspect.getmembers(module)
-    except:  # pragma: no cover
-        raise StopIteration
+    except:
+        raise StopIteration  # pragma: no cover
     for object_name, object_ in module_members:
         if inspect.getmodule(object_) is module:
             yield object_name, object_
