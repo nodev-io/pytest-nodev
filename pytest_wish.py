@@ -8,6 +8,8 @@ import sys
 
 import pytest
 
+import wish_utils
+
 
 OBJECT_BLACKLIST = (
     # pytest internals
@@ -33,6 +35,7 @@ OBJECT_BLACKLIST = (
     # hangs
     'Tkinter:mainloop',
     'astkit.compat.py3:execfile',
+    'astroid.builder:open_source_file',
     'click.termui:getchar',
     'click.termui:edit',
     'click.termui:hidden_prompt_func',
@@ -54,6 +57,8 @@ def pytest_addoption(parser):
                     help="Space separated list of module names.")
     group.addoption('--wish-includes', nargs='+',
                     help="Space separated list of regexs matching full object names to include.")
+    # enable support for '--wish-includes all'
+    wish_utils.ENABLE_IMPORT_ALL = True
     group.addoption('--wish-excludes', default=(), nargs='+',
                     help="Space separated list of regexs matching full object names to exclude.")
     group.addoption('--wish-objects', type=argparse.FileType('r'),
