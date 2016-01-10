@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 
 import argparse
-import importlib
 import sys
 
 import pytest
@@ -29,8 +28,7 @@ def pytest_generate_tests(metafunc):
         return
 
     wish_modules = metafunc.config.getoption('wish_modules')
-    for module_name in wish_modules:
-        importlib.import_module(module_name)
+    utils.import_modules(wish_modules)
 
     wish_includes = metafunc.config.getoption('wish_includes') or wish_modules
     wish_excludes = metafunc.config.getoption('wish_excludes')

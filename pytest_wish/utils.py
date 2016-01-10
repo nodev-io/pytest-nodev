@@ -9,6 +9,7 @@ ENABLE_IMPORT_ALL = False
 
 # blacklists
 DISTRIBUTION_BLACKLIST = set()
+MODULE_BLACKLIST = set()
 OBJECT_BLACKLIST = {
     # pytest internals
     '_pytest.runner:exit',
@@ -47,6 +48,10 @@ OBJECT_BLACKLIST = {
     'skimage:_test',
     'skimage:test',
 }
+
+
+def import_modules(module_names, module_blacklist=MODULE_BLACKLIST):
+    return [importlib.import_module(name) for name in module_names if name not in module_blacklist]
 
 
 def import_distributions_modules(distributions, distribution_blacklist=DISTRIBUTION_BLACKLIST):
