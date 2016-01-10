@@ -83,12 +83,11 @@ def test_wish_modules_all(testdir):
     testdir.makepyfile(TEST_FACTORIAL_PY)
     result = testdir.runpytest(
         '--wish-modules=all',
-        '--wish-includes=math',
+        '--wish-includes=pip.exceptions',
         '-v',
     )
     result.stdout.fnmatch_lines([
-        '*test_factorial*math:fabs*xfail',
-        '*test_factorial*math:factorial*XPASS',
+        '*test_factorial*pip.exceptions:*xfail',
     ])
     assert result.ret == 0
 
