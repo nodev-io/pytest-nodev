@@ -64,7 +64,7 @@ def pytest_addoption(parser):
 def generate_module_objects(module):
     try:
         module_members = inspect.getmembers(module)
-    except ImportError:
+    except:  # pragma: no cover
         raise StopIteration
     for object_name, object_ in module_members:
         if inspect.getmodule(object_) is module:
