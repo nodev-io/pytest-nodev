@@ -13,18 +13,20 @@ def test_import_coverage():
     reload(utils)
 
 
-def test_import_modules():
+def test_import_distributions_modules():
     # normal code path, pytest is a dependency
     distributions = [pkg_resources.get_distribution('pytest-wish')]
-    modules = utils.import_modules(distributions)
-    assert len(modules) == 1
-    requirement, modules = modules[0]
+    distributions_modules = utils.import_distributions_modules(distributions)
+    assert len(distributions_modules) == 1
+    requirement, distributions_modules = distributions_modules[0]
     assert requirement.startswith('pytest-wish==')
-    assert set(modules) == {'pytest_wish', 'all'}
+    assert set(distributions_modules) == {'pytest_wish', 'all'}
 
     # fail code path
-    modules = utils.import_modules(distributions, distribution_blacklist={'pytest-wish'})
-    assert len(modules) == 0
+    distributions_modules = utils.import_distributions_modules(
+        distributions, distribution_blacklist={'pytest-wish'}
+    )
+    assert len(distributions_modules) == 0
 
 
 def test_generate_module_objects():

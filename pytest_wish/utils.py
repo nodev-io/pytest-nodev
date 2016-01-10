@@ -49,8 +49,8 @@ OBJECT_BLACKLIST = {
 }
 
 
-def import_modules(distributions, distribution_blacklist=DISTRIBUTION_BLACKLIST):
-    distribution_modules = []
+def import_distributions_modules(distributions, distribution_blacklist=DISTRIBUTION_BLACKLIST):
+    distributions_modules = []
     for distribution in distributions:
         if distribution.project_name in distribution_blacklist \
                 or not distribution.has_metadata('top_level.txt'):
@@ -59,18 +59,18 @@ def import_modules(distributions, distribution_blacklist=DISTRIBUTION_BLACKLIST)
         for module_name in module_names:
             try:
                 importlib.import_module(module_name)
-            except:
-                pass   # pragma: no cover
+            except:  # pragma: no cover
+                pass
         distribution_requirement = str(distribution.as_requirement())
-        distribution_modules.append((distribution_requirement, module_names))
-    return distribution_modules
+        distributions_modules.append((distribution_requirement, module_names))
+    return distributions_modules
 
 
 def generate_module_objects(module):
     try:
         module_members = inspect.getmembers(module)
-    except:
-        raise StopIteration  # pragma: no cover
+    except:  # pragma: no cover
+        raise StopIteration
     for object_name, object_ in module_members:
         if inspect.getmodule(object_) is module:
             yield object_name, object_

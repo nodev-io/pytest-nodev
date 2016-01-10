@@ -7,4 +7,4 @@ import pytest_wish.utils
 
 
 if pytest_wish.utils.ENABLE_IMPORT_ALL:  # pragma: no branch
-    pytest_wish.utils.import_modules(pkg_resources.working_set)
+    pytest_wish.utils.import_distributions_modules(pkg_resources.working_set)
