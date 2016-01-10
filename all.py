@@ -1,9 +1,10 @@
 # -*- coding: utf-8 -*-
-"""DANGER: this module will import all modules known to the packaging system as a side effect!"""
+"""If enabled in wish_utils this module imports all modules known to the packaging system."""
 
 import pkg_resources
 
 import wish_utils
 
 
-wish_utils.import_modules(pkg_resources.working_set)
+if wish_utils.ENABLE_IMPORT_ALL:
+    wish_utils.import_modules(pkg_resources.working_set)

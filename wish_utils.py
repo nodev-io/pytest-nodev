@@ -5,6 +5,9 @@ DISTRIBUTION_BLACKLIST = {
     'pytest-wish',
 }
 
+# if set to True 'import all' imports all modules known to the packaging system.
+ENABLE_IMPORT_ALL = False
+
 
 def import_modules(distributions):
     distribution_modules = []
