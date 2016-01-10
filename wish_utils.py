@@ -1,7 +1,9 @@
 
 import importlib
 
-DISTRIBUTION_BLACKLIST = []
+DISTRIBUTION_BLACKLIST = {
+    'pytest-wish',
+}
 
 
 def import_modules(distributions):
@@ -13,7 +15,7 @@ def import_modules(distributions):
         for module_name in module_names:
             try:
                 importlib.import_module(module_name)
-            except:
+            except:  # pragma: no cover
                 pass
         distribution_requirement = str(distribution.as_requirement())
         distribution_modules.append((distribution_requirement, module_names))
