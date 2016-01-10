@@ -56,6 +56,8 @@ def import_modules(distributions):
     for distribution in distributions:
         if distribution.project_name in DISTRIBUTION_BLACKLIST:
             continue
+        if not distribution.has_metadata('top_level.txt'):
+            continue
         module_names = distribution.get_metadata('top_level.txt').splitlines()
         for module_name in module_names:
             try:
