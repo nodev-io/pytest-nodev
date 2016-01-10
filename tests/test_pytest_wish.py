@@ -37,7 +37,7 @@ def test_help_message(testdir):
     ])
 
 
-def test_skip_tests(testdir):
+def test_skip_wish(testdir):
     """Make sure that pytest accepts our fixture."""
 
     # create a temporary pytest test module
@@ -57,7 +57,7 @@ def test_skip_tests(testdir):
     assert result.ret == 0
 
 
-def test_generate_tests(testdir):
+def test_wish_modules(testdir):
     """Make sure that pytest accepts our fixture."""
 
     # create a temporary pytest test module
@@ -79,7 +79,21 @@ def test_generate_tests(testdir):
     assert result.ret == 0
 
 
-def test_generate_fail_tests(testdir):
+def test_wish_modules_all(testdir):
+    testdir.makepyfile(TEST_FACTORIAL_PY)
+    result = testdir.runpytest(
+        '--wish-modules=all',
+        '--wish-includes=math',
+        '-v',
+    )
+    result.stdout.fnmatch_lines([
+        '*test_factorial*math:fabs*xfail',
+        '*test_factorial*math:factorial*XPASS',
+    ])
+    assert result.ret == 0
+
+
+def test_wish_fail(testdir):
     testdir.makepyfile(TEST_FACTORIAL_PY)
     result = testdir.runpytest(
         '--wish-modules=math',
@@ -93,10 +107,10 @@ def test_generate_fail_tests(testdir):
     assert result.ret == 1
 
 
-def test_wish_blacklist(testdir):
+def test_wish_modules_object_blacklist(testdir):
     testdir.makepyfile(TEST_FACTORIAL_PY)
     result = testdir.runpytest(
-        '--wish-modules=math',
+        '--wish-modules=posix',
         '--wish-includes=.*exit',
         '-v',
     )
@@ -108,7 +122,6 @@ def test_wish_objects(testdir):
     objects_txt.write(TEST_FACTORIAL_TXT)
     testdir.makepyfile(TEST_FACTORIAL_PY)
     result = testdir.runpytest(
-        '--wish-modules=math',
         '--wish-objects={}'.format(objects_txt),
         '-v',
     )
