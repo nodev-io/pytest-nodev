@@ -1,6 +1,7 @@
 
 import importlib
 import inspect
+import logging
 import re
 
 
@@ -49,6 +50,8 @@ OBJECT_BLACKLIST = {
     'skimage:test',
 }
 
+logger = logging.getLogger('wish')
+
 
 def import_modules(module_names, module_blacklist=MODULE_BLACKLIST):
     return [importlib.import_module(name) for name in module_names if name not in module_blacklist]
@@ -57,17 +60,22 @@ def import_modules(module_names, module_blacklist=MODULE_BLACKLIST):
 def import_distributions_modules(distributions, distribution_blacklist=DISTRIBUTION_BLACKLIST):
     distributions_modules = []
     for distribution in distributions:
-        if distribution.project_name in distribution_blacklist \
-                or not distribution.has_metadata('top_level.txt'):
+        requirement = str(distribution.as_requirement())
+        if distribution.project_name in distribution_blacklist:
+            logger.debug("Not importing blacklisted package: %r." % requirement)
             continue
-        module_names = distribution.get_metadata('top_level.txt').splitlines()
+        if distribution.has_metadata('top_level.txt'):
+            module_names = distribution.get_metadata('top_level.txt').splitlines()
+        else:  # pragma: no cover
+            logger.info("Package %r has no top_level.txt. Assuming module name is %r." %
+                        (requirement, distribution.project_name))
+            module_names = [distribution.project_name]
         for module_name in module_names:
             try:
                 importlib.import_module(module_name)
             except:  # pragma: no cover
-                pass
-        distribution_requirement = str(distribution.as_requirement())
-        distributions_modules.append((distribution_requirement, module_names))
+                logger.info("Failed to import module %r (%r)." % (module_name, requirement))
+        distributions_modules.append((requirement, module_names))
     return distributions_modules
 
 
@@ -75,6 +83,7 @@ def generate_module_objects(module):
     try:
         module_members = inspect.getmembers(module)
     except:  # pragma: no cover
+        logger.info("Failed to get member list from module %r." % module)
         raise StopIteration
     for object_name, object_ in module_members:
         if inspect.getmodule(object_) is module:
@@ -111,7 +120,7 @@ def index_objects(stream):
                 module = module_index.setdefault(module_name, importlib.import_module(module_name))
                 object_index[full_object_name] = getattr(module, object_name)
             except ImportError:
-                pass
+                logger.info("Failed to import module %r." % module_name)
             except AttributeError:
-                pass
+                logger.info("Failed to import object %r." % full_object_name)
     return object_index
