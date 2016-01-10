@@ -9,7 +9,7 @@ import sys
 import pytest
 
 
-BLACKLIST = (
+OBJECT_BLACKLIST = (
     # pytest internals
     '_pytest.runner:exit',
     '_pytest.runner:skip',
@@ -23,6 +23,28 @@ BLACKLIST = (
     # low level crashes
     'numpy.fft.fftpack_lite:cffti',
     'numpy.fft.fftpack_lite:rffti',
+    'appnope._nope:beginActivityWithOptions',
+    'ctypes:string_at',
+    'ctypes:wstring_at',
+    'gc:_dump_rpy_heap',
+    'gc:dump_rpy_heap',
+    'matplotlib._image:Image',
+
+    # hangs
+    'Tkinter:mainloop',
+    'astkit.compat.py3:execfile',
+    'click.termui:getchar',
+    'click.termui:edit',
+    'click.termui:hidden_prompt_func',
+    'eventlet.hubs:trampoline',
+    'getpass:getpass',
+    'getpass:unix_getpass',
+    'matplotlib.font_manager:FontManager',
+    'pty:_copy',
+    'pydoc:serve',
+    'pyexpat:ErrorString',
+    'skimage:_test',
+    'skimage:test',
 )
 
 
@@ -55,8 +77,8 @@ def valid_name(name, include_res, exclude_res):
     return include_name and not exclude_name
 
 
-def index_modules(modules, include_patterns, exclude_patterns=(), blacklist=BLACKLIST):
-    exclude_patterns += tuple(name.strip() + '$' for name in BLACKLIST)
+def index_modules(modules, include_patterns, exclude_patterns, object_blacklist=OBJECT_BLACKLIST):
+    exclude_patterns += tuple(name.strip() + '$' for name in object_blacklist)
     include_res = [re.compile(pattern) for pattern in include_patterns]
     exclude_res = [re.compile(pattern) for pattern in exclude_patterns]
     object_index = {}
