@@ -5,6 +5,13 @@ import pkg_resources
 import wish_utils
 
 
+def test_import_coverage():
+    """Fix the coverage by pytest-cov, that may trigger after pytest_wish is already imported."""
+    from imp import reload  # Python 2 and 3 reload
+    import wish_utils
+    reload(wish_utils)
+
+
 def test_import_modules():
     # normal code path, pytest is a dependency
     distributions = [pkg_resources.get_distribution('pytest')]
