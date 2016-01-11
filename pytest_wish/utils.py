@@ -42,6 +42,7 @@ OBJECT_BLACKLIST = {
     'eventlet.hubs:trampoline',
     'getpass:getpass',
     'getpass:unix_getpass',
+    'itertools:cycle',
     'matplotlib.font_manager:FontManager',
     'networkx.tests.test:run',
     'nose.plugins.plugintest:run',
@@ -51,6 +52,10 @@ OBJECT_BLACKLIST = {
     'pyexpat:ErrorString',
     'skimage:_test',
     'skimage:test',
+
+    # dangerous
+    'os.mkdir',
+    'pip.utils:rmtree',
 }
 
 logger = logging.getLogger('wish')
