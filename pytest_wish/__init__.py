@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import argparse
+import logging
 import sys
 
 import pytest
@@ -21,6 +22,22 @@ def pytest_addoption(parser):
     group.addoption('--wish-objects', type=argparse.FileType('r'),
                     help="File of full object names to include.")
     group.addoption('--wish-fail', action='store_true', help="Show wish failures.")
+
+
+class PytestHandler(logging.Handler):
+    def __init__(self, level=logging.NOTSET, config=None):
+        super(PytestHandler, self).__init__(level=level)
+        self._emit = config._warn
+
+    def emit(self, record):
+        self._emit(self.format(record))
+
+
+def pytest_configure(config):
+    # take over utils logging
+    utils.logger.propagate = False
+    utils.logger.setLevel(logging.DEBUG)  # FIXME: loglevel should be configurable
+    utils.logger.addHandler(PytestHandler(config=config))
 
 
 def pytest_generate_tests(metafunc):
