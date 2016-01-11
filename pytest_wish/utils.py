@@ -75,14 +75,14 @@ def import_distributions_modules(distributions, distribution_blacklist=DISTRIBUT
             continue
         if distribution.has_metadata('top_level.txt'):
             module_names = distribution.get_metadata('top_level.txt').splitlines()
-        else:  # pragma: no cover
+        else:
             logger.info("Package %r has no top_level.txt. Assuming module name is %r.",
                         requirement, distribution.project_name)
             module_names = [distribution.project_name]
         for module_name in module_names:
             try:
                 importlib.import_module(module_name)
-            except:  # pragma: no cover
+            except:
                 logger.info("Failed to import module %r (%r).", module_name, requirement)
         distributions_modules.append((requirement, module_names))
     return distributions_modules
@@ -91,7 +91,7 @@ def import_distributions_modules(distributions, distribution_blacklist=DISTRIBUT
 def generate_module_objects(module):
     try:
         module_members = inspect.getmembers(module)
-    except:  # pragma: no cover
+    except:
         logger.info("Failed to get member list from module %r.", module)
         raise StopIteration
     for object_name, object_ in module_members:
