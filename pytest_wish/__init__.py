@@ -55,7 +55,7 @@ def pytest_generate_tests(metafunc):
 
     wish_objects = metafunc.config.getoption('wish_objects')
     if wish_objects is not None:
-        object_index.update(utils.index_objects(wish_objects))
+        object_index.update(utils.generate_objects_from_names(wish_objects))
 
     ids, params = list(zip(*sorted(object_index.items()))) or [(), ()]
     metafunc.parametrize('wish', params, ids=ids, scope='module')

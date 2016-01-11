@@ -117,18 +117,16 @@ def index_modules(modules, include_patterns, exclude_patterns, object_blacklist=
     return object_index
 
 
-def index_objects(stream):
+def generate_objects_from_names(stream):
     module_index = {}
-    object_index = {}
     for line in stream:
         full_object_name = line.partition('#')[0].strip()
         if full_object_name:
             module_name, _, object_name = full_object_name.partition(':')
             try:
                 module = module_index.setdefault(module_name, importlib.import_module(module_name))
-                object_index[full_object_name] = getattr(module, object_name)
+                yield full_object_name, getattr(module, object_name)
             except ImportError:
                 logger.info("Failed to import module %r." % module_name)
             except AttributeError:
                 logger.info("Failed to import object %r." % full_object_name)
-    return object_index

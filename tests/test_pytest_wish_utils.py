@@ -50,8 +50,10 @@ def test_index_modules():
     assert utils.index_modules({'pytest_wish.utils': utils}, ['pytest_wish.utils:index'], [])
 
 
-def test_index_objects():
+def test_generate_objects_from_names():
     # normal path
-    assert utils.index_objects(['pytest_wish.utils:index_objects'])
+    names = ['pytest_wish.utils:generate_objects_from_names']
+    assert len(list(utils.generate_objects_from_names(names))) == 1
     # error paths
-    assert not utils.index_objects(['# comment', 'non_existent:', 'math:non_exixtent'])
+    names = ['# comment', 'non_existent_module:', 'math:non_existent_object']
+    assert len(list(utils.generate_objects_from_names(names))) == 0
