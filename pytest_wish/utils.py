@@ -57,6 +57,7 @@ OBJECT_BLACKLIST = {
     'os.mkdir',
     'pip.utils:rmtree',
 }
+EXCLUDE_PATTERNS = [r'_', r'.*\._']
 
 logger = logging.getLogger('wish')
 
@@ -104,7 +105,11 @@ def valid_name(name, include_res, exclude_res):
     return include_name and not exclude_name
 
 
-def index_modules(modules, include_patterns, exclude_patterns, object_blacklist=OBJECT_BLACKLIST):
+def generate_objects_from_modules(
+        modules, include_patterns,
+        exclude_patterns=EXCLUDE_PATTERNS,
+        object_blacklist=OBJECT_BLACKLIST
+):
     exclude_patterns += tuple(name.strip() + '$' for name in object_blacklist)
     include_res = [re.compile(pattern) for pattern in include_patterns]
     exclude_res = [re.compile(pattern) for pattern in exclude_patterns]
