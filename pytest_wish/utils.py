@@ -71,19 +71,19 @@ def import_distributions_modules(distributions, distribution_blacklist=DISTRIBUT
     for distribution in distributions:
         requirement = str(distribution.as_requirement())
         if distribution.project_name in distribution_blacklist:
-            logger.debug("Not importing blacklisted package: %r." % requirement)
+            logger.debug("Not importing blacklisted package: %r.", requirement)
             continue
         if distribution.has_metadata('top_level.txt'):
             module_names = distribution.get_metadata('top_level.txt').splitlines()
         else:  # pragma: no cover
-            logger.info("Package %r has no top_level.txt. Assuming module name is %r." %
-                        (requirement, distribution.project_name))
+            logger.info("Package %r has no top_level.txt. Assuming module name is %r.",
+                        requirement, distribution.project_name)
             module_names = [distribution.project_name]
         for module_name in module_names:
             try:
                 importlib.import_module(module_name)
             except:  # pragma: no cover
-                logger.info("Failed to import module %r (%r)." % (module_name, requirement))
+                logger.info("Failed to import module %r (%r).", module_name, requirement)
         distributions_modules.append((requirement, module_names))
     return distributions_modules
 
@@ -92,7 +92,7 @@ def generate_module_objects(module):
     try:
         module_members = inspect.getmembers(module)
     except:  # pragma: no cover
-        logger.info("Failed to get member list from module %r." % module)
+        logger.info("Failed to get member list from module %r.", module)
         raise StopIteration
     for object_name, object_ in module_members:
         if inspect.getmodule(object_) is module:
@@ -130,6 +130,6 @@ def generate_objects_from_names(stream):
                 module = module_index.setdefault(module_name, importlib.import_module(module_name))
                 yield full_object_name, getattr(module, object_name)
             except ImportError:
-                logger.info("Failed to import module %r." % module_name)
+                logger.info("Failed to import module %r.", module_name)
             except AttributeError:
-                logger.info("Failed to import object %r." % full_object_name)
+                logger.info("Failed to import object %r.", full_object_name)
