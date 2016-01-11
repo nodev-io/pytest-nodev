@@ -13,9 +13,7 @@ def test_factorial(wish):
 TEST_FACTORIAL_TXT = '''
 # test
 math:fabs # comment
- math:factorial
-math:dummy
-dummy:dummy
+math:factorial
 '''
 
 
