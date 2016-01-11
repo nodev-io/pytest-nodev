@@ -113,13 +113,11 @@ def generate_objects_from_modules(
     exclude_patterns += tuple(name.strip() + '$' for name in object_blacklist)
     include_res = [re.compile(pattern) for pattern in include_patterns]
     exclude_res = [re.compile(pattern) for pattern in exclude_patterns]
-    object_index = {}
     for module_name, module in modules.items():
         for object_name, object_ in generate_module_objects(module):
             full_object_name = '{}:{}'.format(module_name, object_name)
             if valid_name(full_object_name, include_res, exclude_res):
-                object_index[full_object_name] = object_
-    return object_index
+                yield full_object_name, object_
 
 
 def generate_objects_from_names(stream):

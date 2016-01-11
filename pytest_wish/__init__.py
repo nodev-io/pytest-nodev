@@ -50,8 +50,10 @@ def pytest_generate_tests(metafunc):
     wish_includes = metafunc.config.getoption('wish_includes') or wish_modules
     wish_excludes = metafunc.config.getoption('wish_excludes')
 
-    # NOTE: 'copy' is needed here because index_modules may unexpectedly trigger a module load
-    object_index = utils.index_modules(sys.modules.copy(), wish_includes, wish_excludes)
+    # NOTE: 'copy' is needed here because indexing may unexpectedly trigger a module load
+    object_index = dict(
+        utils.generate_objects_from_modules(sys.modules.copy(), wish_includes, wish_excludes)
+    )
 
     wish_objects = metafunc.config.getoption('wish_objects')
     if wish_objects is not None:

@@ -46,8 +46,10 @@ def test_valid_name():
     assert not utils.valid_name('math:factorial', [re.compile('m')], [re.compile('math')])
 
 
-def test_index_modules():
-    assert utils.index_modules({'pytest_wish.utils': utils}, ['pytest_wish.utils:index'], [])
+def test_generate_objects_from_modules():
+    modules = {'pytest_wish.utils': utils}
+    include_patterns = ['pytest_wish.utils:generate_objects_from_modules']
+    assert len(list(utils.generate_objects_from_modules(modules, include_patterns))) == 1
 
 
 def test_generate_objects_from_names():
