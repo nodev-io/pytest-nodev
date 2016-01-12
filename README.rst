@@ -1,6 +1,8 @@
 pytest-wish
 ===========
 
+Master branch status:
+
 .. image:: https://travis-ci.org/alexamici/pytest-wish.svg?branch=master
     :target: https://travis-ci.org/alexamici/pytest-wish
     :alt: Build Status on Travis CI
