@@ -39,6 +39,7 @@ OBJECT_BLACKLIST = {
     'click.termui:getchar',
     'click.termui:edit',
     'click.termui:hidden_prompt_func',
+    'click.termui:launch',
     'eventlet.hubs:trampoline',
     'getpass:getpass',
     'getpass:unix_getpass',
@@ -52,6 +53,7 @@ OBJECT_BLACKLIST = {
     'pyexpat:ErrorString',
     'skimage:_test',
     'skimage:test',
+    'webbrowser:open',
 
     # dangerous
     'os.mkdir',
