@@ -27,6 +27,7 @@ setup(
     py_modules=['all'],
     install_requires=[
         'pytest>=2.8.1',
+        'future',
     ],
     zip_safe=True,
     classifiers=[
