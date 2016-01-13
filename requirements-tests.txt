@@ -2,5 +2,3 @@ pytest-cov
 pytest-pep8
 pytest-flakes
 pytest-mccabe
-# Python2-only module that triggers a hard-to-test exception using Python3
-uuid64==0.2.0
