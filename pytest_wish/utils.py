@@ -4,7 +4,6 @@
 from __future__ import absolute_import, unicode_literals
 from builtins import str
 
-
 import importlib
 import inspect
 import logging
@@ -47,6 +46,8 @@ OBJECT_BLACKLIST = {
     'click.termui:hidden_prompt_func',
     'click.termui:launch',
     'eventlet.hubs:trampoline',
+    'fiona.ogrext:Session',
+    'fiona.ogrext:WritingSession',
     'getpass:getpass',
     'getpass:unix_getpass',
     'itertools:cycle',
