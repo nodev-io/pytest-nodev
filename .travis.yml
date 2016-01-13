@@ -1,22 +1,22 @@
 # Config file for automatic testing at travis-ci.org
 
 sudo: false
-language: python
-python:
-  - "2.7"
-  - "3.3"
-  - "3.4"
-  - "3.5"
-  - "pypy"
-  - "pypy3"
+language: python3
+env:
+  - TOX_ENV=py27
+  - TOX_ENV=py33
+  - TOX_ENV=py34
+  - TOX_ENV=py35
+  - TOX_ENV=pypy
+  - TOX_ENV=pypy3
+  - TOX_ENV=quality-check
 
 install:
   - pip install tox
   - pip install coveralls
-  - "TOX_ENV=${TRAVIS_PYTHON_VERSION/[0-9].[0-9]/py${TRAVIS_PYTHON_VERSION/.}}"
 script: tox -e $TOX_ENV
 after_success:
-  - if [[ $TRAVIS_PYTHON_VERSION == "3.5" ]]; then
+  - if [[ $TOX_ENV == "quality-check" ]]; then
       coveralls;
     fi
 
