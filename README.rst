@@ -1,8 +1,6 @@
 pytest-wish
 ===========
 
-Test-Driven no-Development plugin for `pytest`_. The development status of this project is Alpha.
-
 Master branch status:
 
 .. image:: https://travis-ci.org/alexamici/pytest-wish.svg?branch=master
@@ -13,10 +11,11 @@ Master branch status:
     :target: https://coveralls.io/github/alexamici/pytest-wish
     :alt: Coverage Status on Coveralls
 
-::
+Test-Driven no-Development plugin for `pytest`_. The development status of this project is Alpha.
 
-    "Have a look at this small function that I'm writing...
-     I'm sure someone else have already written it." -- `@kr1`_
+    "Have a look at this small function that I'm writing...  I'm sure someone else have already written it."
+
+    -- `@kr1`_
 
 Features
 --------
