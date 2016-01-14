@@ -2,7 +2,7 @@ pytest-wish
 ===========
 
     "Have a look at this small function that I'm writing...
-     I'm sure someone else have already written it."
+    I'm sure someone else have already written it."
 
     -- `@kr1`_
 
