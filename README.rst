@@ -1,7 +1,10 @@
 pytest-wish
 ===========
 
-Master branch status:
+    "Have a look at this small function that I'm writing...
+     I'm sure someone else have already written it."
+
+    -- `@kr1`_
 
 .. image:: https://travis-ci.org/alexamici/pytest-wish.svg?branch=master
     :target: https://travis-ci.org/alexamici/pytest-wish
@@ -12,10 +15,6 @@ Master branch status:
     :alt: Coverage Status on Coveralls
 
 Test-Driven no-Development plugin for `pytest`_. The development status of this project is Alpha.
-
-    "Have a look at this small function that I'm writing...  I'm sure someone else have already written it."
-
-    -- `@kr1`_
 
 Features
 --------
