@@ -16,7 +16,7 @@ Master branch status:
 ::
 
     "Have a look at this small function that I'm writing...
-    I'm sure someone else have already written it." -- @kr1
+     I'm sure someone else have already written it." -- `@kr1`_
 
 Features
 --------
@@ -111,3 +111,4 @@ If you encounter any problems, please `file an issue`_ along with a detailed des
 .. _`tox`: https://tox.readthedocs.org/en/latest/
 .. _`pip`: https://pypi.python.org/pypi/pip/
 .. _`PyPI`: https://pypi.python.org/pypi
+.. _`@kr1`: https://github.com/kr1
