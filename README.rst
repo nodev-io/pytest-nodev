@@ -13,6 +13,11 @@ Master branch status:
     :target: https://coveralls.io/github/alexamici/pytest-wish
     :alt: Coverage Status on Coveralls
 
+::
+
+    "Have a look at this small function that I'm writing...
+    I'm sure someone else have already written it." -- @kr1
+
 Features
 --------
 
