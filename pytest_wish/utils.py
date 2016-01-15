@@ -84,28 +84,31 @@ def import_modules(module_names, module_blacklist=MODULE_BLACKLIST):
     return modules
 
 
-def import_distributions(distribution_names, distribution_blacklist=DISTRIBUTION_BLACKLIST):
+def collect_distributions(distribution_names, distribution_blacklist=DISTRIBUTION_BLACKLIST):
     distributions = collections.OrderedDict()
     for distribution_name in distribution_names:
         if distribution_name in distribution_blacklist:
             logger.debug("Not importing blacklisted package: %r.", distribution_name)
         elif distribution_name == 'all':
             for distribution in pkg_resources.working_set:
-                distributions[distribution.project_name] = distribution
+                distributions[str(distribution.as_requirement())] = distribution
         else:
             try:
                 distribution = pkg_resources.get_distribution(distribution_name)
-                distributions[distribution.project_name] = distribution
+                distributions[str(distribution.as_requirement())] = distribution
             except:
                 logger.info("Failed to find package %r.", distribution_name)
+    return distributions
 
+
+def import_distributions(distribution_names, distribution_blacklist=DISTRIBUTION_BLACKLIST):
     distributions_modules = collections.OrderedDict()
-    for distribution_name, distribution in distributions.items():
-        requirement = str(distribution.as_requirement())
+    distributions = collect_distributions(distribution_names, distribution_blacklist)
+    for requirement, distribution in distributions.items():
         if distribution.has_metadata('top_level.txt'):
             module_names = distribution.get_metadata('top_level.txt').splitlines()
         else:
-            logger.info("Package %r has no top_level.txt. Assuming module name is %r.",
+            logger.info("Package %r has no top_level.txt. Guessing module name is %r.",
                         requirement, distribution.project_name)
             module_names = [distribution.project_name]
         modules = import_modules(module_names)
