@@ -24,6 +24,12 @@ def test_import_distributions():
     assert requirement.startswith('pytest-wish==')
     assert set(distributions_modules) == {'pytest_wish'}
 
+    distributions_modules = utils.import_distributions(['python'])
+    assert len(distributions_modules) == 1
+    requirement, distributions_modules = distributions_modules.popitem()
+    assert requirement.startswith('Python==')
+    # assert 'os.path' in distributions_modules
+
     # fail code path
     distributions_modules = utils.import_distributions(
         ['pytest-wish', 'non_existent_dist'], distribution_blacklist={'pytest-wish'}

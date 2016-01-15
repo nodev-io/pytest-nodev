@@ -9,13 +9,19 @@ import importlib
 import inspect
 import logging
 import re
+import sys
 
 import pkg_resources
+
+import stdlib_list
 
 
 # blacklists
 DISTRIBUTION_BLACKLIST = set()
-MODULE_BLACKLIST = set()
+MODULE_BLACKLIST = {
+    # crash
+    'icopen',
+}
 OBJECT_BLACKLIST = {
     # pytest internals
     '_pytest.runner:exit',
@@ -71,7 +77,7 @@ EXCLUDE_PATTERNS = [r'_', r'.*\._']
 logger = logging.getLogger('wish')
 
 
-def import_modules(module_names, module_blacklist=MODULE_BLACKLIST):
+def import_modules(module_names, requirement='', module_blacklist=MODULE_BLACKLIST):
     modules = collections.OrderedDict()
     for module_name in module_names:
         if module_name in module_blacklist:
@@ -80,7 +86,7 @@ def import_modules(module_names, module_blacklist=MODULE_BLACKLIST):
             try:
                 modules[module_name] = importlib.import_module(module_name)
             except:
-                logger.info("Failed to import module %r.", module_name)
+                logger.info("Failed to import module %r (%r).", module_name, requirement)
     return modules
 
 
@@ -89,9 +95,13 @@ def collect_distributions(distribution_names, distribution_blacklist=DISTRIBUTIO
     for distribution_name in distribution_names:
         if distribution_name in distribution_blacklist:
             logger.debug("Not importing blacklisted package: %r.", distribution_name)
-        elif distribution_name == 'all':
-            for distribution in pkg_resources.working_set:
-                distributions[str(distribution.as_requirement())] = distribution
+        elif distribution_name.lower() in {'all', 'python'}:
+            # fake distribution name for the python standard library
+            distributions['Python==%d.%d.%d' % sys.version_info[:3]] = None
+            if distribution_name.lower() == 'all':
+                # fake distribution name for all the modules known to the packaging system
+                for distribution in pkg_resources.working_set:
+                    distributions[str(distribution.as_requirement())] = distribution
         else:
             try:
                 distribution = pkg_resources.get_distribution(distribution_name)
@@ -105,13 +115,18 @@ def import_distributions(distribution_names, distribution_blacklist=DISTRIBUTION
     distributions_modules = collections.OrderedDict()
     distributions = collect_distributions(distribution_names, distribution_blacklist)
     for requirement, distribution in distributions.items():
-        if distribution.has_metadata('top_level.txt'):
+        if requirement.startswith('Python=='):
+            python_version = requirement.partition('==')[2]
+            # stdlib_list supports short versions and only a selected list of long versions
+            python_short_version = python_version[:3]
+            module_names = stdlib_list.stdlib_list(python_short_version)
+        elif distribution.has_metadata('top_level.txt'):
             module_names = distribution.get_metadata('top_level.txt').splitlines()
         else:
             logger.info("Package %r has no top_level.txt. Guessing module name is %r.",
                         requirement, distribution.project_name)
             module_names = [distribution.project_name]
-        modules = import_modules(module_names)
+        modules = import_modules(module_names, requirement=requirement)
         distributions_modules[requirement] = list(modules.keys())
     return distributions_modules
 

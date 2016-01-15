@@ -25,6 +25,7 @@ setup(
     install_requires=[
         'future',
         'pytest>=2.8.1',
+        'stdlib-list',
     ],
     zip_safe=True,
     classifiers=[
