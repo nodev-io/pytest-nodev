@@ -10,6 +10,7 @@ import inspect
 import logging
 import re
 
+import pkg_resources
 
 
 # blacklists
@@ -83,26 +84,32 @@ def import_modules(module_names, module_blacklist=MODULE_BLACKLIST):
     return modules
 
 
+def import_distributions(distribution_names, distribution_blacklist=DISTRIBUTION_BLACKLIST):
+    distributions = collections.OrderedDict()
+    for distribution_name in distribution_names:
+        if distribution_name in distribution_blacklist:
+            logger.debug("Not importing blacklisted package: %r.", distribution_name)
+        elif distribution_name == 'all':
+            for distribution in pkg_resources.working_set:
+                distributions[distribution.project_name] = distribution
+        else:
+            try:
+                distribution = pkg_resources.get_distribution(distribution_name)
+                distributions[distribution.project_name] = distribution
+            except:
+                logger.info("Failed to find package %r.", distribution_name)
 
-def import_distributions_modules(distributions, distribution_blacklist=DISTRIBUTION_BLACKLIST):
-    distributions_modules = []
-    for distribution in distributions:
+    distributions_modules = collections.OrderedDict()
+    for distribution_name, distribution in distributions.items():
         requirement = str(distribution.as_requirement())
-        if distribution.project_name in distribution_blacklist:
-            logger.debug("Not importing blacklisted package: %r.", requirement)
-            continue
         if distribution.has_metadata('top_level.txt'):
             module_names = distribution.get_metadata('top_level.txt').splitlines()
         else:
             logger.info("Package %r has no top_level.txt. Assuming module name is %r.",
                         requirement, distribution.project_name)
             module_names = [distribution.project_name]
-        for module_name in module_names:
-            try:
-                importlib.import_module(module_name)
-            except:
-                logger.info("Failed to import module %r (%r).", module_name, requirement)
-        distributions_modules.append((requirement, module_names))
+        modules = import_modules(module_names)
+        distributions_modules[requirement] = list(modules.keys())
     return distributions_modules
 
 

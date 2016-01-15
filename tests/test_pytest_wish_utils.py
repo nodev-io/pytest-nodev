@@ -2,8 +2,6 @@
 
 import re
 
-import pkg_resources
-
 from pytest_wish import utils
 
 
@@ -18,18 +16,18 @@ def test_import_modules():
     assert len(utils.import_modules(['pytest_wish'], module_blacklist={'pytest_wish'})) == 0
 
 
-def test_import_distributions_modules():
+def test_import_distributions():
     # normal code path, pytest is a dependency
-    distributions = [pkg_resources.get_distribution('pytest-wish')]
-    distributions_modules = utils.import_distributions_modules(distributions)
+    distributions_names = ['pytest-wish']
+    distributions_modules = utils.import_distributions(distributions_names)
     assert len(distributions_modules) == 1
-    requirement, distributions_modules = distributions_modules[0]
+    requirement, distributions_modules = distributions_modules.popitem()
     assert requirement.startswith('pytest-wish==')
-    assert set(distributions_modules) == {'pytest_wish', 'all'}
+    assert set(distributions_modules) == {'pytest_wish'}
 
     # fail code path
-    distributions_modules = utils.import_distributions_modules(
-        distributions, distribution_blacklist={'pytest-wish'}
+    distributions_modules = utils.import_distributions(
+        distributions_names, distribution_blacklist={'pytest-wish'}
     )
     assert len(distributions_modules) == 0
 

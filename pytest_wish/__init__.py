@@ -15,6 +15,8 @@ from pytest_wish import utils
 
 def pytest_addoption(parser):
     group = parser.getgroup('wish')
+    group.addoption('--wish-dists', default=[], nargs='+',
+                    help="Space separated list of distribution specs, 'Python' or 'all'.")
     group.addoption('--wish-modules', default=[], nargs='+',
                     help="Space separated list of module names.")
     group.addoption('--wish-includes', nargs='+',
@@ -47,6 +49,9 @@ def pytest_configure(config):
 def pytest_generate_tests(metafunc):
     if 'wish' not in metafunc.fixturenames:
         return
+
+    wish_dists = metafunc.config.getoption('wish_dists')
+    utils.import_distributions(wish_dists)
 
     wish_modules = metafunc.config.getoption('wish_modules')
     utils.import_modules(wish_modules)
