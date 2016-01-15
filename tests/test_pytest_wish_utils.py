@@ -18,8 +18,7 @@ def test_import_modules():
 
 def test_import_distributions():
     # normal code path, pytest is a dependency
-    distributions_names = ['pytest-wish']
-    distributions_modules = utils.import_distributions(distributions_names)
+    distributions_modules = utils.import_distributions(['pytest-wish'])
     assert len(distributions_modules) == 1
     requirement, distributions_modules = distributions_modules.popitem()
     assert requirement.startswith('pytest-wish==')
@@ -27,7 +26,7 @@ def test_import_distributions():
 
     # fail code path
     distributions_modules = utils.import_distributions(
-        distributions_names, distribution_blacklist={'pytest-wish'}
+        ['pytest-wish', 'non_existent_dist'], distribution_blacklist={'pytest-wish'}
     )
     assert len(distributions_modules) == 0
 
