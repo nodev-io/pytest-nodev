@@ -4,14 +4,13 @@
 from __future__ import absolute_import, unicode_literals
 from builtins import str
 
+import collections
 import importlib
 import inspect
 import logging
 import re
 
 
-# if set to True 'import all' imports all modules known to the packaging system.
-ENABLE_IMPORT_ALL = False
 
 # blacklists
 DISTRIBUTION_BLACKLIST = set()
