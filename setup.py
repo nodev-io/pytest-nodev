@@ -22,7 +22,6 @@ setup(
     description='Test-Driven no-Development plugin for pytest',
     long_description=read('README.rst'),
     packages=find_packages(),
-    py_modules=['all'],
     install_requires=[
         'future',
         'pytest>=2.8.1',
