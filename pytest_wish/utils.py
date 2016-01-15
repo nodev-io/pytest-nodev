@@ -72,7 +72,17 @@ logger = logging.getLogger('wish')
 
 
 def import_modules(module_names, module_blacklist=MODULE_BLACKLIST):
-    return [importlib.import_module(name) for name in module_names if name not in module_blacklist]
+    modules = collections.OrderedDict()
+    for module_name in module_names:
+        if module_name in module_blacklist:
+            logger.debug("Not importing blacklisted module: %r.", module_name)
+        else:
+            try:
+                modules[module_name] = importlib.import_module(module_name)
+            except:
+                logger.info("Failed to import module %r.", module_name)
+    return modules
+
 
 
 def import_distributions_modules(distributions, distribution_blacklist=DISTRIBUTION_BLACKLIST):
