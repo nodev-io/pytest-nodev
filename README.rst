@@ -1,10 +1,8 @@
 pytest-wish
 ===========
 
-    "Have a look at this small function that I'm writing...
-    I'm sure someone else have already written it."
-
-    -- `@kr1`_
+    "Have a look at this function that I'm writing...
+    I'm sure someone else has already written it." - `@kr1`_
 
 .. image:: https://travis-ci.org/alexamici/pytest-wish.svg?branch=master
     :target: https://travis-ci.org/alexamici/pytest-wish
