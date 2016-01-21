@@ -21,8 +21,6 @@ def pytest_addoption(parser):
                     help="Space separated list of module names.")
     group.addoption('--wish-includes', nargs='+',
                     help="Space separated list of regexs matching full object names to include.")
-    # enable support for '--wish-includes all'
-    utils.ENABLE_IMPORT_ALL = True
     group.addoption('--wish-excludes', default=utils.EXCLUDE_PATTERNS, nargs='+',
                     help="Space separated list of regexs matching full object names to exclude.")
     group.addoption('--wish-objects', type=argparse.FileType('r'),
