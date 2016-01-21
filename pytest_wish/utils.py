@@ -178,7 +178,7 @@ def generate_objects_from_names(stream):
         if full_object_name:
             try:
                 yield full_object_name, object_from_name(full_object_name)
-            except ImportError as ex:
-                logger.info("Failed to import module %r.", ex.name)
+            except ImportError:
+                logger.info("Failed to import module for object %r.", full_object_name)
             except AttributeError:
                 logger.info("Failed to import object %r.", full_object_name)
