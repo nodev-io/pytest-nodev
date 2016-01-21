@@ -73,7 +73,6 @@ OBJECT_BLACKLIST = {
     'pip.utils:rmtree',
 }
 EXCLUDE_PATTERNS = [r'_', r'.*\._']
-PREDICATE_NAME = 'builtins:callable'
 
 logger = logging.getLogger('wish')
 
@@ -152,13 +151,13 @@ def valid_name(name, include_res, exclude_res):
 def generate_objects_from_modules(
         modules, include_patterns,
         exclude_patterns=EXCLUDE_PATTERNS,
-        predicate_name=PREDICATE_NAME,
+        predicate_name=None,
         object_blacklist=OBJECT_BLACKLIST,
 ):
     exclude_patterns += tuple(name.strip() + '$' for name in object_blacklist)
     include_res = [re.compile(pattern) for pattern in include_patterns]
     exclude_res = [re.compile(pattern) for pattern in exclude_patterns]
-    predicate = object_from_name(predicate_name)
+    predicate = object_from_name(predicate_name) if predicate_name else None
     for module_name, module in modules.items():
         for object_name, object_ in generate_module_objects(module, predicate):
             full_object_name = '{}:{}'.format(module_name, object_name)
