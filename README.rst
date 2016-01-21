@@ -51,6 +51,9 @@ The plugin adds the following options to pytest::
       --wish-excludes=WISH_EXCLUDES=[WISH_EXCLUDES=...]
                             Space separated list of regexs matching full object
                             names to exclude.
+      --wish-predicate=WISH_PREDICATE
+                            getmembers predicate full name, defaults to
+                            'builtins:callable'.
       --wish-objects=WISH_OBJECTS
                             File of full object names to include.
       --wish-fail           Show wish failures.
