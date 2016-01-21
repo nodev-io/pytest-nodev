@@ -23,6 +23,8 @@ def pytest_addoption(parser):
                     help="Space separated list of regexs matching full object names to include.")
     group.addoption('--wish-excludes', default=utils.EXCLUDE_PATTERNS, nargs='+',
                     help="Space separated list of regexs matching full object names to exclude.")
+    group.addoption('--wish-predicate', default=utils.PREDICATE_NAME,
+                    help="getmembers predicate full name, defaults to %r." % utils.PREDICATE_NAME)
     group.addoption('--wish-objects', type=argparse.FileType('r'),
                     help="File of full object names to include.")
     group.addoption('--wish-fail', action='store_true', help="Show wish failures.")
@@ -56,10 +58,12 @@ def pytest_generate_tests(metafunc):
 
     wish_includes = metafunc.config.getoption('wish_includes') or wish_modules
     wish_excludes = metafunc.config.getoption('wish_excludes')
+    wish_predicate = metafunc.config.getoption('wish_predicate')
 
     # NOTE: 'copy' is needed here because indexing may unexpectedly trigger a module load
+    modules = sys.modules.copy()
     object_index = dict(
-        utils.generate_objects_from_modules(sys.modules.copy(), wish_includes, wish_excludes)
+        utils.generate_objects_from_modules(modules, wish_includes, wish_excludes, wish_predicate)
     )
 
     wish_objects = metafunc.config.getoption('wish_objects')

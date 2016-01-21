@@ -73,6 +73,7 @@ OBJECT_BLACKLIST = {
     'pip.utils:rmtree',
 }
 EXCLUDE_PATTERNS = [r'_', r'.*\._']
+PREDICATE_NAME = 'builtins:callable'
 
 logger = logging.getLogger('wish')
 
@@ -131,9 +132,9 @@ def import_distributions(distribution_names, distribution_blacklist=DISTRIBUTION
     return distributions_modules
 
 
-def generate_module_objects(module):
+def generate_module_objects(module, predicate=None):
     try:
-        module_members = inspect.getmembers(module)
+        module_members = inspect.getmembers(module, predicate)
     except:
         logger.info("Failed to get member list from module %r.", module)
         raise StopIteration
@@ -151,28 +152,33 @@ def valid_name(name, include_res, exclude_res):
 def generate_objects_from_modules(
         modules, include_patterns,
         exclude_patterns=EXCLUDE_PATTERNS,
-        object_blacklist=OBJECT_BLACKLIST
+        predicate_name=PREDICATE_NAME,
+        object_blacklist=OBJECT_BLACKLIST,
 ):
     exclude_patterns += tuple(name.strip() + '$' for name in object_blacklist)
     include_res = [re.compile(pattern) for pattern in include_patterns]
     exclude_res = [re.compile(pattern) for pattern in exclude_patterns]
+    predicate = object_from_name(predicate_name)
     for module_name, module in modules.items():
-        for object_name, object_ in generate_module_objects(module):
+        for object_name, object_ in generate_module_objects(module, predicate):
             full_object_name = '{}:{}'.format(module_name, object_name)
             if valid_name(full_object_name, include_res, exclude_res):
                 yield full_object_name, object_
 
 
+def object_from_name(full_object_name):
+    module_name, _, object_name = full_object_name.partition(':')
+    module = importlib.import_module(module_name)
+    return getattr(module, object_name)
+
+
 def generate_objects_from_names(stream):
-    module_index = {}
     for line in stream:
         full_object_name = line.partition('#')[0].strip()
         if full_object_name:
-            module_name, _, object_name = full_object_name.partition(':')
             try:
-                module = module_index.setdefault(module_name, importlib.import_module(module_name))
-                yield full_object_name, getattr(module, object_name)
-            except ImportError:
-                logger.info("Failed to import module %r.", module_name)
+                yield full_object_name, object_from_name(full_object_name)
+            except ImportError as ex:
+                logger.info("Failed to import module %r.", ex.name)
             except AttributeError:
                 logger.info("Failed to import object %r.", full_object_name)
