@@ -73,6 +73,8 @@ def pytest_generate_tests(metafunc):
     ids, params = list(zip(*sorted(object_index.items()))) or [(), ()]
     metafunc.parametrize('wish', params, ids=ids, scope='module')
 
+    metafunc.function = pytest.mark.timeout(timeout=1)(metafunc.function)
+
     wish_fail = metafunc.config.getoption('wish_fail')
     if not wish_fail:
         metafunc.function = pytest.mark.xfail(metafunc.function)
