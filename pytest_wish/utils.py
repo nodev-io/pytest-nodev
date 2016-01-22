@@ -138,7 +138,7 @@ def generate_objects_from_modules(
     exclude_res = [re.compile(pattern) for pattern in exclude_patterns]
     predicate = object_from_name(predicate_name) if predicate_name else None
     for module_name, module in modules.items():
-        if module_name in MODULE_BLACKLIST:
+        if module_name in module_blacklist:
             continue
         for object_name, object_ in generate_module_objects(module, predicate):
             full_object_name = '{}:{}'.format(module_name, object_name)
