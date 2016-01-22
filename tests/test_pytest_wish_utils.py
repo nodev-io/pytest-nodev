@@ -52,7 +52,8 @@ def test_valid_name():
 def test_generate_objects_from_modules():
     modules = {'pytest_wish.utils': utils, 're': re}
     include_patterns = ['pytest_wish.utils:generate_objects_from_modules']
-    assert len(list(utils.generate_objects_from_modules(modules, include_patterns, module_blacklist={'re'}))) == 1
+    objs = utils.generate_objects_from_modules(modules, include_patterns, module_blacklist={'re'})
+    assert len(list(objs)) == 1
 
 
 def test_generate_objects_from_names():
