@@ -21,6 +21,8 @@ DISTRIBUTION_BLACKLIST = set()
 MODULE_BLACKLIST = {
     # crash
     'icopen',
+    'ntpath',
+    'test.support',
 }
 OBJECT_BLACKLIST = {
     # pytest internals
