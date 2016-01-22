@@ -29,6 +29,7 @@ OBJECT_BLACKLIST = {
     '_pytest.skipping:xfail',
 
     # unconditional exit
+    'faulthandler:_sigsegv',
     'posix:_exit',
     '_signal:default_int_handler',
     'atexit.register',
@@ -42,31 +43,8 @@ OBJECT_BLACKLIST = {
     'gc:_dump_rpy_heap',
     'gc:dump_rpy_heap',
     'matplotlib._image:Image',
-
-    # hangs
-    'Tkinter:mainloop',
-    'astkit.compat.py3:execfile',
-    'astroid.builder:open_source_file',
-    'click.termui:getchar',
-    'click.termui:edit',
-    'click.termui:hidden_prompt_func',
-    'click.termui:launch',
-    'eventlet.hubs:trampoline',
-    'fiona.ogrext:Session',
-    'fiona.ogrext:WritingSession',
     'getpass:getpass',
     'getpass:unix_getpass',
-    'itertools:cycle',
-    'matplotlib.font_manager:FontManager',
-    'networkx.tests.test:run',
-    'nose.plugins.plugintest:run',
-    'numpy:nditer',
-    'pty:_copy',
-    'pydoc:serve',
-    'pyexpat:ErrorString',
-    'skimage:_test',
-    'skimage:test',
-    'webbrowser:open',
 
     # dangerous
     'os.mkdir',
