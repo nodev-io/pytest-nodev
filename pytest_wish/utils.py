@@ -45,6 +45,7 @@ OBJECT_BLACKLIST = {
     'matplotlib._image:Image',
     'getpass:getpass',
     'getpass:unix_getpass',
+    'ensurepip:_run_pip',
 
     # dangerous
     'os.mkdir',
