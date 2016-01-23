@@ -19,7 +19,7 @@ def test_import_modules():
 
 def test_collect_distributions():
     assert len(list(utils.collect_distributions(['pytest-wish']))) == 1
-    assert len(list(utils.collect_distributions(['pytest-wish'], distribution_blacklist={'pytest-wish'}))) == 0
+    assert len(list(utils.collect_distributions(['pytest-wish'], {'pytest-wish'}))) == 0
     assert len(list(utils.collect_distributions(['non_existent_distribution']))) == 0
     assert len(list(utils.collect_distributions(['Python']))) == 1
     assert len(list(utils.collect_distributions(['all']))) > 1
