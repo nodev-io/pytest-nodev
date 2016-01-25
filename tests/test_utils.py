@@ -15,6 +15,15 @@ def test_import_coverage():
 def test_import_modules():
     assert len(utils.import_modules(['pytest_wish'])) == 1
     assert len(utils.import_modules(['pytest_wish'], module_blacklist={'pytest_wish'})) == 0
+    assert len(utils.import_modules(['non_existent_module'])) == 0
+
+
+def test_collect_distributions():
+    assert len(list(utils.collect_distributions(['pytest-wish']))) == 1
+    assert len(list(utils.collect_distributions(['pytest-wish'], {'pytest-wish'}))) == 0
+    assert len(list(utils.collect_distributions(['non_existent_distribution']))) == 0
+    assert len(list(utils.collect_distributions(['Python']))) == 1
+    assert len(list(utils.collect_distributions(['all']))) > 1
 
 
 def test_import_distributions():
@@ -55,6 +64,10 @@ def test_generate_objects_from_modules():
     include_patterns = ['pytest_wish.utils:generate_objects_from_modules']
     objs = utils.generate_objects_from_modules(modules, include_patterns, module_blacklist={'re'})
     assert len(list(objs)) == 1
+
+
+def test_object_from_name():
+    assert utils.object_from_name('pytest_wish.utils:object_from_name') == utils.object_from_name
 
 
 def test_generate_objects_from_names():

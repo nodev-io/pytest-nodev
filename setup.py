@@ -13,12 +13,12 @@ def read(fname):
 
 setup(
     name='pytest-wish',
-    version='0.7.1',
+    version='0.8.0',
     author='Alessandro Amici',
     author_email='alexamici@gmail.com',
     license='MIT',
     url='https://github.com/alexamici/pytest-wish',
-    download_url='https://github.com/alexamici/pytest-wish/archive/0.7.1.tar.gz',
+    download_url='https://github.com/alexamici/pytest-wish/archive/0.8.0.tar.gz',
     description='Test-Driven no-Development plugin for pytest',
     long_description=read('README.rst'),
     packages=find_packages(),
