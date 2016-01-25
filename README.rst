@@ -12,6 +12,10 @@ pytest-wish
     :target: https://coveralls.io/github/alexamici/pytest-wish
     :alt: Coverage Status on Coveralls
 
+.. image:: https://badges.gitter.im/alexamici/pytest-wish.svg
+    :target: https://gitter.im/alexamici/pytest-wish
+    :alt: Join the chat at https://gitter.im/alexamici/pytest-wish
+
 Test-Driven no-Development plugin for `pytest`_. The development status of this project is Alpha.
 
 Features
