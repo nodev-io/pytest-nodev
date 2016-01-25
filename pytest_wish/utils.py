@@ -71,30 +71,30 @@ def import_modules(module_names, requirement='', module_blacklist=MODULE_BLACKLI
     return modules
 
 
-def collect_distributions(distribution_names, distribution_blacklist=DISTRIBUTION_BLACKLIST):
+def collect_distributions(specs, distribution_blacklist=DISTRIBUTION_BLACKLIST):
     distributions = collections.OrderedDict()
-    for distribution_name in distribution_names:
-        if distribution_name in distribution_blacklist:
-            logger.debug("Not importing blacklisted package: %r.", distribution_name)
-        elif distribution_name.lower() in {'all', 'python'}:
+    for spec in specs:
+        if spec in distribution_blacklist:
+            logger.debug("Not importing blacklisted package: %r.", spec)
+        elif spec.lower() in {'all', 'python'}:
             # fake distribution name for the python standard library
             distributions['Python==%d.%d.%d' % sys.version_info[:3]] = None
-            if distribution_name.lower() == 'all':
+            if spec.lower() == 'all':
                 # fake distribution name for all the modules known to the packaging system
                 for distribution in pkg_resources.working_set:
                     distributions[str(distribution.as_requirement())] = distribution
         else:
             try:
-                distribution = pkg_resources.get_distribution(distribution_name)
+                distribution = pkg_resources.get_distribution(spec)
                 distributions[str(distribution.as_requirement())] = distribution
             except:
-                logger.info("Failed to find package %r.", distribution_name)
+                logger.info("Failed to find package %r.", spec)
     return distributions
 
 
-def import_distributions(distribution_names, distribution_blacklist=DISTRIBUTION_BLACKLIST):
+def import_distributions(specs, distribution_blacklist=DISTRIBUTION_BLACKLIST):
     distributions_modules = collections.OrderedDict()
-    distributions = collect_distributions(distribution_names, distribution_blacklist)
+    distributions = collect_distributions(specs, distribution_blacklist)
     for requirement, distribution in distributions.items():
         if requirement.startswith('Python=='):
             python_version = requirement.partition('==')[2]

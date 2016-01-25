@@ -15,7 +15,7 @@ from pytest_wish import utils
 
 def pytest_addoption(parser):
     group = parser.getgroup('wish')
-    group.addoption('--wish-dists', default=[], nargs='+',
+    group.addoption('--wish-specs', default=[], nargs='+',
                     help="Space separated list of distribution specs, 'Python' or 'all'.")
     group.addoption('--wish-modules', default=[], nargs='+',
                     help="Space separated list of module names.")
@@ -47,8 +47,8 @@ def pytest_configure(config):
     utils.logger.addHandler(PytestHandler(config=config))
 
     # build the object index
-    wish_dists = config.getoption('wish_dists')
-    utils.import_distributions(wish_dists)
+    wish_specs = config.getoption('wish_specs')
+    utils.import_distributions(wish_specs)
 
     wish_modules = config.getoption('wish_modules')
     utils.import_modules(wish_modules)
