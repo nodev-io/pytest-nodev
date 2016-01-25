@@ -5,11 +5,13 @@ from __future__ import absolute_import, unicode_literals
 from builtins import str
 
 import collections
+import itertools
 import importlib
 import inspect
 import logging
 import re
 import sys
+from functools import wraps
 
 import pkg_resources
 
@@ -165,3 +167,23 @@ def generate_objects_from_names(stream):
                 logger.info("Failed to import module for object %r.", full_object_name)
             except AttributeError:
                 logger.info("Failed to import object %r.", full_object_name)
+
+
+class PermutatedInvocationResults(object):
+    """wraps results of permutated invocations"""
+    def __init__(self, results):
+        self.results = results
+
+    def __str__(self):
+        return "<PermutatedInvocationResults instance>: {}".format(self.__repr__())
+
+    def __repr__(self):
+        return repr(self.results)
+
+
+def permutate_decorator(func):
+    @wraps(func)
+    def wrapped(*args):
+        permutated_args = itertools.permutations(args)
+        return PermutatedInvocationResults([func(*permutation) for permutation in permutated_args])
+    return wrapped

@@ -74,11 +74,16 @@ def pytest_configure(config):
 
 
 def pytest_generate_tests(metafunc):
-    if 'wish' not in metafunc.fixturenames:
+    if not set(('wish', 'wish_permutate_args')).intersection(set(metafunc.fixturenames)):
         return
 
     ids, params = metafunc.config._wish_index_items
-    metafunc.parametrize('wish', params, ids=ids, scope='module')
+    if 'wish_permutate_args' in metafunc.fixturenames:
+        params = [utils.permutate_decorator(param) for param in params]
+        fixture_name = 'wish_permutate_args'
+    else:
+        fixture_name = 'wish'
+    metafunc.parametrize(fixture_name, params, ids=ids, scope='module')
     metafunc.function = pytest.mark.timeout(metafunc.config._wish_timeout)(metafunc.function)
     if not metafunc.config._wish_fail:
         metafunc.function = pytest.mark.xfail(metafunc.function)
