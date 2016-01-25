@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import re
+from math import pow
 
 from pytest_wish import utils
 
@@ -63,3 +64,11 @@ def test_generate_objects_from_names():
     # error paths
     names = ['# comment', 'non_existent_module:', 'math:non_existent_object']
     assert len(list(utils.generate_objects_from_names(names))) == 0
+
+
+def test_permutate_decorator():
+    decorated_pow = utils.permutate_decorator(pow)
+    invocations = permutated_invocation_results = decorated_pow(2, 3)
+    assert isinstance(invocations, utils.PermutatedInvocationResults)
+    assert 8 in invocations.results
+    assert 9 in invocations.results
