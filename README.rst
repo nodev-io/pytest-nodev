@@ -1,6 +1,10 @@
 pytest-wish
 ===========
 
+.. image:: https://badges.gitter.im/alexamici/pytest-wish.svg
+   :alt: Join the chat at https://gitter.im/alexamici/pytest-wish
+   :target: https://gitter.im/alexamici/pytest-wish?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge
+
     "Have a look at this function that I'm writing...
     I'm sure someone else has already written it." - `@kr1`_
 
