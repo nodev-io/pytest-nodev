@@ -94,6 +94,14 @@ More advanced functions are available on PyPI::
 now the function ``parse_url`` in the module ``urllib3.util.url`` passes both tests.
 
 
+Help
+----
+
+We have the following support channels:
+
+* chat: https://gitter.im/alexamici/pytest-wish
+
+
 Contributing
 ------------
 Contributions are very welcome. Tests can be run with `tox`_, please ensure
