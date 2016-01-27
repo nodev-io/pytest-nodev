@@ -95,7 +95,8 @@ Help
 
 We have the following support channels:
 
-* chat: https://gitter.im/alexamici/pytest-wish
+* questions on stackoverflow: http://stackoverflow.com/search?q=pytest-wish
+* web-chat: https://gitter.im/alexamici/pytest-wish
 
 
 Contributing
