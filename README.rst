@@ -40,7 +40,7 @@ Usage
 The plugin adds the following options to pytest::
 
     wish:
-      --wish-dists=WISH_DISTS=[WISH_DISTS=...]
+      --wish-specs=WISH_SPECS=[WISH_SPECS=...]
                             Space separated list of distribution specs, 'Python'
                             or 'all'.
       --wish-modules=WISH_MODULES=[WISH_MODULES=...]
