@@ -52,10 +52,11 @@ The plugin adds the following options to pytest::
                             Space separated list of regexs matching full object
                             names to exclude.
       --wish-predicate=WISH_PREDICATE
-                            getmembers predicate full name, defaults to
-                            'builtins:callable'.
+                            getmembers predicate full name, defaults to None.
       --wish-objects=WISH_OBJECTS
                             File of full object names to include.
+      --wish-timeout=WISH_TIMEOUT
+                            Test timeout.
       --wish-fail           Show wish failures.
 
 Example usage, find a function that returns the factorial of a number::
