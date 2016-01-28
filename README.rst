@@ -12,10 +12,6 @@ pytest-wish
     :target: https://coveralls.io/github/alexamici/pytest-wish
     :alt: Coverage Status on Coveralls
 
-.. image:: https://badges.gitter.im/alexamici/pytest-wish.svg
-    :target: https://gitter.im/alexamici/pytest-wish
-    :alt: Join the chat at https://gitter.im/alexamici/pytest-wish
-
 Test-Driven no-Development plugin for `pytest`_. The development status of this project is Alpha.
 
 Features
@@ -44,7 +40,7 @@ Usage
 The plugin adds the following options to pytest::
 
     wish:
-      --wish-dists=WISH_DISTS=[WISH_DISTS=...]
+      --wish-specs=WISH_SPECS=[WISH_SPECS=...]
                             Space separated list of distribution specs, 'Python'
                             or 'all'.
       --wish-modules=WISH_MODULES=[WISH_MODULES=...]
@@ -99,7 +95,8 @@ Help
 
 We have the following support channels:
 
-* chat: https://gitter.im/alexamici/pytest-wish
+* `questions on stackoverflow`_
+* `web-chat`_
 
 
 Contributing
@@ -126,3 +123,5 @@ If you encounter any problems, please `file an issue`_ along with a detailed des
 .. _`pip`: https://pypi.python.org/pypi/pip/
 .. _`PyPI`: https://pypi.python.org/pypi
 .. _`@kr1`: https://github.com/kr1
+.. _`questions on stackoverflow`: http://stackoverflow.com/search?q=pytest-wish
+.. _`web-chat`: https://gitter.im/alexamici/pytest-wish
