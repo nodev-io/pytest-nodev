@@ -8,7 +8,7 @@ def test_relation1(wish_permutate_args):
     permutated_assert([relation(1, 20), 1],
                       [relation(180, -2), -180])
 
-    with pytest.raises(AssertionError) as excinfo:
+    with pytest.raises(AssertionError):
         permutated_assert([relation(1, 20), 1],
                           [relation(180, -2), -180],
                           [relation(180, -2), 2])

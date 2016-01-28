@@ -84,7 +84,7 @@ def test_generate_objects_from_names():
 
 def test_permutate_decorator():
     decorated_pow = utils.permutate_decorator(pow)
-    invocations = permutated_invocation_results = decorated_pow(2, 3)
+    invocations = decorated_pow(2, 3)
     assert isinstance(invocations, utils.PermutatedInvocationResults)
     assert 8 in invocations.results
     assert 9 in invocations.results
