@@ -164,7 +164,7 @@ Contributors:
 
 Sponsors:
 
-.. image:: https://services.bopen.eu/bopen-logo.png
+.. image:: http://services.bopen.eu/bopen-logo.png
     :target: http://bopen.eu/
     :alt: B-Open Solutions srl
 
