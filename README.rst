@@ -21,14 +21,14 @@ Motivation
 
 Every piece of functionality in a software project
 requires code that lies somewhere in the wide reusability spectrum that goes
-form extremely custom and strongly tied to a specific implementation
+form extremely custom and strongly tied to the specific implementation
 to completely generic and highly reusable.
 
 On the *custom* side of the spectrum there is all the code that defines the
-features of the software and all the choices of its implementation. That is code that needs
+features of the software and all the choices of its implementation. That one is code that need
 to be written.
 
-On the other hand the seasoned software developer is trained to spot
+On the other hand a seasoned software developer is trained to spot
 pieces of functionality that lie far enough on the *generic* side of the range
 that with high probability a library already implements it
 **and documents it well enough to be discovered with an internet search**.
