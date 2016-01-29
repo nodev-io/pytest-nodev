@@ -1,9 +1,6 @@
 pytest-wish
 ===========
 
-    "Have a look at this function that I'm writing...
-    I'm sure someone else has already written it." - `@kr1`_
-
 .. image:: https://travis-ci.org/alexamici/pytest-wish.svg?branch=master
     :target: https://travis-ci.org/alexamici/pytest-wish
     :alt: Build Status on Travis CI
@@ -12,7 +9,63 @@ pytest-wish
     :target: https://coveralls.io/github/alexamici/pytest-wish
     :alt: Coverage Status on Coveralls
 
-Test-Driven no-Development plugin for `pytest`_. The development status of this project is Alpha.
+Collects objects from all installed modules and provides them one by one as a fixture.
+**Development status: alpha!**
+
+
+Motivation
+----------
+
+    "Have a look at this function that I'm writing...
+    I'm sure someone else has already written it." - `@kr1`_
+
+Every piece of functionality in a software project
+requires code that lies somewhere in the wide reusability spectrum that goes
+form extremely custom and strongly tied to a specific implementation
+to completely generic and highly reusable.
+
+On the *custom* side of the spectrum there is all the code that defines the
+features of the software and all the choices of its implementation. That is code that needs
+to be written.
+
+On the other hand the seasoned software developer is trained to spot
+pieces of functionality that lie far enough on the *generic* side of the range
+that with high probability a library already implements it
+**and documents it well enough to be discovered with an internet search**.
+
+In between the two extremes there is a huge gray area populated by pieces of functionality
+that are not *generic* enough to obviously deserve a place in a library, but are
+*common* enough that must have been already implemented by someone else for their
+software. This kind of code is doomed to be re-implemented again and again
+for the simple reason that **there is no way to search code by functionality**...
+
+Or is it?
+
+Test-Driven no-Development
+--------------------------
+
+`pytest-wish` is a pytest plugin that enables a software development strategy called
+*Test-Driven no-Developemnt* or *nodev* for short, that is an extension of the
+*Test-Driven Development* paradigm.
+
+The idea is that once the developer has written the tests that define the behaviour of a new
+function to a degree sufficient to validate the implementation they are going to write
+it is good enough to validate
+any implementation. Running the tests on a large set of functions may result in a *hit*, that is
+a function that already implements their feature.
+
+Due to its nature the *nodev* approach is better suited for discovering smaller functions
+with a generic signature.
+
+
+Test suite validation
+---------------------
+
+Another use for `pytest-wish` is, with a bit of additional work, to validate a project test suite.
+If a test passes when passed an unexpected object there are two possibilities,
+either the test is not strict enough and allows for false positives and needs update,
+or the *hit* is actually a function you could use instead of your implementation.
+
 
 Features
 --------
