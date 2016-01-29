@@ -160,7 +160,7 @@ the coverage at least stays the same before you submit a pull request.
 
 Contributors:
 
- * Alessandro Amici - @alexamici
+- Alessandro Amici - @alexamici
 
 Sponsors:
 
