@@ -53,7 +53,11 @@ OBJECT_BLACKLIST = {
 
     # unconditional exit
     'faulthandler:_sigsegv',
+    'posix:abort',
     'posix:_exit',
+    'posix:fork',
+    'posix:forkpty',
+    'pty:fork',
     '_signal:default_int_handler',
     'atexit.register',
 
@@ -74,7 +78,7 @@ OBJECT_BLACKLIST = {
     'os.mkdir',
     'pip.utils:rmtree',
 }
-EXCLUDE_PATTERNS = [r'_', r'.*\._']
+EXCLUDE_PATTERNS = ['.*[.:^]_']  # skip private modules and objects underscore-names
 
 logger = logging.getLogger('wish')
 
