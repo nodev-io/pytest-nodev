@@ -105,3 +105,13 @@ def pytest_generate_tests(metafunc):
     metafunc.function = pytest.mark.timeout(metafunc.config._wish_timeout)(metafunc.function)
     if not metafunc.config._wish_fail:
         metafunc.function = pytest.mark.xfail(metafunc.function)
+
+
+def pytest_terminal_summary(terminalreporter):
+    hits = terminalreporter.getreports('xpassed') + terminalreporter.getreports('passed')
+    terminalreporter.write_sep('=', '%d hit' % len(hits), bold=True)
+    terminalreporter.write_line('')
+    for report in hits:
+        terminalreporter.write(report.nodeid)
+        terminalreporter.write_line(' HIT', bold=True, green=True)
+    terminalreporter.write_line('')
