@@ -41,6 +41,7 @@ for the simple reason that **there is no way to search code by functionality**..
 
 Or is it?
 
+
 Test-Driven no-Development
 --------------------------
 
@@ -114,19 +115,19 @@ The plugin adds the following options to pytest::
 
 Example usage, find a function that returns the factorial of a number::
 
-    $ py.test -vv examples/test_factorial.py --wish-modules math | grep -v xfail$
+    $ py.test examples/test_factorial.py --wish-modules math
     [...]
-    examples/test_factorial.py::test_factorial[math:factorial] XPASS
+    examples/test_factorial.py::test_factorial[math:factorial] HIT
     [...]
 
 the function ``factorial`` in the module ``math`` passes the ``test_factorial`` test.
 
 Another example, find a function that decomposes a URL into individual rfc3986 components::
 
-    $ py.test -vv examples/test_rfc3986_parse.py --wish-modules urllib.parse | grep -v xfail$
+    $ py.test examples/test_rfc3986_parse.py --wish-modules urllib.parse
     [...]
-    examples/test_rfc3986_parse.py::test_rfc3986_parse_basic[urllib.parse:urlparse] XPASS
-    examples/test_rfc3986_parse.py::test_rfc3986_parse_basic[urllib.parse:urlsplit] XPASS
+    examples/test_rfc3986_parse.py::test_rfc3986_parse_basic[urllib.parse:urlparse] HIT
+    examples/test_rfc3986_parse.py::test_rfc3986_parse_basic[urllib.parse:urlsplit] HIT
     [...]
 
 the two functions ``urlparse`` and ``urlsplit`` pass the basic rfc3986 parsing test, but do not
@@ -135,10 +136,10 @@ pass the more complex ``test_rfc3986_parse_full`` test.
 More advanced functions are available on PyPI::
 
     $ pip install urllib3
-    $ py.test -vv examples/test_rfc3986_parse.py --wish-modules urllib3 | grep -v xfail$
+    $ py.test examples/test_rfc3986_parse.py --wish-modules urllib3
     [...]
-    examples/test_rfc3986_parse.py::test_rfc3986_parse_basic[urllib3.util.url:parse_url] XPASS
-    examples/test_rfc3986_parse.py::test_rfc3986_parse_full[urllib3.util.url:parse_url] XPASS
+    examples/test_rfc3986_parse.py::test_rfc3986_parse_basic[urllib3.util.url:parse_url] HIT
+    examples/test_rfc3986_parse.py::test_rfc3986_parse_full[urllib3.util.url:parse_url] HIT
     [...]
 
 now the function ``parse_url`` in the module ``urllib3.util.url`` passes both tests.
@@ -167,6 +168,7 @@ Sponsors:
 .. image:: http://services.bopen.eu/bopen-logo.png
     :target: http://bopen.eu/
     :alt: B-Open Solutions srl
+
 
 License
 -------
