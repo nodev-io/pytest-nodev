@@ -61,7 +61,9 @@ class PytestHandler(logging.Handler):
         self._emit(self.format(record))
 
 
-def pytest_configure(config):
+def pytest_sessionstart(session):
+    config = session.config
+
     # take over utils logging
     utils.logger.propagate = False
     utils.logger.setLevel(logging.DEBUG)  # FIXME: loglevel should be configurable
