@@ -188,5 +188,5 @@ If you encounter any problems, please `file an issue`_ along with a detailed des
 .. _`pip`: https://pypi.python.org/pypi/pip/
 .. _`PyPI`: https://pypi.python.org/pypi
 .. _`@kr1`: https://github.com/kr1
-.. _`questions on stackoverflow`: http://stackoverflow.com/search?q=pytest-wish
+.. _`questions on stackoverflow`: https://stackoverflow.com/search?q=pytest-wish
 .. _`web-chat`: https://gitter.im/alexamici/pytest-wish
