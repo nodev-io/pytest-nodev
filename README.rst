@@ -1,11 +1,11 @@
 pytest-wish
 ===========
 
-.. image:: https://travis-ci.org/alexamici/pytest-wish.svg?branch=0.8.3
+.. image:: https://travis-ci.org/alexamici/pytest-wish.svg?branch=master
     :target: https://travis-ci.org/alexamici/pytest-wish
     :alt: Build Status on Travis CI
 
-.. image:: https://coveralls.io/repos/alexamici/pytest-wish/badge.svg?branch=0.8.3&service=github
+.. image:: https://coveralls.io/repos/alexamici/pytest-wish/badge.svg?branch=master&service=github
     :target: https://coveralls.io/github/alexamici/pytest-wish
     :alt: Coverage Status on Coveralls
 
