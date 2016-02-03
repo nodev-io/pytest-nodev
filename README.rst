@@ -46,7 +46,7 @@ Test-Driven no-Development
 --------------------------
 
 `pytest-wish` is a pytest plugin that enables a software development strategy called
-*Test-Driven no-Developemnt* or *nodev* for short, that is an extension of the
+*Test-Driven no-Development* or *nodev* for short, that is an extension of the
 *Test-Driven Development* paradigm.
 
 The idea is that once the developer has written the tests that define the behaviour of a new
