@@ -3,8 +3,6 @@
 # Copyright (c) 2015-2016 Alessandro Amici
 #
 
-import re
-
 from pytest_wish import utils
 
 
@@ -49,13 +47,14 @@ def test_generate_module_objects():
 
 
 def test_valid_name():
-    assert not utils.valid_name('math:factorial', [re.compile('a')], [])
-    assert utils.valid_name('math:factorial', [re.compile('m')], [])
-    assert utils.valid_name('math:factorial', [re.compile('.*factorial$')], [re.compile('moo')])
-    assert not utils.valid_name('math:factorial', [re.compile('m')], [re.compile('math')])
+    assert not utils.valid_name('math:factorial', 'a', '')
+    assert utils.valid_name('math:factorial', 'm', '')
+    assert utils.valid_name('math:factorial', '.*factorial$', 'moo')
+    assert not utils.valid_name('math:factorial', 'm', 'math')
 
 
 def test_generate_objects_from_modules():
+    import re
     modules = {'pytest_wish.utils': utils, 're': re}
     include_patterns = ['pytest_wish.utils:generate_objects_from_modules']
     objs = utils.generate_objects_from_modules(modules, include_patterns, module_blacklist={'re'})

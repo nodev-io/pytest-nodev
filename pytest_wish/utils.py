@@ -145,9 +145,10 @@ def generate_module_objects(module, predicate=None):
             yield object_name, object_
 
 
-def valid_name(name, include_res, exclude_res):
-    include_name = any(include_re.match(name) for include_re in include_res)
-    exclude_name = any(exclude_re.match(name) for exclude_re in exclude_res)
+def valid_name(name, include_pattern, exclude_pattern):
+    # NOTE: re auto-magically caches the compiled objects
+    include_name = bool(include_pattern and re.match(include_pattern, name))
+    exclude_name = bool(exclude_pattern and re.match(exclude_pattern, name))
     return include_name and not exclude_name
 
 
@@ -159,15 +160,15 @@ def generate_objects_from_modules(
         object_blacklist=OBJECT_BLACKLIST,
 ):
     exclude_patterns += tuple(name.strip() + '$' for name in object_blacklist)
-    include_res = [re.compile(pattern) for pattern in include_patterns]
-    exclude_res = [re.compile(pattern) for pattern in exclude_patterns]
+    include_pattern = '|'.join(include_patterns)
+    exclude_pattern = '|'.join(exclude_patterns)
     predicate = object_from_name(predicate_name) if predicate_name else None
     for module_name, module in modules.items():
         if module_name in module_blacklist:
             continue
         for object_name, object_ in generate_module_objects(module, predicate):
             full_object_name = '{}:{}'.format(module_name, object_name)
-            if valid_name(full_object_name, include_res, exclude_res):
+            if valid_name(full_object_name, include_pattern, exclude_pattern):
                 yield full_object_name, object_
 
 
