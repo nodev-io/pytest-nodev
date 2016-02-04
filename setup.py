@@ -11,14 +11,16 @@ def read(fname):
     return codecs.open(file_path, encoding='utf-8').read()
 
 
+version = '0.8.4'
+
 setup(
     name='pytest-wish',
-    version='0.8.4',
+    version=version,
     author='Alessandro Amici',
     author_email='alexamici@gmail.com',
     license='MIT',
     url='https://github.com/alexamici/pytest-wish',
-    download_url='https://github.com/alexamici/pytest-wish/archive/0.8.4.tar.gz',
+    download_url='https://github.com/alexamici/pytest-wish/archive/%s.tar.gz' % version,
     description='Test-Driven no-Development plugin for pytest',
     long_description=read('README.rst'),
     packages=find_packages(),
