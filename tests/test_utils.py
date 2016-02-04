@@ -16,6 +16,7 @@ def test_import_coverage():
 
 def test_import_modules():
     assert len(utils.import_modules(['pytest_wish'])) == 1
+    assert len(utils.import_modules(['pytest_wish'], module_blacklist=set())) == 1
     assert len(utils.import_modules(['pytest_wish'], module_blacklist={'pytest_wish'})) == 0
     assert len(utils.import_modules(['non_existent_module'])) == 0
 

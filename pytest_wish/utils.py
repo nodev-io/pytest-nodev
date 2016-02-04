@@ -83,9 +83,10 @@ logger = logging.getLogger('wish')
 
 
 def import_modules(module_names, requirement='', module_blacklist=MODULE_BLACKLIST):
+    module_blacklist_pattern = '|'.join(module_blacklist)
     modules = collections.OrderedDict()
     for module_name in module_names:
-        if module_name in module_blacklist:
+        if module_blacklist_pattern and re.match(module_blacklist_pattern, module_name):
             logger.debug("Not importing blacklisted module: %r.", module_name)
         else:
             try:
