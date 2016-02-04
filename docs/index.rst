@@ -2,6 +2,8 @@
 pytest-wish documentation
 =========================
 
+Version: |release|
+
 Contents:
 
 .. toctree::
