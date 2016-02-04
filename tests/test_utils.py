@@ -22,7 +22,6 @@ def test_import_modules():
 
 def test_collect_distributions():
     assert len(list(utils.collect_distributions(['pytest-wish']))) == 1
-    assert len(list(utils.collect_distributions(['pytest-wish'], {'pytest-wish'}))) == 0
     assert len(list(utils.collect_distributions(['non_existent_distribution']))) == 0
     assert len(list(utils.collect_distributions(['Python']))) == 1
     assert len(list(utils.collect_distributions(['all']))) > 1
@@ -40,13 +39,7 @@ def test_import_distributions():
     assert len(distributions_modules) == 1
     requirement, distributions_modules = distributions_modules.popitem()
     assert requirement.startswith('Python==')
-    # assert 'os.path' in distributions_modules
-
-    # fail code path
-    distributions_modules = utils.import_distributions(
-        ['pytest-wish', 'non_existent_dist'], distribution_blacklist={'pytest-wish'}
-    )
-    assert len(distributions_modules) == 0
+    assert 'os.path' in distributions_modules
 
 
 def test_generate_module_objects():

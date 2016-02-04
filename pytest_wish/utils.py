@@ -38,7 +38,6 @@ import stdlib_list
 
 
 # blacklists
-DISTRIBUTION_BLACKLIST = set()
 MODULE_BLACKLIST = {
     # crash
     'icopen',
@@ -96,12 +95,10 @@ def import_modules(module_names, requirement='', module_blacklist=MODULE_BLACKLI
     return modules
 
 
-def collect_distributions(specs, distribution_blacklist=DISTRIBUTION_BLACKLIST):
+def collect_distributions(specs):
     distributions = collections.OrderedDict()
     for spec in specs:
-        if spec in distribution_blacklist:
-            logger.debug("Not importing blacklisted package: %r.", spec)
-        elif spec.lower() in {'all', 'python'}:
+        if spec.lower() in {'all', 'python'}:
             # fake distribution name for the python standard library
             distributions['Python==%d.%d.%d' % sys.version_info[:3]] = None
             if spec.lower() == 'all':
@@ -113,14 +110,13 @@ def collect_distributions(specs, distribution_blacklist=DISTRIBUTION_BLACKLIST):
                 distribution = pkg_resources.get_distribution(spec)
                 distributions[str(distribution.as_requirement())] = distribution
             except:
-                logger.info("Failed to find package %r.", spec)
+                logger.info("Failed to find a distribution matching the spec: %r.", spec)
     return distributions
 
 
-def import_distributions(specs, distribution_blacklist=DISTRIBUTION_BLACKLIST):
+def import_distributions(specs):
     distributions_modules = collections.OrderedDict()
-    distributions = collect_distributions(specs, distribution_blacklist)
-    for requirement, distribution in distributions.items():
+    for requirement, distribution in collect_distributions(specs).items():
         if requirement.startswith('Python=='):
             python_version = requirement.partition('==')[2]
             # stdlib_list supports short versions and only a selected list of long versions
