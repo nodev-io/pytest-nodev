@@ -1,5 +1,6 @@
 include LICENSE
 include tox.ini
+include requirements*.txt
 recursive-include docs *.py
 recursive-include docs *.rst
 recursive-include tests *.py
