@@ -61,8 +61,9 @@ class PytestHandler(logging.Handler):
         self._emit(self.format(record))
 
 
-def pytest_sessionstart(session):
-    config = session.config
+def wish_ensuresession(config):
+    if hasattr(config, '_wish_index_items'):
+        return
 
     # take over utils logging
     utils.logger.propagate = False
@@ -100,6 +101,8 @@ def pytest_generate_tests(metafunc):
     if 'wish' not in metafunc.fixturenames:
         return
 
+    wish_ensuresession(metafunc.config)
+
     ids, params = metafunc.config._wish_index_items
     metafunc.parametrize('wish', params, ids=ids, scope='module')
     metafunc.function = pytest.mark.timeout(metafunc.config._wish_timeout)(metafunc.function)
@@ -108,6 +111,9 @@ def pytest_generate_tests(metafunc):
 
 
 def pytest_terminal_summary(terminalreporter):
+    if not hasattr(terminalreporter.config, '_wish_index_items'):
+        return
+
     hits = terminalreporter.getreports('xpassed') + terminalreporter.getreports('passed')
     terminalreporter.write_sep('=', '%d hit' % len(hits), bold=True)
     terminalreporter.write_line('')
