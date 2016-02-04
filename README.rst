@@ -16,8 +16,9 @@ Collects objects from all installed modules and provides them one by one as a fi
 Motivation
 ----------
 
-    "Have a look at this function that I'm writing...
-    I'm sure someone else has already written it." - `@kr1`_
+    "Have a look at this piece of code that I’m writing --
+    I’m sure it has been written before. Possibly dozens of times already.
+    I wouldn't be surprised to find it verbatim somewhere on GitHub." - `@kr1`_
 
 Every piece of functionality in a software project
 requires code that lies somewhere in the wide reusability spectrum that goes
