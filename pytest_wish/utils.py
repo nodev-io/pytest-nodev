@@ -41,9 +41,14 @@ import stdlib_list
 MODULE_BLACKLIST = {
     # crash
     'icopen',
-    'itertools',
     'ntpath',
     'test.support',
+
+    # hangs
+    'itertools',
+
+    # dangerous
+    'subprocess',
 }
 OBJECT_BLACKLIST = {
     # pytest internals
@@ -75,13 +80,17 @@ OBJECT_BLACKLIST = {
     'ensurepip:_run_pip',
 
     # uninterruptable hang
+    'compiler.ast:AugAssign',
     'itertools:cycle',
     'itertools:permutations',
     'itertools:repeat',
 
     # dangerous
     'os.mkdir',
+    'os.command',
     'pip.utils:rmtree',
+    'platform:popen',
+    'posix:popen',
 }
 EXCLUDE_PATTERNS = ['_|.*[.:]_']  # skip private modules and objects underscore-names
 NOMATCH_REGEX = r'.\A'  # unmatchable condition even in re.MULTILINE mode
