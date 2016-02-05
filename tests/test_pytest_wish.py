@@ -47,6 +47,7 @@ def test_skip_wish(testdir):
     # run pytest with the following cmd args
     result = testdir.runpytest(
         '-v',
+        '--wish-includes=NOTHING',
     )
 
     # fnmatch_lines does an assertion internally
@@ -122,6 +123,7 @@ def test_wish_objects(testdir):
     objects_txt.write(TEST_FACTORIAL_TXT)
     testdir.makepyfile(TEST_FACTORIAL_PY)
     result = testdir.runpytest(
+        '--wish-include=NOTHING',
         '--wish-objects={}'.format(objects_txt),
         '-v',
     )

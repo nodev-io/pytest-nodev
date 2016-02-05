@@ -92,7 +92,7 @@ def import_modules(module_names, requirement='', module_blacklist=MODULE_BLACKLI
     module_blacklist_pattern = '|'.join(module_blacklist)
     modules = collections.OrderedDict()
     for module_name in module_names:
-        if module_blacklist_pattern and re.match(module_blacklist_pattern, module_name):
+        if not valid_name(module_name, exclude_pattern=module_blacklist_pattern):
             logger.debug("Not importing blacklisted module: %r.", module_name)
         else:
             try:
@@ -151,11 +151,11 @@ def generate_module_objects(module, predicate=None):
             yield object_name, object_
 
 
-def valid_name(name, include_pattern, exclude_pattern):
+def valid_name(name, include_pattern='', exclude_pattern=''):
+    """Return true is the optional include_pattern matches and the the exclude_pattern doesn't."""
+    exclude_pattern = exclude_pattern or '$.'
     # NOTE: re auto-magically caches the compiled objects
-    include_name = bool(include_pattern and re.match(include_pattern, name))
-    exclude_name = bool(exclude_pattern and re.match(exclude_pattern, name))
-    return include_name and not exclude_name
+    return bool(re.match(include_pattern, name) and not re.match(exclude_pattern, name))
 
 
 def generate_objects_from_modules(
@@ -168,9 +168,11 @@ def generate_objects_from_modules(
     exclude_patterns += tuple(name.strip() + '$' for name in object_blacklist)
     include_pattern = '|'.join(include_patterns)
     exclude_pattern = '|'.join(exclude_patterns)
+    module_blacklist_pattern = '|'.join(module_blacklist)
     predicate = object_from_name(predicate_name) if predicate_name else None
     for module_name, module in modules.items():
-        if module_name in module_blacklist:
+        if not valid_name(module_name, exclude_pattern=module_blacklist_pattern):
+            logger.debug("Not collecting objects from blacklisted module: %r.", module_name)
             continue
         for object_name, object_ in generate_module_objects(module, predicate):
             full_object_name = '{}:{}'.format(module_name, object_name)

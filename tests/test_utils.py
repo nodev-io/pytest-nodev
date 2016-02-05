@@ -47,8 +47,8 @@ def test_generate_module_objects():
 
 
 def test_valid_name():
-    assert not utils.valid_name('math:factorial', 'a', '')
-    assert utils.valid_name('math:factorial', 'm', '')
+    assert not utils.valid_name('math:factorial', 'a')
+    assert utils.valid_name('math:factorial', 'm')
     assert utils.valid_name('math:factorial', '.*factorial$', 'moo')
     assert not utils.valid_name('math:factorial', 'm', 'math')
 
