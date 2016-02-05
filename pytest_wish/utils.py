@@ -25,7 +25,6 @@
 from __future__ import absolute_import, unicode_literals
 from builtins import str
 
-import collections
 import importlib
 import inspect
 import logging
