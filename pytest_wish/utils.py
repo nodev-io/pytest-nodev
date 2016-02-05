@@ -84,12 +84,13 @@ OBJECT_BLACKLIST = {
     'pip.utils:rmtree',
 }
 EXCLUDE_PATTERNS = ['_|.*[.:]_']  # skip private modules and objects underscore-names
+NOMATCH_REGEX = r'.\A'  # unmatchable condition even in re.MULTILINE mode
 
 logger = logging.getLogger('wish')
 
 
 def import_modules(module_names, requirement='', module_blacklist=MODULE_BLACKLIST):
-    module_blacklist_pattern = '|'.join(module_blacklist)
+    module_blacklist_pattern = '|'.join(module_blacklist) or NOMATCH_REGEX
     modules = collections.OrderedDict()
     for module_name in module_names:
         if not valid_name(module_name, exclude_pattern=module_blacklist_pattern):
@@ -151,9 +152,14 @@ def generate_module_objects(module, predicate=None):
             yield object_name, object_
 
 
-def valid_name(name, include_pattern='', exclude_pattern=''):
-    """Return true is the optional include_pattern matches and the the exclude_pattern doesn't."""
-    exclude_pattern = exclude_pattern or '$.'
+def valid_name(name, include_pattern='', exclude_pattern=NOMATCH_REGEX):
+    """Return true iff the include_pattern matches the name and the the exclude_pattern doesn't.
+
+    :param str name: The name to validate.
+    :param str include_pattern: Include everything by default (r'').
+    :param str exclude_pattern: Exclude nothing by default (r'.\A').
+    :rtype: bool
+    """
     # NOTE: re auto-magically caches the compiled objects
     return bool(re.match(include_pattern, name) and not re.match(exclude_pattern, name))
 
@@ -166,9 +172,9 @@ def generate_objects_from_modules(
         object_blacklist=OBJECT_BLACKLIST,
 ):
     exclude_patterns += tuple(name.strip() + '$' for name in object_blacklist)
-    include_pattern = '|'.join(include_patterns)
-    exclude_pattern = '|'.join(exclude_patterns)
-    module_blacklist_pattern = '|'.join(module_blacklist)
+    include_pattern = '|'.join(include_patterns) or NOMATCH_REGEX
+    exclude_pattern = '|'.join(exclude_patterns) or NOMATCH_REGEX
+    module_blacklist_pattern = '|'.join(module_blacklist) or NOMATCH_REGEX
     predicate = object_from_name(predicate_name) if predicate_name else None
     for module_name, module in modules.items():
         if not valid_name(module_name, exclude_pattern=module_blacklist_pattern):
