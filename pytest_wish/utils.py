@@ -80,12 +80,14 @@ OBJECT_BLACKLIST = {
     'getpass:getpass',
     'getpass:unix_getpass',
     'ensurepip:_run_pip',
+    'xml.etree.ElementTree:XMLPullParser',
 
     # uninterruptable hang
     'compiler.ast:AugAssign',
     'itertools:cycle',
     'itertools:permutations',
     'itertools:repeat',
+    'pydoc:apropos',
 
     # dangerous
     'os.mkdir',
