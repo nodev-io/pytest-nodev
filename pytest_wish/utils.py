@@ -44,12 +44,16 @@ MODULE_BLACKLIST = {
     'ntpath',
     'tests?$',
     'tests?\.',
+    'xml.etree.ElementTree',
 
     # hangs
     'itertools',
 
     # dangerous
     'subprocess',
+
+    # annoying
+    'tkinter',
 }
 MODULE_BLACKLIST_PATTERN = '|'.join(MODULE_BLACKLIST)
 OBJECT_BLACKLIST = {
@@ -80,7 +84,6 @@ OBJECT_BLACKLIST = {
     'getpass:getpass',
     'getpass:unix_getpass',
     'ensurepip:_run_pip',
-    'xml.etree.ElementTree:XMLPullParser',
 
     # uninterruptable hang
     'compiler.ast:AugAssign',
