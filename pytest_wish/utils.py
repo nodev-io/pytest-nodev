@@ -41,6 +41,7 @@ import stdlib_list
 MODULE_BLACKLIST = {
     # crash
     'icopen',
+    'itertools',
     'ntpath',
     'test.support',
 }
@@ -73,11 +74,16 @@ OBJECT_BLACKLIST = {
     'getpass:unix_getpass',
     'ensurepip:_run_pip',
 
+    # uninterruptable hang
+    'itertools:cycle',
+    'itertools:permutations',
+    'itertools:repeat',
+
     # dangerous
     'os.mkdir',
     'pip.utils:rmtree',
 }
-EXCLUDE_PATTERNS = ['.*[.:^]_']  # skip private modules and objects underscore-names
+EXCLUDE_PATTERNS = ['_|.*[.:]_']  # skip private modules and objects underscore-names
 
 logger = logging.getLogger('wish')
 
