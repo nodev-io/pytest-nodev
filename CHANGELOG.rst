@@ -1,5 +1,5 @@
 
-0.8.5 (unreleased)
+0.8.5 (2016-02-05)
 ------------------
 
 - Bug fixes and performance improvements.
