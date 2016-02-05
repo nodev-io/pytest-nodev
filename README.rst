@@ -96,7 +96,10 @@ The plugin adds the following options to pytest::
 
     wish:
       --wish-from-stdlib    Collects objects form the Python standard library.
-      --wish-from-all       Collects objects form all installed packages.
+      --wish-from-installed
+                            Collects objects form all installed packages.
+      --wish-from-all       Collects objects form the Python standard library and
+                            all installed packages.
       --wish-from-specs=WISH_FROM_SPECS=[WISH_FROM_SPECS=...]
                             Collects objects from installed packages. Space
                             separated list of `pip` specs.

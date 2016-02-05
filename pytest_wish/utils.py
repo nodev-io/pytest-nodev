@@ -51,6 +51,7 @@ MODULE_BLACKLIST = {
     # dangerous
     'subprocess',
 }
+MODULE_BLACKLIST_PATTERN = '|'.join(MODULE_BLACKLIST)
 OBJECT_BLACKLIST = {
     # pytest internals
     '_pytest.runner:exit',
@@ -93,73 +94,48 @@ OBJECT_BLACKLIST = {
     'platform:popen',
     'posix:popen',
 }
+OBJECT_BLACKLIST_PATTERN = '|'.join(OBJECT_BLACKLIST)
 EXCLUDE_PATTERNS = ['_|.*[.:]_']  # skip private modules and objects underscore-names
 NOMATCH_REGEX = r'.\A'  # unmatchable condition even in re.MULTILINE mode
 
 logger = logging.getLogger('wish')
 
 
-def import_modules(module_names, requirement='', module_blacklist=MODULE_BLACKLIST):
-    module_blacklist_pattern = '|'.join(module_blacklist) or NOMATCH_REGEX
-    modules = collections.OrderedDict()
-    for module_name in module_names:
-        if not valid_name(module_name, exclude_pattern=module_blacklist_pattern):
-            logger.debug("Not importing blacklisted module: %r.", module_name)
-        else:
-            try:
-                modules[module_name] = importlib.import_module(module_name)
-            except:
-                logger.info("Failed to import module %r (%r).", module_name, requirement)
-    return modules
+def collect_stdlib_distributions():
+    # use Python long version number in distribution_spec
+    distribution_spec = 'Python==%d.%d.%d' % sys.version_info[:3]
+    # use Python short version number for stdlib_list as it supports only a few long versions
+    distribution_module_names = stdlib_list.stdlib_list('%d.%d' % sys.version_info[:2])
+    yield distribution_spec, distribution_module_names
+
+
+def guess_module_names(distribution):
+    if distribution.has_metadata('top_level.txt'):
+        module_names = distribution.get_metadata('top_level.txt').splitlines()
+    else:
+        logger.info("Package %r has no top_level.txt. Guessing module name is %r.",
+                    str(distribution.as_requirement()), distribution.project_name)
+        module_names = [distribution.project_name]
+    return module_names
+
+
+def collect_installed_distributions():
+    for distribution in pkg_resources.working_set:
+        distribution_spec = str(distribution.as_requirement())
+        distribution_module_names = guess_module_names(distribution)
+        yield distribution_spec, distribution_module_names
 
 
 def collect_distributions(specs):
-    distributions = collections.OrderedDict()
     for spec in specs:
-        if spec.lower() in {'all', 'python'}:
-            # fake distribution name for the python standard library
-            distributions['Python==%d.%d.%d' % sys.version_info[:3]] = None
-            if spec.lower() == 'all':
-                # fake distribution name for all the modules known to the packaging system
-                for distribution in pkg_resources.working_set:
-                    distributions[str(distribution.as_requirement())] = distribution
-        else:
-            try:
-                distribution = pkg_resources.get_distribution(spec)
-                distributions[str(distribution.as_requirement())] = distribution
-            except:
-                logger.info("Failed to find a distribution matching the spec: %r.", spec)
-    return distributions
-
-
-def import_distributions(specs):
-    distributions_modules = collections.OrderedDict()
-    for requirement, distribution in collect_distributions(specs).items():
-        if requirement.startswith('Python=='):
-            python_version = requirement.partition('==')[2]
-            # stdlib_list supports short versions and only a selected list of long versions
-            python_short_version = python_version[:3]
-            module_names = stdlib_list.stdlib_list(python_short_version)
-        elif distribution.has_metadata('top_level.txt'):
-            module_names = distribution.get_metadata('top_level.txt').splitlines()
-        else:
-            logger.info("Package %r has no top_level.txt. Guessing module name is %r.",
-                        requirement, distribution.project_name)
-            module_names = [distribution.project_name]
-        modules = import_modules(module_names, requirement=requirement)
-        distributions_modules[requirement] = list(modules.keys())
-    return distributions_modules
-
-
-def generate_module_objects(module, predicate=None):
-    try:
-        module_members = inspect.getmembers(module, predicate)
-    except:
-        logger.info("Failed to get member list from module %r.", module)
-        raise StopIteration
-    for object_name, object_ in module_members:
-        if inspect.getmodule(object_) is module:
-            yield object_name, object_
+        try:
+            distribution = pkg_resources.get_distribution(spec)
+        except:
+            logger.info("Failed to find a distribution matching the spec: %r.", spec)
+            continue
+        distribution_spec = str(distribution.as_requirement())
+        distribution_module_names = guess_module_names(distribution)
+        yield distribution_spec, distribution_module_names
 
 
 def valid_name(name, include_pattern='', exclude_pattern=NOMATCH_REGEX):
@@ -172,6 +148,36 @@ def valid_name(name, include_pattern='', exclude_pattern=NOMATCH_REGEX):
     """
     # NOTE: re auto-magically caches the compiled objects
     return bool(re.match(include_pattern, name) and not re.match(exclude_pattern, name))
+
+
+def import_module(module_name, module_blacklist_pattern=MODULE_BLACKLIST_PATTERN):
+    if not valid_name(module_name, exclude_pattern=module_blacklist_pattern):
+        raise ImportError("Not importing blacklisted module: %r.", module_name)
+    else:
+        return importlib.import_module(module_name)
+
+
+def import_distributions(distribution_modules, module_blacklist_pattern=MODULE_BLACKLIST_PATTERN):
+    imported_module_names = []
+    for spec, module_names in distribution_modules:
+        for module_name in module_names:
+            try:
+                import_module(module_name)
+                imported_module_names.append(module_name)
+            except:
+                logger.info("Failed to import module %r from package %r.", module_name, spec)
+    return imported_module_names
+
+
+def generate_module_objects(module, predicate=None):
+    try:
+        module_members = inspect.getmembers(module, predicate)
+    except:
+        logger.info("Failed to get member list from module %r.", module)
+        raise StopIteration
+    for object_name, object_ in module_members:
+        if inspect.getmodule(object_) is module:
+            yield object_name, object_
 
 
 def generate_objects_from_modules(

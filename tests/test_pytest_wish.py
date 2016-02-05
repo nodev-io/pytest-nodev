@@ -84,7 +84,7 @@ def test_wish_modules(testdir):
 def test_wish_modules_all(testdir):
     testdir.makepyfile(TEST_FACTORIAL_PY)
     result = testdir.runpytest(
-        '--wish-from-specs=all',
+        '--wish-from-specs=pip',
         '--wish-includes=pip.exceptions',
         '-v',
     )

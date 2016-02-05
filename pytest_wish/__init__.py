@@ -26,6 +26,7 @@ from __future__ import absolute_import, unicode_literals
 from builtins import dict, super, zip
 
 import argparse
+import collections
 import logging
 import sys
 
@@ -40,8 +41,11 @@ def pytest_addoption(parser):
         '--wish-from-stdlib', action='store_true',
         help="Collects objects form the Python standard library.")
     group.addoption(
-        '--wish-from-all', action='store_true',
+        '--wish-from-installed', action='store_true',
         help="Collects objects form all installed packages.")
+    group.addoption(
+        '--wish-from-all', action='store_true',
+        help="Collects objects form the Python standard library and all installed packages.")
     group.addoption(
         '--wish-from-specs', default=[], nargs='+',
         help="Collects objects from installed packages. Space separated list of `pip` specs.")
@@ -85,15 +89,26 @@ def wish_ensuresession(config):
     utils.logger.addHandler(PytestHandler(config=config))
 
     # build the object index
-    wish_from_specs = config.getoption('wish_from_specs')
-    utils.import_distributions(wish_from_specs)
+    wish_distributions = collections.OrderedDict()
 
-    wish_from_modules = config.getoption('wish_from_modules')
-    utils.import_modules(wish_from_modules)
+    if config.getoption('wish_from_stdlib') or config.getoption('wish_from_all'):
+        wish_distributions.update(utils.collect_stdlib_distributions())
 
-    wish_includes = config.getoption('wish_includes') or wish_from_modules
+    if config.getoption('wish_from_installed') or config.getoption('wish_from_all'):
+        wish_distributions.update(utils.collect_installed_distributions())
+
+    wish_distributions.update(utils.collect_distributions(config.getoption('wish_from_specs')))
+
+    if config.getoption('wish_from_modules'):
+        wish_distributions['unknown distribution'] = config.getoption('wish_from_modules')
+
+    imported_module_names = utils.import_distributions(wish_distributions.items())
+
+    wish_includes = config.getoption('wish_includes') or imported_module_names
     wish_excludes = config.getoption('wish_excludes')
     wish_predicate = config.getoption('wish_predicate')
+
+    config._warn('%r' % locals())
 
     # NOTE: 'copy' is needed here because indexing may unexpectedly trigger a module load
     modules = sys.modules.copy()

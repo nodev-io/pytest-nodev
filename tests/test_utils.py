@@ -3,6 +3,8 @@
 # Copyright (c) 2015-2016 Alessandro Amici
 #
 
+import pytest
+
 from pytest_wish import utils
 
 
@@ -12,38 +14,28 @@ def test_import_coverage():
     reload(utils)
 
 
-def test_import_modules():
-    assert len(utils.import_modules(['pytest_wish'])) == 1
-    assert len(utils.import_modules(['pytest_wish'], module_blacklist=set())) == 1
-    assert len(utils.import_modules(['pytest_wish'], module_blacklist={'pytest_wish'})) == 0
-    assert len(utils.import_modules(['non_existent_module'])) == 0
+def test_collect_stdlib_distributions():
+    stdlib_distributions = list(utils.collect_stdlib_distributions())
+    assert len(stdlib_distributions) == 1
+    _, module_names = stdlib_distributions[0]
+    assert len(module_names) > 10
+
+
+def test_collect_installed_distributions():
+    installed_distributions = list(utils.collect_installed_distributions())
+    assert len(installed_distributions) > 1
+    for spec, module_names in installed_distributions:
+        if spec.startswith('pytest-wish'):
+            break
+    assert module_names == ['pytest_wish']
 
 
 def test_collect_distributions():
-    assert len(list(utils.collect_distributions(['pytest-wish']))) == 1
+    distributions = list(utils.collect_distributions(['pytest-wish']))
+    assert len(distributions) == 1
+    _, module_names = distributions[0]
+    assert len(module_names) == 1
     assert len(list(utils.collect_distributions(['non_existent_distribution']))) == 0
-    assert len(list(utils.collect_distributions(['Python']))) == 1
-    assert len(list(utils.collect_distributions(['all']))) > 1
-
-
-def test_import_distributions():
-    # normal code path, pytest is a dependency
-    distributions_modules = utils.import_distributions(['pytest-wish'])
-    assert len(distributions_modules) == 1
-    requirement, distributions_modules = distributions_modules.popitem()
-    assert requirement.startswith('pytest-wish==')
-    assert set(distributions_modules) == {'pytest_wish'}
-
-    distributions_modules = utils.import_distributions(['python'])
-    assert len(distributions_modules) == 1
-    requirement, distributions_modules = distributions_modules.popitem()
-    assert requirement.startswith('Python==')
-    assert 'os.path' in distributions_modules
-
-
-def test_generate_module_objects():
-    expected_item = ('generate_module_objects', utils.generate_module_objects)
-    assert expected_item in list(utils.generate_module_objects(utils))
 
 
 def test_valid_name():
@@ -59,6 +51,29 @@ def test_valid_name():
 
     assert utils.valid_name('math:factorial', include_pattern='m', exclude_pattern='moo')
     assert not utils.valid_name('math:factorial', include_pattern='m', exclude_pattern='math')
+
+
+def test_import_module():
+    assert utils.import_module('pytest_wish')
+    with pytest.raises(ImportError):
+        utils.import_module('pytest_wish', module_blacklist_pattern='pytest_wish')
+    with pytest.raises(ImportError):
+        utils.import_module('non_existent_module')
+
+
+def test_import_distributions():
+    distributions = [('pytest-wish', ['pytest_wish'])]
+    module_names = list(utils.import_distributions(distributions))
+    assert module_names == ['pytest_wish']
+
+    distributions = [('pytest-wish', ['non_existent_module'])]
+    module_names = list(utils.import_distributions(distributions))
+    assert module_names == []
+
+
+def test_generate_module_objects():
+    expected_item = ('generate_module_objects', utils.generate_module_objects)
+    assert expected_item in list(utils.generate_module_objects(utils))
 
 
 def test_generate_objects_from_modules():
