@@ -42,7 +42,8 @@ MODULE_BLACKLIST = {
     # crash
     'icopen',
     'ntpath',
-    'test.support',
+    'tests?$',
+    'tests?\.',
 
     # hangs
     'itertools',
