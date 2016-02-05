@@ -93,20 +93,19 @@ def wish_ensuresession(config):
 
     # store options
     config._wish_index_items = list(zip(*sorted(object_index.items()))) or [(), ()]
-    config._wish_timeout = config.getoption('wish_timeout')
-    config._wish_fail = config.getoption('wish_fail')
 
 
 def pytest_generate_tests(metafunc):
     if 'wish' not in metafunc.fixturenames:
         return
 
-    wish_ensuresession(metafunc.config)
+    config = metafunc.config
+    wish_ensuresession(config)
 
-    ids, params = metafunc.config._wish_index_items
+    ids, params = config._wish_index_items
     metafunc.parametrize('wish', params, ids=ids, scope='module')
-    metafunc.function = pytest.mark.timeout(metafunc.config._wish_timeout)(metafunc.function)
-    if not metafunc.config._wish_fail:
+    metafunc.function = pytest.mark.timeout(config.getoption('wish_timeout'))(metafunc.function)
+    if not config.getoption('wish_fail'):
         metafunc.function = pytest.mark.xfail(metafunc.function)
 
 
@@ -114,7 +113,8 @@ def pytest_terminal_summary(terminalreporter):
     if not hasattr(terminalreporter.config, '_wish_index_items'):
         return
 
-    hits = terminalreporter.getreports('xpassed') + terminalreporter.getreports('passed')
+    hit_state = 'passed' if terminalreporter.config.getoption('wish_fail') else 'xpassed'
+    hits = terminalreporter.getreports(hit_state)
     terminalreporter.write_sep('=', '%d hit' % len(hits), bold=True)
     terminalreporter.write_line('')
     for report in hits:
