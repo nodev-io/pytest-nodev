@@ -33,7 +33,7 @@ def test_help_message(testdir):
     # fnmatch_lines does an assertion internally
     result.stdout.fnmatch_lines([
         'wish:',
-        '*--wish-modules*',
+        '*--wish-from-stdlib*',
         '*--wish-fail*',
     ])
 
@@ -67,7 +67,7 @@ def test_wish_modules(testdir):
 
     # run pytest with the following cmd args
     result = testdir.runpytest(
-        '--wish-modules=math',
+        '--wish-from-modules=math',
         '-v',
     )
 
@@ -84,7 +84,7 @@ def test_wish_modules(testdir):
 def test_wish_modules_all(testdir):
     testdir.makepyfile(TEST_FACTORIAL_PY)
     result = testdir.runpytest(
-        '--wish-specs=all',
+        '--wish-from-specs=all',
         '--wish-includes=pip.exceptions',
         '-v',
     )
@@ -97,7 +97,7 @@ def test_wish_modules_all(testdir):
 def test_wish_fail(testdir):
     testdir.makepyfile(TEST_FACTORIAL_PY)
     result = testdir.runpytest(
-        '--wish-modules=math',
+        '--wish-from-modules=math',
         '--wish-fail',
         '-v',
     )
@@ -111,7 +111,7 @@ def test_wish_fail(testdir):
 def test_wish_modules_object_blacklist(testdir):
     testdir.makepyfile(TEST_FACTORIAL_PY)
     result = testdir.runpytest(
-        '--wish-modules=posix',
+        '--wish-from-modules=posix',
         '--wish-includes=.*exit',
         '-v',
     )
@@ -124,7 +124,7 @@ def test_wish_objects(testdir):
     testdir.makepyfile(TEST_FACTORIAL_PY)
     result = testdir.runpytest(
         '--wish-include=NOTHING',
-        '--wish-objects={}'.format(objects_txt),
+        '--wish-objects-from={}'.format(objects_txt),
         '-v',
     )
     result.stdout.fnmatch_lines([

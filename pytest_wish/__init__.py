@@ -36,18 +36,32 @@ from pytest_wish import utils
 
 def pytest_addoption(parser):
     group = parser.getgroup('wish')
-    group.addoption('--wish-specs', default=[], nargs='+',
-                    help="Space separated list of distribution specs, 'Python' or 'all'.")
-    group.addoption('--wish-modules', default=[], nargs='+',
-                    help="Space separated list of module names.")
-    group.addoption('--wish-includes', nargs='+',
-                    help="Space separated list of regexs matching full object names to include.")
-    group.addoption('--wish-excludes', default=utils.EXCLUDE_PATTERNS, nargs='+',
-                    help="Space separated list of regexs matching full object names to exclude.")
-    group.addoption('--wish-predicate',
-                    help="getmembers predicate full name, defaults to None.")
-    group.addoption('--wish-objects', type=argparse.FileType('r'),
-                    help="File of full object names to include.")
+    group.addoption(
+        '--wish-from-stdlib', action='store_true',
+        help="Collects objects form the Python standard library.")
+    group.addoption(
+        '--wish-from-all', action='store_true',
+        help="Collects objects form all installed packages.")
+    group.addoption(
+        '--wish-from-specs', default=[], nargs='+',
+        help="Collects objects from installed packages. Space separated list of `pip` specs.")
+    group.addoption(
+        '--wish-from-modules', default=[], nargs='+',
+        help="Collects objects from installed modules. Space separated list of module names.")
+    group.addoption(
+        '--wish-includes', nargs='+',
+        help="Space separated list of regexs matching full object names to include, "
+             "defaults to include all objects collected via `--wish-from-*`.")
+    group.addoption(
+        '--wish-excludes', default=utils.EXCLUDE_PATTERNS, nargs='+',
+        help="Space separated list of regexs matching full object names to exclude, "
+             "defaults to exclude private modules and objects: %r" % utils.EXCLUDE_PATTERNS)
+    group.addoption(
+        '--wish-objects-from', type=argparse.FileType('r'),
+        help="File name of full object names to include.")
+    group.addoption(
+        '--wish-predicate',
+        help="Full name of the predicate passed to `inspect.getmembers`, defaults to None.")
     group.addoption('--wish-timeout', default=1, help="Test timeout.")
     group.addoption('--wish-fail', action='store_true', help="Show wish failures.")
 
@@ -71,13 +85,13 @@ def wish_ensuresession(config):
     utils.logger.addHandler(PytestHandler(config=config))
 
     # build the object index
-    wish_specs = config.getoption('wish_specs')
-    utils.import_distributions(wish_specs)
+    wish_from_specs = config.getoption('wish_from_specs')
+    utils.import_distributions(wish_from_specs)
 
-    wish_modules = config.getoption('wish_modules')
-    utils.import_modules(wish_modules)
+    wish_from_modules = config.getoption('wish_from_modules')
+    utils.import_modules(wish_from_modules)
 
-    wish_includes = config.getoption('wish_includes') or wish_modules
+    wish_includes = config.getoption('wish_includes') or wish_from_modules
     wish_excludes = config.getoption('wish_excludes')
     wish_predicate = config.getoption('wish_predicate')
 
@@ -87,9 +101,9 @@ def wish_ensuresession(config):
         utils.generate_objects_from_modules(modules, wish_includes, wish_excludes, wish_predicate)
     )
 
-    wish_objects = config.getoption('wish_objects')
-    if wish_objects is not None:
-        object_index.update(utils.generate_objects_from_names(wish_objects))
+    wish_objects_from = config.getoption('wish_objects_from')
+    if wish_objects_from is not None:
+        object_index.update(utils.generate_objects_from_names(wish_objects_from))
 
     # store options
     config._wish_index_items = list(zip(*sorted(object_index.items()))) or [(), ()]
