@@ -32,7 +32,7 @@ import sys
 
 import pytest
 
-from pytest_wish import utils
+from pytest_wish import collect
 
 
 def pytest_addoption(parser):
@@ -57,9 +57,9 @@ def pytest_addoption(parser):
         help="Space separated list of regexs matching full object names to include, "
              "defaults to include all objects collected via `--wish-from-*`.")
     group.addoption(
-        '--wish-excludes', default=utils.EXCLUDE_PATTERNS, nargs='+',
+        '--wish-excludes', default=collect.EXCLUDE_PATTERNS, nargs='+',
         help="Space separated list of regexs matching full object names to exclude, "
-             "defaults to exclude private modules and objects: %r" % utils.EXCLUDE_PATTERNS)
+             "defaults to exclude private modules and objects: %r" % collect.EXCLUDE_PATTERNS)
     group.addoption(
         '--wish-objects-from', type=argparse.FileType('r'),
         help="File name of full object names to include.")
@@ -84,25 +84,25 @@ def wish_ensuresession(config):
         return
 
     # take over utils logging
-    utils.logger.propagate = False
-    utils.logger.setLevel(logging.DEBUG)  # FIXME: loglevel should be configurable
-    utils.logger.addHandler(PytestHandler(config=config))
+    collect.logger.propagate = False
+    collect.logger.setLevel(logging.DEBUG)  # FIXME: loglevel should be configurable
+    collect.logger.addHandler(PytestHandler(config=config))
 
     # build the object index
-    wish_distributions = collections.OrderedDict()
+    distributions = collections.OrderedDict()
 
     if config.getoption('wish_from_stdlib') or config.getoption('wish_from_all'):
-        wish_distributions.update(utils.collect_stdlib_distributions())
+        distributions.update(collect.collect_stdlib_distributions())
 
     if config.getoption('wish_from_installed') or config.getoption('wish_from_all'):
-        wish_distributions.update(utils.collect_installed_distributions())
+        distributions.update(collect.collect_installed_distributions())
 
-    wish_distributions.update(utils.collect_distributions(config.getoption('wish_from_specs')))
+    distributions.update(collect.collect_distributions(config.getoption('wish_from_specs')))
 
     if config.getoption('wish_from_modules'):
-        wish_distributions['unknown distribution'] = config.getoption('wish_from_modules')
+        distributions['unknown distribution'] = config.getoption('wish_from_modules')
 
-    imported_module_names = utils.import_distributions(wish_distributions.items())
+    imported_module_names = collect.import_distributions(distributions.items())
 
     wish_includes = config.getoption('wish_includes') or imported_module_names
     wish_excludes = config.getoption('wish_excludes')
@@ -113,12 +113,13 @@ def wish_ensuresession(config):
     # NOTE: 'copy' is needed here because indexing may unexpectedly trigger a module load
     modules = sys.modules.copy()
     object_index = dict(
-        utils.generate_objects_from_modules(modules, wish_includes, wish_excludes, wish_predicate)
+        collect.generate_objects_from_modules(modules, wish_includes, wish_excludes,
+                                              wish_predicate)
     )
 
     wish_objects_from = config.getoption('wish_objects_from')
     if wish_objects_from is not None:
-        object_index.update(utils.generate_objects_from_names(wish_objects_from))
+        object_index.update(collect.generate_objects_from_names(wish_objects_from))
 
     # store options
     config._wish_index_items = list(zip(*sorted(object_index.items()))) or [(), ()]
