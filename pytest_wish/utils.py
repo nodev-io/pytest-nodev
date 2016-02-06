@@ -27,10 +27,11 @@ from __future__ import absolute_import, unicode_literals
 import re
 
 
-NOMATCH_REGEX = r'.\A'  # unmatchable condition even in re.MULTILINE mode
+# regex impossible to match (even in re.MULTILINE mode)
+NOMATCH_PATTERN = r'.\A'
 
 
-def valid_name(name, include_pattern='', exclude_pattern=NOMATCH_REGEX):
+def valid_name(name, include_pattern='', exclude_pattern=NOMATCH_PATTERN):
     """Return true iff the include_pattern matches the name and the the exclude_pattern doesn't.
 
     :param str name: The name to validate.

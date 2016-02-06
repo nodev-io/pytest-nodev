@@ -40,8 +40,8 @@ from . import utils
 # regex matching full object names of 'internal use' modules and objects
 INTERNAL_USE_PATTERN = '_|.*[.:]_'
 # regex representation of blacklists
-MODULE_BLACKLIST_PATTERN = '|'.join(blacklists.MODULE_BLACKLIST) or utils.NOMATCH_REGEX
-OBJECT_BLACKLIST_PATTERN = '|'.join(blacklists.OBJECT_BLACKLIST) or utils.NOMATCH_REGEX
+MODULE_BLACKLIST_PATTERN = '|'.join(blacklists.MODULE_BLACKLIST) or utils.NOMATCH_PATTERN
+OBJECT_BLACKLIST_PATTERN = '|'.join(blacklists.OBJECT_BLACKLIST) or utils.NOMATCH_PATTERN
 
 logger = logging.getLogger('wish')
 
@@ -121,8 +121,8 @@ def generate_objects_from_modules(
         object_blacklist_pattern=OBJECT_BLACKLIST_PATTERN,
 ):
     exclude_patterns += [object_blacklist_pattern]
-    include_pattern = '|'.join(include_patterns) or utils.NOMATCH_REGEX
-    exclude_pattern = '|'.join(exclude_patterns) or utils.NOMATCH_REGEX
+    include_pattern = '|'.join(include_patterns) or utils.NOMATCH_PATTERN
+    exclude_pattern = '|'.join(exclude_patterns) or utils.NOMATCH_PATTERN
     predicate = object_from_name(predicate_name) if predicate_name else None
     for module_name, module in modules.items():
         if not utils.valid_name(module_name, exclude_pattern=module_blacklist_pattern):
