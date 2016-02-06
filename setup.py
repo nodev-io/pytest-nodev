@@ -49,7 +49,7 @@ setup(
     ],
     entry_points={
         'pytest11': [
-            'wish = pytest_wish',
+            'wish = pytest_wish.plugin',
         ],
     },
 )
