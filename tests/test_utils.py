@@ -80,7 +80,8 @@ def test_generate_objects_from_modules():
     import re
     modules = {'pytest_wish.utils': utils, 're': re}
     include_patterns = ['pytest_wish.utils:generate_objects_from_modules']
-    objs = utils.generate_objects_from_modules(modules, include_patterns, module_blacklist={'re'})
+    objs = utils.generate_objects_from_modules(
+        modules, include_patterns, module_blacklist_pattern='re')
     assert len(list(objs)) == 1
 
 
