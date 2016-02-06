@@ -35,72 +35,14 @@ import pkg_resources
 
 import stdlib_list
 
+from pytest_wish import blacklists
 
-# blacklists
-MODULE_BLACKLIST = {
-    # crash
-    'icopen',
-    'ntpath',
-    'tests?$',
-    'tests?\.',
-    'xml.etree.ElementTree',
 
-    # hangs
-    'itertools',
-
-    # dangerous
-    'subprocess',
-
-    # annoying
-    'tkinter',
-}
-MODULE_BLACKLIST_PATTERN = '|'.join(MODULE_BLACKLIST)
-OBJECT_BLACKLIST = {
-    # pytest internals
-    '_pytest.runner:exit',
-    '_pytest.runner:skip',
-    '_pytest.skipping:xfail',
-
-    # unconditional exit
-    'faulthandler:_sigsegv',
-    'posix:abort',
-    'posix:_exit',
-    'posix:fork',
-    'posix:forkpty',
-    'pty:fork',
-    '_signal:default_int_handler',
-    'atexit.register',
-
-    # low level crashes
-    'numpy.fft.fftpack_lite:cffti',
-    'numpy.fft.fftpack_lite:rffti',
-    'appnope._nope:beginActivityWithOptions',
-    'ctypes:string_at',
-    'ctypes:wstring_at',
-    'gc:_dump_rpy_heap',
-    'gc:dump_rpy_heap',
-    'matplotlib._image:Image',
-    'getpass:getpass',
-    'getpass:unix_getpass',
-    'ensurepip:_run_pip',
-
-    # uninterruptable hang
-    'compiler.ast:AugAssign',
-    'itertools:cycle',
-    'itertools:permutations',
-    'itertools:repeat',
-    'pydoc:apropos',
-
-    # dangerous
-    'os.mkdir',
-    'os.command',
-    'pip.utils:rmtree',
-    'platform:popen',
-    'posix:popen',
-}
-OBJECT_BLACKLIST_PATTERN = '|'.join(OBJECT_BLACKLIST)
 EXCLUDE_PATTERNS = ['_|.*[.:]_']  # skip private modules and objects underscore-names
 NOMATCH_REGEX = r'.\A'  # unmatchable condition even in re.MULTILINE mode
+# regex representation of blacklists
+MODULE_BLACKLIST_PATTERN = '|'.join(blacklists.MODULE_BLACKLIST) or NOMATCH_REGEX
+OBJECT_BLACKLIST_PATTERN = '|'.join(blacklists.OBJECT_BLACKLIST) or NOMATCH_REGEX
 
 logger = logging.getLogger('wish')
 
