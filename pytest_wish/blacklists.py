@@ -21,6 +21,10 @@
 # SOFTWARE.
 #
 
+# python 2 support via python-future
+from __future__ import unicode_literals
+
+
 MODULE_BLACKLIST = {
     # crash
     'icopen',

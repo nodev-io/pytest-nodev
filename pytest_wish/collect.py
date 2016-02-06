@@ -31,11 +31,10 @@ import logging
 import sys
 
 import pkg_resources
-
 import stdlib_list
 
-from pytest_wish import blacklists
-from pytest_wish import utils
+from . import blacklists
+from . import utils
 
 
 EXCLUDE_PATTERNS = ['_|.*[.:]_']  # skip private modules and objects underscore-names

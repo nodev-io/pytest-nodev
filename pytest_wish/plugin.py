@@ -32,7 +32,7 @@ import sys
 
 import pytest
 
-from pytest_wish import collect
+from . import collect
 
 
 def pytest_addoption(parser):
