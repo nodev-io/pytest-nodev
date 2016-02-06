@@ -9,16 +9,15 @@ pytest-wish
     :target: https://coveralls.io/github/alexamici/pytest-wish
     :alt: Coverage Status on Coveralls
 
-Collects objects from all installed modules and provides them one by one as a fixture.
+Check if a function in the Python standard library or in an installed module passes a test.
 **Development status: alpha!**
 
 
 Motivation
 ----------
 
-    "Have a look at this piece of code that I’m writing --
-    I’m sure it has been written before. Possibly dozens of times already.
-    I wouldn't be surprised to find it verbatim somewhere on GitHub." - `@kr1`_
+    "Have a look at this piece of code that I’m writing&mdash;I’m sure it has been written before.
+    [...] I wouldn't be surprised to find it verbatim somewhere on GitHub." - `@kr1`_
 
 Every piece of functionality in a software project
 requires code that lies somewhere in the wide reusability spectrum that goes
