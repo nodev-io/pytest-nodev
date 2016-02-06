@@ -16,7 +16,7 @@ Check if a function in the Python standard library or in an installed module pas
 Motivation
 ----------
 
-    "Have a look at this piece of code that I’m writing&mdash;I’m sure it has been written before.
+    "Have a look at this piece of code that I’m writing -- I’m sure it has been written before.
     [...] I wouldn't be surprised to find it verbatim somewhere on GitHub." - `@kr1`_
 
 Every piece of functionality in a software project
