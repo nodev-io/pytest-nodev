@@ -28,7 +28,6 @@ from builtins import str
 import importlib
 import inspect
 import logging
-import re
 import sys
 
 import pkg_resources
@@ -36,13 +35,13 @@ import pkg_resources
 import stdlib_list
 
 from pytest_wish import blacklists
+from pytest_wish import utils
 
 
 EXCLUDE_PATTERNS = ['_|.*[.:]_']  # skip private modules and objects underscore-names
-NOMATCH_REGEX = r'.\A'  # unmatchable condition even in re.MULTILINE mode
 # regex representation of blacklists
-MODULE_BLACKLIST_PATTERN = '|'.join(blacklists.MODULE_BLACKLIST) or NOMATCH_REGEX
-OBJECT_BLACKLIST_PATTERN = '|'.join(blacklists.OBJECT_BLACKLIST) or NOMATCH_REGEX
+MODULE_BLACKLIST_PATTERN = '|'.join(blacklists.MODULE_BLACKLIST) or utils.NOMATCH_REGEX
+OBJECT_BLACKLIST_PATTERN = '|'.join(blacklists.OBJECT_BLACKLIST) or utils.NOMATCH_REGEX
 
 logger = logging.getLogger('wish')
 
@@ -84,20 +83,8 @@ def collect_distributions(specs):
         yield distribution_spec, distribution_module_names
 
 
-def valid_name(name, include_pattern='', exclude_pattern=NOMATCH_REGEX):
-    """Return true iff the include_pattern matches the name and the the exclude_pattern doesn't.
-
-    :param str name: The name to validate.
-    :param str include_pattern: Include everything by default (r'').
-    :param str exclude_pattern: Exclude nothing by default (r'.\A').
-    :rtype: bool
-    """
-    # NOTE: re auto-magically caches the compiled objects
-    return bool(re.match(include_pattern, name) and not re.match(exclude_pattern, name))
-
-
 def import_module(module_name, module_blacklist_pattern=MODULE_BLACKLIST_PATTERN):
-    if not valid_name(module_name, exclude_pattern=module_blacklist_pattern):
+    if not utils.valid_name(module_name, exclude_pattern=module_blacklist_pattern):
         raise ImportError("Not importing blacklisted module: %r.", module_name)
     else:
         return importlib.import_module(module_name)
@@ -134,16 +121,16 @@ def generate_objects_from_modules(
         object_blacklist_pattern=OBJECT_BLACKLIST_PATTERN,
 ):
     exclude_patterns += [object_blacklist_pattern]
-    include_pattern = '|'.join(include_patterns) or NOMATCH_REGEX
-    exclude_pattern = '|'.join(exclude_patterns) or NOMATCH_REGEX
+    include_pattern = '|'.join(include_patterns) or utils.NOMATCH_REGEX
+    exclude_pattern = '|'.join(exclude_patterns) or utils.NOMATCH_REGEX
     predicate = object_from_name(predicate_name) if predicate_name else None
     for module_name, module in modules.items():
-        if not valid_name(module_name, exclude_pattern=module_blacklist_pattern):
+        if not utils.valid_name(module_name, exclude_pattern=module_blacklist_pattern):
             logger.debug("Not collecting objects from blacklisted module: %r.", module_name)
             continue
         for object_name, object_ in generate_module_objects(module, predicate):
             full_object_name = '{}:{}'.format(module_name, object_name)
-            if valid_name(full_object_name, include_pattern, exclude_pattern):
+            if utils.valid_name(full_object_name, include_pattern, exclude_pattern):
                 yield full_object_name, object_
 
 
