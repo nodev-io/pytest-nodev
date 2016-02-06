@@ -111,13 +111,13 @@ The plugin adds the following options to pytest::
                             collected via `--wish-from-*`.
       --wish-excludes=WISH_EXCLUDES=[WISH_EXCLUDES=...]
                             Space separated list of regexs matching full object
-                            names to exclude, defaults to exclude private modules
-                            and objects: ['_|.*[.:]_']
+                            names to exclude, defaults to match 'internal use'
+                            names '_|.*[.:]_'
       --wish-objects-from=WISH_OBJECTS_FROM
                             File name of full object names to include.
       --wish-predicate=WISH_PREDICATE
                             Full name of the predicate passed to
-                            `inspect.getmembers`, defaults to None.
+                            `inspect.getmembers`, defaults to `callable`.
       --wish-timeout=WISH_TIMEOUT
                             Test timeout.
       --wish-fail           Show wish failures.

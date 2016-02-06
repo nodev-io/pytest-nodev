@@ -57,15 +57,15 @@ def pytest_addoption(parser):
         help="Space separated list of regexs matching full object names to include, "
              "defaults to include all objects collected via `--wish-from-*`.")
     group.addoption(
-        '--wish-excludes', default=collect.EXCLUDE_PATTERNS, nargs='+',
+        '--wish-excludes', default=[collect.INTERNAL_USE_PATTERN], nargs='+',
         help="Space separated list of regexs matching full object names to exclude, "
-             "defaults to exclude private modules and objects: %r" % collect.EXCLUDE_PATTERNS)
+             "defaults to match 'internal use' names %r" % collect.INTERNAL_USE_PATTERN)
     group.addoption(
         '--wish-objects-from', type=argparse.FileType('r'),
         help="File name of full object names to include.")
     group.addoption(
         '--wish-predicate', default='builtins:callable',
-        help="Full name of the predicate passed to `inspect.getmembers`, defaults to 'callable'.")
+        help="Full name of the predicate passed to `inspect.getmembers`, defaults to `callable`.")
     group.addoption('--wish-timeout', default=1, help="Test timeout.")
     group.addoption('--wish-fail', action='store_true', help="Show wish failures.")
 
