@@ -188,13 +188,12 @@ def generate_objects_from_modules(
         modules, include_patterns,
         exclude_patterns=EXCLUDE_PATTERNS,
         predicate_name=None,
-        module_blacklist=MODULE_BLACKLIST,
-        object_blacklist=OBJECT_BLACKLIST,
+        module_blacklist_pattern=MODULE_BLACKLIST_PATTERN,
+        object_blacklist_pattern=OBJECT_BLACKLIST_PATTERN,
 ):
-    exclude_patterns += tuple(name.strip() + '$' for name in object_blacklist)
+    exclude_patterns += [object_blacklist_pattern]
     include_pattern = '|'.join(include_patterns) or NOMATCH_REGEX
     exclude_pattern = '|'.join(exclude_patterns) or NOMATCH_REGEX
-    module_blacklist_pattern = '|'.join(module_blacklist) or NOMATCH_REGEX
     predicate = object_from_name(predicate_name) if predicate_name else None
     for module_name, module in modules.items():
         if not valid_name(module_name, exclude_pattern=module_blacklist_pattern):
