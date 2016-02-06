@@ -3,7 +3,7 @@
 # Copyright (c) 2015-2016 Alessandro Amici
 #
 
-import pytest_wish
+from pytest_wish import plugin
 
 
 TEST_FACTORIAL_PY = '''
@@ -23,7 +23,7 @@ math:factorial
 def test_import_coverage():
     """Fix the coverage by pytest-cov, that may trigger after pytest_wish is already imported."""
     from imp import reload  # Python 2 and 3 reload
-    reload(pytest_wish)
+    reload(plugin)
 
 
 def test_help_message(testdir):
