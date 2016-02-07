@@ -23,6 +23,7 @@
 
 # python 2 support via python-future
 from __future__ import absolute_import, unicode_literals
+from builtins import super
 
 import logging
 import re
