@@ -22,15 +22,15 @@ Intended audience: python developers who've got better things to do than reinven
 .. warning:: Development status: **almost beta** (but not quite there yet).
 
 
-Source code search by test or Test-Driven no-Development
---------------------------------------------------------
+Source code *search by tests* or *Test-Driven no-Development*
+-------------------------------------------------------------
 
     "Have a look at this piece of code that I’m writing--I’m sure it has been written before.
     I wouldn't be surprised to find it verbatim somewhere on GitHub." - `@kr1`_
 
 `pytest-wish`_ is a `pytest`_ plugin that enables a software development strategy called
-*Test-Driven no-Development* or *nodev* for short, that is an extension of the
-*Test-Driven Development* paradigm.
+*search by tests* or *Test-Driven no-Development*,
+that is an extension of the *Test-Driven Development* paradigm.
 
 The idea is that once the developer has written the tests that define the behaviour of a new
 function to a degree sufficient to validate the implementation they are going to write
@@ -38,7 +38,7 @@ it is good enough to validate
 any implementation. Running the tests on a large set of functions may result in a *hit*, that is
 a function that already implements their feature.
 
-Due to its nature the *nodev* approach is better suited for discovering smaller functions
+Due to its nature the approach is better suited for discovering smaller functions
 with a generic signature.
 
 

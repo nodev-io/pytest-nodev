@@ -1,8 +1,8 @@
 
 .. warning:: Documentation status: **alpha**.
 
-Source code search by tests
----------------------------
+Source code *search by tests*
+-----------------------------
 
 
 Motivation
@@ -41,7 +41,7 @@ Search by tests
 Tests validation
 ................
 
-Another use for `pytest-wish` is, with a bit of additional work, to validate a project test suite.
+Another use for "pytest-wish" is, with a bit of additional work, to validate a project test suite.
 If a test passes when passed an unexpected object there are two possibilities,
 either the test is not strict enough and allows for false positives and needs update,
 or the *hit* is actually a function you could use instead of your implementation.

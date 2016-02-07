@@ -49,14 +49,14 @@ def pytest_addoption(parser):
         help="Collects objects form the Python standard library and all installed packages.")
     group.addoption(
         '--wish-from-specs', default=[], nargs='+',
-        help="Collects objects from installed packages. Space separated list of `pip` specs.")
+        help="Collects objects from installed packages. Space separated list of ``pip`` specs.")
     group.addoption(
         '--wish-from-modules', default=[], nargs='+',
         help="Collects objects from installed modules. Space separated list of module names.")
     group.addoption(
         '--wish-includes', nargs='+',
         help="Space separated list of regexs matching full object names to include, "
-             "defaults to include all objects collected via `--wish-from-*`.")
+             "defaults to include all objects collected via ``--wish-from-*``.")
     group.addoption(
         '--wish-excludes', default=[collect.INTERNAL_USE_PATTERN], nargs='+',
         help="Space separated list of regexs matching full object names to exclude, "
@@ -66,7 +66,8 @@ def pytest_addoption(parser):
         help="File name of full object names to include.")
     group.addoption(
         '--wish-predicate', default='builtins:callable',
-        help="Full name of the predicate passed to `inspect.getmembers`, defaults to `callable`.")
+        help="Full name of the predicate passed to ``inspect.getmembers``, "
+             "defaults to ``builtins.callable``.")
     group.addoption('--wish-timeout', default=1, help="Test timeout.")
     group.addoption('--wish-fail', action='store_true', help="Show wish failures.")
 
