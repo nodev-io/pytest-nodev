@@ -28,7 +28,7 @@ Source code search by test or Test-Driven no-Development
     "Have a look at this piece of code that I’m writing--I’m sure it has been written before.
     I wouldn't be surprised to find it verbatim somewhere on GitHub." - `@kr1`_
 
-`pytest-wish` is a pytest plugin that enables a software development strategy called
+`pytest-wish`_ is a `pytest`_ plugin that enables a software development strategy called
 *Test-Driven no-Development* or *nodev* for short, that is an extension of the
 *Test-Driven Development* paradigm.
 
@@ -57,7 +57,7 @@ Requirements
 Installation
 ------------
 
-You can install "pytest-wish" via `pip`_ from `PyPI`_::
+You can install `the latest version of "pytest-wish"`_ via the ``pip`` package manager::
 
     $ pip install pytest-wish
 
@@ -134,7 +134,6 @@ Help
 We have the following support channels:
 
 * `questions on stackoverflow`_
-* `web-chat`_
 
 
 Issues
@@ -146,8 +145,9 @@ If you encounter any problems, please `file an issue`_ along with a detailed des
 Contributing
 ------------
 
-Contributions are very welcome, issues and pull requests are handled on GitHub.
-Please see the CONTRIBUTING.rst document for development guidelines.
+Contributions are very welcome.
+Issues and pull requests on the `pytest-wish GitHub repository`_.
+Please see the `CONTRIBUTING`_ document for development guidelines.
 
 Authors:
 
@@ -170,14 +170,14 @@ License
 Distributed under the terms of the `MIT`_ license, "pytest-wish" is free and open source software
 
 
-.. _`package documentation`: http://pytest-wish.readthedocs.org
-.. _`MIT`: http://opensource.org/licenses/MIT
-.. _`file an issue`: https://github.com/alexamici/pytest-wish/issues
-.. _`pytest`: https://github.com/pytest-dev/pytest
-.. _`tox`: https://tox.readthedocs.org/en/latest/
-.. _`pip`: https://pypi.python.org/pypi/pip/
-.. _`PyPI`: https://pypi.python.org/pypi
+.. _`package documentation`: https://pytest-wish.readthedocs.org
 .. _`@kr1`: https://github.com/kr1
+.. _`pytest-wish`: https://pytest-wish.readthedocs.org
+.. _`the latest version of "pytest-wish"`: https://pypi.python.org/pypi/pytest-wish
+.. _`pytest`: https://pytest.org
 .. _`questions on stackoverflow`: https://stackoverflow.com/search?q=pytest-wish
-.. _`web-chat`: https://gitter.im/alexamici/pytest-wish
+.. _`file an issue`: https://github.com/alexamici/pytest-wish/issues
+.. _`pytest-wish GitHub repository`: https://github.com/alexamici/pytest-wish
+.. _`CONTRIBUTING`: https://github.com/alexamici/pytest-wish/blob/master/CONTRIBUTING.rst
 .. _`@alexamici`: https://github.com/alexamici
+.. _`MIT`: http://opensource.org/licenses/MIT
