@@ -75,10 +75,10 @@ def wish_ensuresession(config):
     if hasattr(config, '_wish_index_items'):
         return
 
-    # take over utils logging
+    # take over collect logging
     collect.logger.propagate = False
     collect.logger.setLevel(logging.DEBUG)  # FIXME: loglevel should be configurable
-    collect.logger.addHandler(utils.PytestHandler(config=config))
+    collect.logger.addHandler(utils.EmitHandler(config._warn))
 
     # build the object index
     distributions = collections.OrderedDict()

@@ -44,10 +44,11 @@ def valid_name(name, include_pattern='', exclude_pattern=NOMATCH_PATTERN):
     return bool(re.match(include_pattern, name) and not re.match(exclude_pattern, name))
 
 
-class PytestHandler(logging.Handler):
-    def __init__(self, level=logging.NOTSET, config=None):
-        super(PytestHandler, self).__init__(level=level)
-        self._emit = config._warn
+class EmitHandler(logging.Handler):
+    """Send logging output via a custom callable."""
+    def __init__(self, emit_callable, **kwargs):
+        super(EmitHandler, self).__init__(**kwargs)
+        self.emit_callable = emit_callable
 
     def emit(self, record):
-        self._emit(self.format(record))
+        self.emit_callable(self.format(record))
