@@ -40,7 +40,9 @@ MODULE_BLACKLIST = {
     'subprocess',
 
     # annoying
+    'pydoc',
     'tkinter',
+    'turtle'
 }
 
 OBJECT_BLACKLIST = {
