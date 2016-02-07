@@ -9,7 +9,7 @@ pytest-wish
     :target: https://coveralls.io/github/alexamici/pytest-wish
     :alt: Coverage Status on Coveralls
 
-Check if a function in the Python standard library or in an installed module passes a test.
+Finds the functions in all installed modules that pass a feature-specification test suite.
 **Development status: alpha!**
 
 
