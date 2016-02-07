@@ -5,17 +5,20 @@ pytest-wish
     :target: https://travis-ci.org/alexamici/pytest-wish
     :alt: Build Status on Travis CI
 
+.. image:: https://ci.appveyor.com/api/projects/status/github/alexamici/pytest-wish?branch=master
+    :target: https://ci.appveyor.com/project/alexamici/pytest-wish/branch/master
+    :alt: Build Status on AppVeyor
+
 .. image:: https://coveralls.io/repos/alexamici/pytest-wish/badge.svg?branch=master&service=github
     :target: https://coveralls.io/github/alexamici/pytest-wish
     :alt: Coverage Status on Coveralls
 
-.. image:: https://ci.appveyor.com/api/projects/status/github/alexamici/pytest-wish?branch=master
-    :target: https://ci.appveyor.com/project/alexamici/pytest-wish/branch/master
-    :alt: See Build Status on AppVeyor
-
 
 Search all installed modules for functions that pass a given feature-specification test suite.
 See the `package documentation`_ for the gory details.
+
+Intended audience: python developers who have better things to do in life than
+re-implementing wheels.
 
 .. warning:: Development status: **almost beta** (but not quite yet).
 
@@ -135,14 +138,21 @@ We have the following support channels:
 * `web-chat`_
 
 
+Issues
+------
+
+If you encounter any problems, please `file an issue`_ along with a detailed description.
+
+
 Contributing
 ------------
-Contributions are very welcome. Tests can be run with `tox`_, please ensure
-the coverage at least stays the same before you submit a pull request.
 
-Contributors:
+Contributions are very welcome, issues and pull requests are handled on GitHub.
+Please see the CONTRIBUTING.rst document for development guidelines.
 
-- Alessandro Amici - `@alexamici`_
+Authors:
+
+* Alessandro Amici - `@alexamici`_
 
 Sponsors:
 
@@ -156,11 +166,6 @@ License
 
 Distributed under the terms of the `MIT`_ license, "pytest-wish" is free and open source software
 
-
-Issues
-------
-
-If you encounter any problems, please `file an issue`_ along with a detailed description.
 
 .. _`package documentation`: http://pytest-wish.readthedocs.org
 .. _`MIT`: http://opensource.org/licenses/MIT
