@@ -42,24 +42,46 @@ Due to its nature the approach is better suited for discovering smaller function
 with a generic signature.
 
 
-Features
---------
-
-* Runs a set of tests over all objects contained in a list of modules.
-
-
-Requirements
-------------
-
-* TODO
-
-
 Installation
 ------------
 
 You can install `the latest version of "pytest-wish"`_ via the ``pip`` package manager::
 
     $ pip install pytest-wish
+
+
+First test run
+--------------
+
+Let's create a our first test file with the simple specification of the factorial function
+using the ``wish`` fixture::
+
+    # content of test_factoral.py
+    def test_factorial(wish):
+        factorial = wish
+        assert factorial(0) == 1
+        assert factorial(1) == 1
+        assert factorial(21) == 51090942171709440000
+
+That's it. You can now execute the test function on all functions in the Python standard library::
+
+    $ py.test --wish-from-stdlib
+    ======================= test session starts ==========================
+    platform darwin -- Python 3.5.0, pytest-2.8.7, py-1.4.31, pluggy-0.3.1
+    rootdir: /tmp, inifile: setup.cfg
+    plugins: wish-0.9.0, timeout-1.0.0
+    collected 3259 items
+
+    test_factorial.py xxxxx[...]xxxxxXxxxxx[...]xxxxx
+
+    ============================== 1 hit =================================
+
+    test_factorial.py::test_factorial[math:factorial] HIT
+
+    ==== 3258 xfailed, 1 xpassed, 27 pytest-warnings in 45.07 seconds ====
+
+We just found that the ``factorial`` function in the ``math`` module is the only *HIT*,
+that is it passes our specification test, and is the function we were looking for.
 
 
 Usage
@@ -95,15 +117,6 @@ The plugin adds the following options to pytest command line::
       --wish-timeout=WISH_TIMEOUT
                             Test timeout.
       --wish-fail           Show wish failures.
-
-Example usage, find a function that returns the factorial of a number::
-
-    $ py.test examples/test_factorial.py --wish-from-modules math
-    [...]
-    examples/test_factorial.py::test_factorial[math:factorial] HIT
-    [...]
-
-the function ``factorial`` in the module ``math`` passes the ``test_factorial`` test.
 
 Another example, find a function that decomposes a URL into individual rfc3986 components::
 
