@@ -65,7 +65,7 @@ You can install `the latest version of "pytest-wish"`_ via the ``pip`` package m
 Usage
 -----
 
-The plugin adds the following options to pytest::
+The plugin adds the following options to pytest command line::
 
     wish:
       --wish-from-stdlib    Collects objects form the Python standard library.

@@ -1,8 +1,8 @@
 
 .. warning:: Documentation status: **alpha**.
 
-Source code *search by tests*
------------------------------
+Introduction to source code *search by tests*
+---------------------------------------------
 
 
 Motivation
