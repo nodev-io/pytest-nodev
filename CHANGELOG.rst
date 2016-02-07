@@ -1,5 +1,5 @@
 
-0.8.7 (unreleased)
+0.8.7 (2016-02-07)
 ------------------
 
 - Big documentation refactor.
