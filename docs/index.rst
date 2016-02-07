@@ -2,7 +2,7 @@
 .. warning:: Documentation status: **alpha**.
 
 pytest-wish documentation
-=========================
+*************************
 
 Version: |release|
 
@@ -23,17 +23,16 @@ documentation of the project you can head over to the project
 .. _`GitHub Repository`: https://github.com/alexamici/pytest-wish
 
 
-Contents:
-
 .. toctree::
     :maxdepth: 2
+    :caption: Table of Contents
 
     search-by-tests
     getting-started
+    contributing
 
 Indices and tables
 ==================
 
 * :ref:`genindex`
 * :ref:`search`
-

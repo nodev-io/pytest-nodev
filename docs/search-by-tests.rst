@@ -2,11 +2,11 @@
 .. warning:: Documentation status: **alpha**.
 
 Introduction to source code *search by tests*
----------------------------------------------
+=============================================
 
 
 Motivation
-..........
+----------
 
     "Have a look at this piece of code that I’m writing--I’m sure it has been written before.
     I wouldn't be surprised to find it verbatim somewhere on GitHub." - `@kr1`_
@@ -35,11 +35,11 @@ Or is it?
 
 
 *Search by feature* and *search by tests*
-.........................................
+-----------------------------------------
 
 
 Tests validation
-................
+----------------
 
 Another use for "pytest-wish" is, with a bit of additional work, to validate a project test suite.
 If a test passes when passed an unexpected object there are two possibilities,

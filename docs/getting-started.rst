@@ -2,19 +2,18 @@
 .. warning:: Documentation status: **alpha**.
 
 Getting Started
----------------
+===============
 
 
 Installation
-............
-
+------------
 You can install `the latest version of "pytest-wish"`_ via the ``pip`` package manager::
 
     $ pip install pytest-wish
 
 
 First test run
-..............
+--------------
 
 Let's create a our first test file with the simple specification of the factorial function
 using the ``wish`` fixture::
@@ -48,7 +47,7 @@ that is it passes our specification test, and is the function we were looking fo
 
 
 Usage
-.....
+-----
 
 The plugin adds the following options to pytest command line::
 
