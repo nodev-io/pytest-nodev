@@ -17,10 +17,9 @@ pytest-wish
 Search all installed modules for functions that pass a given feature-specification test suite.
 See the `package documentation`_ for the gory details.
 
-Intended audience: python developers who have better things to do in life than
-re-implementing wheels.
+Intended audience: python developers who've got better things to do than reinvent wheels.
 
-.. warning:: Development status: **almost beta** (but not quite yet).
+.. warning:: Development status: **almost beta** (but not quite there yet).
 
 
 Source code search by test or Test-Driven no-Development
@@ -153,6 +152,10 @@ Please see the CONTRIBUTING.rst document for development guidelines.
 Authors:
 
 * Alessandro Amici - `@alexamici`_
+
+Contributors:
+
+* `@kr1`_
 
 Sponsors:
 
