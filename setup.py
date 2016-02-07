@@ -21,7 +21,7 @@ setup(
     license='MIT',
     url='https://github.com/alexamici/pytest-wish',
     download_url='https://github.com/alexamici/pytest-wish/archive/%s.tar.gz' % version,
-    description='Test-Driven no-Development plugin for pytest',
+    description='Source code `search by feature` plugin for pytest',
     long_description=read('README.rst'),
     packages=find_packages(),
     install_requires=[
@@ -47,7 +47,7 @@ setup(
         'Operating System :: OS Independent',
         'License :: OSI Approved :: MIT License',
     ],
-    keywords='test testing pytest py.test plugin nodev',
+    keywords=['source code search', 'search by feature', 'nodev', 'pytest' 'plugin'],
     entry_points={
         'pytest11': [
             'wish = pytest_wish.plugin',
