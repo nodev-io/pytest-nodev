@@ -9,6 +9,11 @@ pytest-wish
     :target: https://coveralls.io/github/alexamici/pytest-wish
     :alt: Coverage Status on Coveralls
 
+.. image:: https://ci.appveyor.com/api/projects/status/github/alexamici/pytest-wish?branch=master
+    :target: https://ci.appveyor.com/project/alexamici/pytest-wish/branch/master
+    :alt: See Build Status on AppVeyor
+
+
 Search all installed modules for functions that pass a given feature-specification test suite.
 See the `package documentation`_ for the gory details.
 
