@@ -33,6 +33,7 @@ import sys
 import pytest
 
 from . import collect
+from . import utils
 
 
 def pytest_addoption(parser):
@@ -70,15 +71,6 @@ def pytest_addoption(parser):
     group.addoption('--wish-fail', action='store_true', help="Show wish failures.")
 
 
-class PytestHandler(logging.Handler):
-    def __init__(self, level=logging.NOTSET, config=None):
-        super(PytestHandler, self).__init__(level=level)
-        self._emit = config._warn
-
-    def emit(self, record):
-        self._emit(self.format(record))
-
-
 def wish_ensuresession(config):
     if hasattr(config, '_wish_index_items'):
         return
@@ -86,7 +78,7 @@ def wish_ensuresession(config):
     # take over utils logging
     collect.logger.propagate = False
     collect.logger.setLevel(logging.DEBUG)  # FIXME: loglevel should be configurable
-    collect.logger.addHandler(PytestHandler(config=config))
+    collect.logger.addHandler(utils.PytestHandler(config=config))
 
     # build the object index
     distributions = collections.OrderedDict()

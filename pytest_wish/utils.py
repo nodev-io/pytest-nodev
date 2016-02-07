@@ -24,6 +24,7 @@
 # python 2 support via python-future
 from __future__ import absolute_import, unicode_literals
 
+import logging
 import re
 
 
@@ -41,3 +42,12 @@ def valid_name(name, include_pattern='', exclude_pattern=NOMATCH_PATTERN):
     """
     # NOTE: re auto-magically caches the compiled objects
     return bool(re.match(include_pattern, name) and not re.match(exclude_pattern, name))
+
+
+class PytestHandler(logging.Handler):
+    def __init__(self, level=logging.NOTSET, config=None):
+        super(PytestHandler, self).__init__(level=level)
+        self._emit = config._warn
+
+    def emit(self, record):
+        self._emit(self.format(record))
