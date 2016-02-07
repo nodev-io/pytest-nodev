@@ -4,6 +4,8 @@ pytest-wish documentation
 
 Version: |release|
 
+.. warning:: Documentation status: **alpha**.
+
 Contents:
 
 .. toctree::

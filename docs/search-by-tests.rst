@@ -1,6 +1,9 @@
 
+.. warning:: Documentation status: **alpha**.
+
 Source code search by tests
 ---------------------------
+
 
 Motivation
 ..........
@@ -30,8 +33,10 @@ for the simple reason that **there is no way to search code by functionality**..
 
 Or is it?
 
+
 Search by tests
 ...............
+
 
 Tests validation
 ................
