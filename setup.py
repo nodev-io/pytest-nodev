@@ -47,7 +47,7 @@ setup(
         'Operating System :: OS Independent',
         'License :: OSI Approved :: MIT License',
     ],
-    keywords=['source code search', 'search by feature', 'nodev', 'pytest' 'plugin'],
+    keywords=['source code search', 'search by feature', 'nodev', 'pytest', 'plugin'],
     entry_points={
         'pytest11': [
             'wish = pytest_wish.plugin',
