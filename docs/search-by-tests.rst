@@ -34,8 +34,8 @@ for the simple reason that **there is no way to search code by functionality**..
 Or is it?
 
 
-Search by tests
-...............
+*Search by feature* and *search by tests*
+.........................................
 
 
 Tests validation

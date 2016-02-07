@@ -21,7 +21,7 @@ setup(
     license='MIT',
     url='https://github.com/alexamici/pytest-wish',
     download_url='https://github.com/alexamici/pytest-wish/archive/%s.tar.gz' % version,
-    description='Source code `search by tests` plugin for pytest',
+    description="""Source code "search by tests" plugin for pytest""",
     long_description=read('README.rst'),
     packages=find_packages(),
     install_requires=[
