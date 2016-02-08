@@ -1,4 +1,5 @@
 
 .. warning:: Documentation status: **alpha**.
 
-.. include:: ../CONTRIBUTING.rst
+Design
+======

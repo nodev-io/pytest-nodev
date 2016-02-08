@@ -27,9 +27,11 @@ documentation of the project you can head over to the project
     :maxdepth: 2
     :caption: Table of Contents
 
-    search-by-tests
-    getting-started
+    quickstart
+    concepts
+    examples
     contributing
+    design
 
 Indices and tables
 ==================

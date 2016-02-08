@@ -1,4 +1,4 @@
 
 .. warning:: Documentation status: **alpha**.
 
-.. include:: ../CONTRIBUTING.rst
+.. include:: ../README.rst
