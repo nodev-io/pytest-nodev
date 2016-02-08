@@ -25,8 +25,10 @@
 from __future__ import absolute_import, unicode_literals
 from builtins import super
 
+import itertools
 import logging
 import re
+from functools import wraps
 
 
 # regex impossible to match (even in re.MULTILINE mode)
@@ -53,3 +55,23 @@ class EmitHandler(logging.Handler):
 
     def emit(self, record):
         self.emit_callable(self.format(record))
+
+
+class PermutatedInvocationResults(object):
+    """wraps results of permutated invocations"""
+    def __init__(self, results):
+        self.results = results
+
+    def __str__(self):
+        return "<PermutatedInvocationResults instance>: {}".format(self.__repr__())
+
+    def __repr__(self):
+        return repr(self.results)
+
+
+def permutate_decorator(func):
+    @wraps(func)
+    def wrapped(*args):
+        permutated_args = itertools.permutations(args)
+        return PermutatedInvocationResults([func(*permutation) for permutation in permutated_args])
+    return wrapped
