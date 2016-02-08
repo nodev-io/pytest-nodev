@@ -3,7 +3,7 @@
 # Copyright (c) 2015-2016 Alessandro Amici
 #
 
-import pytest_wish
+from pytest_wish import plugin
 
 
 TEST_FACTORIAL_PY = '''
@@ -23,7 +23,7 @@ math:factorial
 def test_import_coverage():
     """Fix the coverage by pytest-cov, that may trigger after pytest_wish is already imported."""
     from imp import reload  # Python 2 and 3 reload
-    reload(pytest_wish)
+    reload(plugin)
 
 
 def test_help_message(testdir):
@@ -33,7 +33,7 @@ def test_help_message(testdir):
     # fnmatch_lines does an assertion internally
     result.stdout.fnmatch_lines([
         'wish:',
-        '*--wish-modules*',
+        '*--wish-from-stdlib*',
         '*--wish-fail*',
     ])
 
@@ -47,6 +47,7 @@ def test_skip_wish(testdir):
     # run pytest with the following cmd args
     result = testdir.runpytest(
         '-v',
+        '--wish-includes=NOTHING',
     )
 
     # fnmatch_lines does an assertion internally
@@ -66,7 +67,7 @@ def test_wish_modules(testdir):
 
     # run pytest with the following cmd args
     result = testdir.runpytest(
-        '--wish-modules=math',
+        '--wish-from-modules=math',
         '-v',
     )
 
@@ -83,7 +84,7 @@ def test_wish_modules(testdir):
 def test_wish_modules_all(testdir):
     testdir.makepyfile(TEST_FACTORIAL_PY)
     result = testdir.runpytest(
-        '--wish-specs=all',
+        '--wish-from-specs=pip',
         '--wish-includes=pip.exceptions',
         '-v',
     )
@@ -96,7 +97,7 @@ def test_wish_modules_all(testdir):
 def test_wish_fail(testdir):
     testdir.makepyfile(TEST_FACTORIAL_PY)
     result = testdir.runpytest(
-        '--wish-modules=math',
+        '--wish-from-modules=math',
         '--wish-fail',
         '-v',
     )
@@ -110,7 +111,7 @@ def test_wish_fail(testdir):
 def test_wish_modules_object_blacklist(testdir):
     testdir.makepyfile(TEST_FACTORIAL_PY)
     result = testdir.runpytest(
-        '--wish-modules=posix',
+        '--wish-from-modules=posix',
         '--wish-includes=.*exit',
         '-v',
     )
@@ -122,7 +123,8 @@ def test_wish_objects(testdir):
     objects_txt.write(TEST_FACTORIAL_TXT)
     testdir.makepyfile(TEST_FACTORIAL_PY)
     result = testdir.runpytest(
-        '--wish-objects={}'.format(objects_txt),
+        '--wish-include=NOTHING',
+        '--wish-objects-from={}'.format(objects_txt),
         '-v',
     )
     result.stdout.fnmatch_lines([

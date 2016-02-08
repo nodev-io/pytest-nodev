@@ -11,15 +11,17 @@ def read(fname):
     return codecs.open(file_path, encoding='utf-8').read()
 
 
+version = '0.8.9.dev0'
+
 setup(
     name='pytest-wish',
-    version='0.8.0',
+    version=version,
     author='Alessandro Amici',
     author_email='alexamici@gmail.com',
     license='MIT',
     url='https://github.com/alexamici/pytest-wish',
-    download_url='https://github.com/alexamici/pytest-wish/archive/0.8.0.tar.gz',
-    description='Test-Driven no-Development plugin for pytest',
+    download_url='https://github.com/alexamici/pytest-wish/archive/%s.tar.gz' % version,
+    description="""Source code "search by tests" plugin for pytest""",
     long_description=read('README.rst'),
     packages=find_packages(),
     install_requires=[
@@ -45,9 +47,10 @@ setup(
         'Operating System :: OS Independent',
         'License :: OSI Approved :: MIT License',
     ],
+    keywords='source code search by tests nodev pytest plugin',
     entry_points={
         'pytest11': [
-            'wish = pytest_wish',
+            'wish = pytest_wish.plugin',
         ],
     },
 )
