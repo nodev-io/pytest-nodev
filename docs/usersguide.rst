@@ -1,8 +1,8 @@
 
 .. warning:: Documentation status: **alpha**.
 
-Usage and examples
-==================
+User's Guide
+============
 
 
 Usage

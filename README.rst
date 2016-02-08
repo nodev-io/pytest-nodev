@@ -1,8 +1,9 @@
-pytest-wish
-===========
 
-.. image:: https://travis-ci.org/alexamici/pytest-wish.svg?branch=master
-    :target: https://travis-ci.org/alexamici/pytest-wish
+Quickstart
+==========
+
+.. image:: https://api.travis-ci.org/alexamici/pytest-wish.svg?branch=master
+    :target: https://travis-ci.org/alexamici/pytest-wish/branches
     :alt: Build Status on Travis CI
 
 .. image:: https://ci.appveyor.com/api/projects/status/github/alexamici/pytest-wish?branch=master
@@ -10,7 +11,7 @@ pytest-wish
     :alt: Build Status on AppVeyor
 
 .. image:: https://coveralls.io/repos/alexamici/pytest-wish/badge.svg?branch=master&service=github
-    :target: https://coveralls.io/github/alexamici/pytest-wish
+    :target: https://coveralls.io/github/alexamici/pytest-wish?branch=master
     :alt: Coverage Status on Coveralls
 
 
