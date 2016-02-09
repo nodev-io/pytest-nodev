@@ -34,8 +34,24 @@ for the simple reason that **there is no way to search code by functionality**..
 Or is it?
 
 
-*Search by feature* and *search by tests*
------------------------------------------
+Source code *search by tests* or *Test-Driven no-Development*
+-------------------------------------------------------------
+
+    "Have a look at this piece of code that I’m writing--I’m sure it has been written before.
+    I wouldn't be surprised to find it verbatim somewhere on GitHub." - `@kr1`_
+
+`pytest-wish`_ is a `pytest`_ plugin that enables a software development strategy called
+*search by tests* or *Test-Driven no-Development*,
+that is an extension of the *Test-Driven Development* paradigm.
+
+The idea is that once the developer has written the tests that define the behaviour of a new
+function to a degree sufficient to validate the implementation they are going to write
+it is good enough to validate
+any implementation. Running the tests on a large set of functions may result in a *hit*, that is
+a function that already implements their feature.
+
+Due to its nature the approach is better suited for discovering smaller functions
+with a generic signature.
 
 
 Tests validation
