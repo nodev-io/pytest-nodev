@@ -1,7 +1,4 @@
 
-Quickstart
-==========
-
 .. image:: https://api.travis-ci.org/alexamici/pytest-wish.svg?branch=master
     :target: https://travis-ci.org/alexamici/pytest-wish/branches
     :alt: Build Status on Travis CI
@@ -14,25 +11,26 @@ Quickstart
     :target: https://coveralls.io/github/alexamici/pytest-wish?branch=master
     :alt: Coverage Status on Coveralls
 
-
 With pytest-wish you can search all installed modules for functions
 that pass a given feature-specification test suite.
 
 Development status: **almost beta** (but not quite there yet).
 
-Installation
-------------
-.. code-block:: sh
+First timer FAQ
+---------------
 
-    $ pip install pytest-wish
+**Who are pytest-wish users?**
 
+Python developers who've got better things to do than reinvent wheels.
 
-Your first "search by tests"
-----------------------------
+**What is pytest-wish exactly?**
 
-Let's search for a function that robustly parse boolean values from a string.
-First, create the ``test_parse_bool.py`` file with a test function asserting
-the expected behaviour of the fictional ``parse_bool(text)`` function::
+A `pytest <https://pytest.org>`_ plugin
+that helps you find functions that pass a given test by searching
+in the Python standard library or in all the modules you have installed.
+
+**That sounds interesting, I need a function that robustly parses a boolean value from a string.**
+**Here's my specification test**::
 
     def test_parse_bool():
         assert not parse_bool('false')
@@ -42,7 +40,15 @@ the expected behaviour of the fictional ``parse_bool(text)`` function::
         assert parse_bool('TRUE')
         assert parse_bool('1')
 
-Then, instrument the test with the ``wish`` fixture::
+**How do I search for it?**
+
+First, install the `latest version of pytest-wish <https://pypi.python.org/pypi/pytest-wish>`_
+from the Python Package Index::
+
+    $ pip install pytest-wish
+
+Then copy your specification test to the ``test_parse_bool.py`` file and
+instrument it with the ``wish`` fixture::
 
     def test_parse_bool(wish):
         parse_bool = wish
@@ -53,11 +59,9 @@ Then, instrument the test with the ``wish`` fixture::
         assert parse_bool('TRUE')
         assert parse_bool('1')
 
-Finally, let pytest run the test once for every function in the Python standard library:
+Finally, instruct pytest-wish to run your test on all functions in the Python standard library::
 
-.. code-block:: sh
-
-    $ py.test --wish-from-stdlib
+    $ py.test test_parse_bool.py --wish-from-stdlib
     ======================= test session starts ==========================
     platform darwin -- Python 3.5.0, pytest-2.8.7, py-1.4.31, pluggy-0.3.1
     rootdir: /tmp, inifile: setup.cfg
@@ -72,38 +76,54 @@ Finally, let pytest run the test once for every function in the Python standard 
 
     ==== 3258 xfailed, 1 xpassed, 27 pytest-warnings in 45.07 seconds ====
 
-The ``strtobool`` function of the ``distutils.util`` module is a HIT, that is it passes the test
-and it is in fact a neat implementation of ``parse_bool(text)`` with even more features. Win!
+And you've got a HIT!
+In less than a minute pytest-wish collected more than 3000 functions from the standard library
+and run your specification test on all of them.
+Only `strtobool`_ in the distutils.util module passes the test, so
+now you should thoroughly review it and if you like it you may use it in your code.
+
+.. _`strtobool`: https://docs.python.org/3/distutils/apiref.html#distutils.util.strtobool
+
+**Wow! Does it work so well all the times?**
+
+To be honest strtobool is a little known gem of the Python standard library that
+is just perfect for illustrating all the benefits of the "search by tests" strategy.
+Here are some of them in rough order of importance:
+
+- a function imported is a one less function coded---and tested, documented, debugged,
+  ported, maintained...
+- it's battle tested code---lot's of old bugs have already been squashed
+- it's other people code---there's an upstream to report new bugs to
+- it gives you additional useful functionality---for free on top of that
+- it's in the Python standard library---no additional dependency required
 
 
-Help
-----
+Project resources
+-----------------
 
-We have the following support channels:
-
-* `questions on stackoverflow`_
-
-
-Issues
-------
-
-If you encounter any problems, please `file an issue`_ along with a detailed description.
-
+============= ======================
+Documentation https://pytest-wish.readthedocs.org
+User support  https://stackoverflow.com/search?q=pytest-wish
+Development   https://github.com/alexamici/pytest-wish
+Discussion    To be decided, see issue `#15 <https://github.com/alexamici/pytest-wish/issues/15>`_
+============= ======================
 
 Contributing
 ------------
 
-Contributions are very welcome.
-Issues and pull requests on the `pytest-wish GitHub repository`_.
-Please see the `CONTRIBUTING`_ document for development guidelines.
+Contributions are very welcome. Please see the `CONTRIBUTING`_ document for
+the best way to help.
+If you encounter any problems, please file an issue along with a detailed description.
+
+.. _`CONTRIBUTING`: https://github.com/alexamici/pytest-wish/blob/master/CONTRIBUTING.rst
 
 Authors:
 
-* Alessandro Amici - `@alexamici`_
+* Alessandro Amici - `@alexamici <https://github.com/alexamici>`_
 
 Contributors:
 
-* `@kr1`_
+* `@kr1 <https://github.com/kr1>`_
 
 Sponsors:
 
@@ -115,17 +135,6 @@ Sponsors:
 License
 -------
 
-Distributed under the terms of the `MIT`_ license, "pytest-wish" is free and open source software
+pytest-wish is free and open source software distributed under the terms of the `MIT`_ license.
 
-
-.. _`package documentation`: https://pytest-wish.readthedocs.org
-.. _`@kr1`: https://github.com/kr1
-.. _`pytest-wish`: https://pytest-wish.readthedocs.org
-.. _`the latest version of "pytest-wish"`: https://pypi.python.org/pypi/pytest-wish
-.. _`pytest`: https://pytest.org
-.. _`questions on stackoverflow`: https://stackoverflow.com/search?q=pytest-wish
-.. _`file an issue`: https://github.com/alexamici/pytest-wish/issues
-.. _`pytest-wish GitHub repository`: https://github.com/alexamici/pytest-wish
-.. _`CONTRIBUTING`: https://github.com/alexamici/pytest-wish/blob/master/CONTRIBUTING.rst
-.. _`@alexamici`: https://github.com/alexamici
 .. _`MIT`: http://opensource.org/licenses/MIT
