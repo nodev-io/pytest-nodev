@@ -67,7 +67,7 @@ Keywords:
 
  * Source code *search by feature*, *search by functionality*, *search by specification* or *nodev*
  * *Feature-specification test* and test suite or *Requirement-specification test*
- * *search by tests* or *Test-Driven no-Developemnt*
+ * *search by tests* or *Test-Driven no-Development*
 
 
 .. _`@kr1`: https://github.com/kr1
