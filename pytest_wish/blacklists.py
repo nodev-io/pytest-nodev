@@ -87,5 +87,6 @@ OBJECT_BLACKLIST = {
     'pip.utils:rmtree',
     'platform:popen',
     'posix:popen',
+    'shutil.rmtree',
     'turtle.write_docstringdict',
 }
