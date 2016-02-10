@@ -1,4 +1,18 @@
 
+.. This document is intended as the main entry point for new users,
+   it serves as the landing page on GitHub and on PyPI and
+   it is also used as Quickstart section of the docs.
+   Its goal are:
+   * inspire and raise interest in new users
+   * present one complete end-to-end use case
+   * warn users of risks and suggest mitigation strategies
+   * direct interested users to the appropriate project resource
+   * state license and open source nature
+   * credit contributors
+   Anything else should go into docs.
+
+.. Badges are only useful when landing on GitHub, and not much even there.
+
 .. image:: https://api.travis-ci.org/alexamici/pytest-wish.svg?branch=master
     :target: https://travis-ci.org/alexamici/pytest-wish/branches
     :alt: Build Status on Travis CI
@@ -11,13 +25,13 @@
     :target: https://coveralls.io/github/alexamici/pytest-wish?branch=master
     :alt: Coverage Status on Coveralls
 
-With pytest-wish you can search all installed modules for functions
-that pass a given feature-specification test suite.
+pytest-wish lets you search installed modules for functions that pass
+the given feature-specification tests.
 
-Development status: **almost beta** (but not quite there yet).
+Development status: **beta**.
 
-First timer FAQ
----------------
+New user FAQ
+------------
 
 **Who are pytest-wish users?**
 
@@ -29,18 +43,19 @@ A `pytest <https://pytest.org>`_ plugin
 that helps you find functions that pass a given test by searching
 in the Python standard library or in all the modules you have installed.
 
-**That sounds interesting, I need a function that robustly parses a boolean value from a string.**
+**Sounds interesting, I need a function that robustly parses a boolean value from a string.**
 **Here's my specification test**::
 
     def test_parse_bool():
         assert not parse_bool('false')
         assert not parse_bool('FALSE')
         assert not parse_bool('0')
+
         assert parse_bool('true')
         assert parse_bool('TRUE')
         assert parse_bool('1')
 
-**How do I search for it?**
+**Show me how pytest-wish works?**
 
 First, install the `latest version of pytest-wish <https://pypi.python.org/pypi/pytest-wish>`_
 from the Python Package Index::
@@ -52,9 +67,11 @@ instrument it with the ``wish`` fixture::
 
     def test_parse_bool(wish):
         parse_bool = wish
+
         assert not parse_bool('false')
         assert not parse_bool('FALSE')
         assert not parse_bool('0')
+
         assert parse_bool('true')
         assert parse_bool('TRUE')
         assert parse_bool('1')
@@ -76,9 +93,8 @@ Finally, instruct pytest-wish to run your test on all functions in the Python st
 
     ==== 3258 xfailed, 1 xpassed, 27 pytest-warnings in 45.07 seconds ====
 
-And you've got a HIT!
 In less than a minute pytest-wish collected more than 3000 functions from the standard library
-and run your specification test on all of them.
+and run your specification test on all of them and you've got a HIT.
 Only `strtobool`_ in the distutils.util module passes the test, so
 now you should thoroughly review it and if you like it you may use it in your code.
 
@@ -97,16 +113,30 @@ Here are some of them in rough order of importance:
 - it gives you additional useful functionality---for free on top of that
 - it's in the Python standard library---no additional dependency required
 
+BIG FAT WARNING!
+----------------
+
+A lot of functions called with the wrong set of arguments may have unexpected consequences ranging
+from slightly annoying, think ``os.mkdir('false')``,
+to **utterly catastrophic**, think ``shutil.rmtree('/', True)``.
+Serious use of pytest-wish require operating-system level isolation,
+e.g. a dedicated user or even better a dedicated container.
+Discussion on how to best
+`help users sandboxing pytest is ongoing <https://github.com/alexamici/pytest-wish/issues/16>`_.
+
 
 Project resources
 -----------------
 
 ============= ======================
-Documentation https://pytest-wish.readthedocs.org
-User support  https://stackoverflow.com/search?q=pytest-wish
+Documentation http://pytest-wish.readthedocs.org
+Support       https://stackoverflow.com/search?q=pytest-wish
 Development   https://github.com/alexamici/pytest-wish
 Discussion    To be decided, see issue `#15 <https://github.com/alexamici/pytest-wish/issues/15>`_
+Download      https://pypi.python.org/pypi/pytest-wish
+nodev blog    http://blog.nodev.io
 ============= ======================
+
 
 Contributing
 ------------
