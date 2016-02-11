@@ -25,23 +25,23 @@
     :target: https://coveralls.io/github/alexamici/pytest-wish?branch=master
     :alt: Coverage Status on Coveralls
 
-pytest-wish lets you search installed modules for functions that pass
-the given feature-specification tests.
-
 Development status: **beta**.
 
 New user FAQ
 ------------
 
+**What is pytest-wish?**
+
+pytest-wish is a simple search engine for live code,
+it finds classes and functions that match an expected behaviour.
+
+To be more precise pytest-wish is a `pytest <https://pytest.org>`_ plugin
+that helps you execute specification tests on all objects
+in the Python standard library or in all the modules you have installed.
+
 **Who are pytest-wish users?**
 
 Python developers who've got better things to do than reinvent wheels.
-
-**What is pytest-wish exactly?**
-
-A `pytest <https://pytest.org>`_ plugin
-that helps you find functions that pass a given test by searching
-in the Python standard library or in all the modules you have installed.
 
 **Sounds interesting, I need a function that robustly parses a boolean value from a string.**
 **Here's my specification test**::
@@ -55,7 +55,7 @@ in the Python standard library or in all the modules you have installed.
         assert parse_bool('TRUE')
         assert parse_bool('1')
 
-**Show me how pytest-wish works?**
+**Show me how searching with pytest-wish work.**
 
 First, install the `latest version of pytest-wish <https://pypi.python.org/pypi/pytest-wish>`_
 from the Python Package Index::
@@ -95,8 +95,9 @@ Finally, instruct pytest-wish to run your test on all functions in the Python st
 
 In less than a minute pytest-wish collected more than 3000 functions from the standard library
 and run your specification test on all of them and you've got a HIT.
-Only `strtobool`_ in the distutils.util module passes the test, so
-now you should thoroughly review it and if you like it you may use it in your code.
+The `strtobool`_ function in the distutils.util module passes the test, so
+now you should thoroughly review it and if you like it you may use it in your code,
+no need to write your own implementation.
 
 .. _`strtobool`: https://docs.python.org/3/distutils/apiref.html#distutils.util.strtobool
 
@@ -121,8 +122,9 @@ from slightly annoying, think ``os.mkdir('false')``,
 to **utterly catastrophic**, think ``shutil.rmtree('/', True)``.
 Serious use of pytest-wish require operating-system level isolation,
 e.g. a dedicated user or even better a dedicated container.
-Discussion on how to best
-`help users sandboxing pytest is ongoing <https://github.com/alexamici/pytest-wish/issues/16>`_.
+
+Discussion on how to best help users sandboxing pytest-wish is ongoing,
+see issue `#16 <https://github.com/alexamici/pytest-wish/issues/16>`_.
 
 
 Project resources
