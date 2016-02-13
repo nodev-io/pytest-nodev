@@ -32,6 +32,7 @@ MODULE_BLACKLIST = {
     'tests?$',
     'tests?\.',
     'xml.etree.ElementTree',
+    'pycallgraph'
 
     # hangs
     'itertools',
