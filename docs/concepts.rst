@@ -9,7 +9,7 @@ Motivation
 ----------
 
     "Have a look at this piece of code that I’m writing--I’m sure it has been written before.
-    I wouldn't be surprised to find it verbatim somewhere on GitHub." - `@kr1`_
+    I wouldn't be surprised to find it verbatim somewhere on GitHub." - `@kr1 <https://github.com/kr1>`_
 
 Every piece of functionality in a software project
 requires code that lies somewhere in the wide reusability spectrum that goes
@@ -34,13 +34,10 @@ for the simple reason that **there is no way to search code by functionality**..
 Or is it?
 
 
-Source code *search by tests* or *Test-Driven no-Development*
--------------------------------------------------------------
+Source code *search by tests*
+-----------------------------
 
-    "Have a look at this piece of code that I’m writing--I’m sure it has been written before.
-    I wouldn't be surprised to find it verbatim somewhere on GitHub." - `@kr1`_
-
-`pytest-wish`_ is a `pytest`_ plugin that enables a software development strategy called
+pytest-wish is a pytest plugin that enables a software development strategy called
 *search by tests* or *Test-Driven no-Development*,
 that is an extension of the *Test-Driven Development* paradigm.
 
@@ -69,5 +66,3 @@ Keywords:
  * *Feature-specification test* and test suite or *Requirement-specification test*
  * *search by tests* or *Test-Driven no-Development*
 
-
-.. _`@kr1`: https://github.com/kr1

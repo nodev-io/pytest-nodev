@@ -6,9 +6,20 @@ User's Guide
 
 Intended audience: python developers who've got better things to do than reinvent wheels.
 
+Installation
+------------
 
-Usage
------
+
+Basic usage
+-----------
+
+
+Advanced usage
+--------------
+
+
+Command line reference
+----------------------
 
 The plugin adds the following options to pytest command line::
 
@@ -40,6 +51,10 @@ The plugin adds the following options to pytest command line::
       --wish-timeout=WISH_TIMEOUT
                             Test timeout.
       --wish-fail           Show wish failures.
+
+
+Examples
+--------
 
 Another example, find a function that decomposes a URL into individual rfc3986 components::
 

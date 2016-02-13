@@ -1,6 +1,4 @@
 
-.. warning:: Documentation status: **alpha**.
-
 Quickstart
 ==========
 

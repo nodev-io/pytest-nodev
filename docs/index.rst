@@ -7,18 +7,12 @@ pytest-wish documentation
 
 Version: |release|
 
-Here you can find everything about *pytest-wish*
-from both an end user's as well as a project contributor's point of view.
-
-New to the source code *search by tests* technique?
-Then head over to the :doc:`concepts` section or
+New to pytest-wish? Jump to the :doc:`quickstart` for a 2 minutes hands-on overview.
+Curious about the *search by tests* technique? Head over to the :doc:`concepts` section or
 read about the general *nodev* philosophy on the *nodev* `website <http://nodev.io>`_.
-
-The documentation is work in progress and there will be areas that are
-lacking.  If you have any feedback or you want to help out with the
-documentation of the project you can head over to the project
-`GitHub Repository <https://github.com/alexamici/pytest-wish>`_.
-
+The :doc:`usersguide` documents pytest-wish usage in details and covers
+a few more examples. Finally if you have any feedback or you want to help out
+the :doc:`contributing` section gives project guidelines.
 
 .. toctree::
     :maxdepth: 2
@@ -29,6 +23,7 @@ documentation of the project you can head over to the project
     usersguide
     contributing
     design
+
 
 Indices and tables
 ==================
