@@ -23,10 +23,3 @@ the :doc:`contributing` section gives project guidelines.
     usersguide
     contributing
     design
-
-
-Indices and tables
-==================
-
-* :ref:`genindex`
-* :ref:`search`
