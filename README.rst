@@ -132,7 +132,7 @@ Code quality  .. image:: https://api.travis-ci.org/alexamici/pytest-wish.svg?bra
               .. image:: https://coveralls.io/repos/alexamici/pytest-wish/badge.svg?branch=master&service=github
                 :target: https://coveralls.io/github/alexamici/pytest-wish?branch=master
                 :alt: Coverage Status on Coveralls
-nodev blog    http://blog.nodev.io
+nodev website http://nodev.io
 ============= ======================
 
 
