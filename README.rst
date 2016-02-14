@@ -91,7 +91,7 @@ no need to write your own implementation.
 **Wow! Does it work so well all the times?**
 
 To be honest strtobool is a little known gem of the Python standard library that
-is just perfect for illustrating all the benefits of the "search by tests" strategy.
+is just perfect for illustrating all the benefits of the search-by-tests strategy.
 Here are some of them in rough order of importance:
 
 - a function imported is a one less function coded---and tested, documented, debugged,
