@@ -1,9 +1,8 @@
 
-.. warning:: Documentation status: **alpha**.
-
 Concepts
 ========
 
+.. warning:: This documentation is work in progress and there will be areas that are lacking.
 
 Motivation
 ----------

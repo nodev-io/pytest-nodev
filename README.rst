@@ -151,22 +151,21 @@ If you encounter any problems, please file an issue along with a detailed descri
 
 Authors:
 
-* Alessandro Amici - `@alexamici <https://github.com/alexamici>`_
+- Alessandro Amici - `@alexamici <https://github.com/alexamici>`_
 
 Contributors:
 
-* `@kr1 <https://github.com/kr1>`_
+- `@kr1 <https://github.com/kr1>`_
 
 Sponsors:
 
-.. image:: http://services.bopen.eu/bopen-logo.png
-    :target: http://bopen.eu/
-    :alt: B-Open Solutions srl
+- .. image:: http://services.bopen.eu/bopen-logo.png
+      :target: http://bopen.eu/
+      :alt: B-Open Solutions srl
 
 
 License
 -------
 
-pytest-wish is free and open source software distributed under the terms of the `MIT`_ license.
-
-.. _`MIT`: http://opensource.org/licenses/MIT
+pytest-wish is free and open source software
+distributed under the terms of the `MIT <http://opensource.org/licenses/MIT>`_ license.

@@ -1,21 +1,34 @@
 
-.. warning:: Documentation status: **alpha**.
-
 User's Guide
 ============
+
+.. warning:: This documentation is work in progress and there will be areas that are lacking.
 
 Intended audience: python developers who've got better things to do than reinvent wheels.
 
 Installation
 ------------
 
+Install the `latest version of pytest-wish <https://pypi.python.org/pypi/pytest-wish>`_
+from the Python Package Index::
+
+    $ pip install pytest-wish
+
 
 Basic usage
 -----------
 
+Write a specification test instrumented with the ``wish`` fixture in the ``test_example.py`` file.
+Run pytest with one of the ``--wish-from-*`` options to select the search space,
+e.g. to search in the Python standard library::
+
+    $ py.test --wish-from-stdlib test_example.py
+
 
 Advanced usage
 --------------
+
+    $ py.test --wish-from-installed --wish-includes .*util -- test_example.py
 
 
 Command line reference
@@ -77,7 +90,3 @@ More advanced functions are available on PyPI::
     [...]
 
 now the function ``parse_url`` in the module ``urllib3.util.url`` passes both tests.
-
-
-.. _`the latest version of "pytest-wish"`: https://pypi.python.org/pypi/pytest-wish
-.. _`pytest`: https://pytest.org

@@ -1,11 +1,11 @@
 
-.. warning:: Documentation status: **alpha**.
-
 =========================
 pytest-wish documentation
 =========================
 
 Version: |release|
+
+.. warning:: This documentation is work in progress and there will be areas that are lacking.
 
 New to pytest-wish? Jump to the :doc:`quickstart` for a 2 minutes hands-on overview.
 Curious about the *search by tests* technique? Head over to the :doc:`concepts` section or

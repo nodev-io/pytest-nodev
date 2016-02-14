@@ -1,8 +1,11 @@
 
-.. warning:: Documentation status: **alpha**.
-
 Design
 ======
+
+This chapter documents the high-level design of the product and
+it is intended for developers contributing to the project.
+
+.. note:: **Users of the product need not bother with the following. Unless they are curious :)**
 
 
 Mission and vision
@@ -35,6 +38,6 @@ Software architecture
 
 Logical components:
 
-- the collector
-- the query
-- pytest plugin interface
+- the query filter
+- the object collector
+- the pytest plugin interface
