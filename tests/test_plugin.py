@@ -6,6 +6,10 @@
 from pytest_wish import plugin
 
 
+TEST_PASS_PY = '''
+def test_pass():
+    assert True
+'''
 TEST_FACTORIAL_PY = '''
 def test_factorial(wish):
     factorial = wish
@@ -26,7 +30,11 @@ def test_import_coverage():
     reload(plugin)
 
 
-def test_help_message(testdir):
+#
+# pytest hooks
+#
+def test_pytest_addoption(testdir):
+    """The plugin is registered with pytest."""
     result = testdir.runpytest(
         '--help',
     )
@@ -38,50 +46,91 @@ def test_help_message(testdir):
     ])
 
 
-def test_skip_wish(testdir):
-    """Make sure that pytest accepts our fixture."""
-
-    # create a temporary pytest test module
-    testdir.makepyfile(TEST_FACTORIAL_PY)
-
-    # run pytest with the following cmd args
-    result = testdir.runpytest(
-        '-v',
-        '--wish-includes=NOTHING',
-    )
-
-    # fnmatch_lines does an assertion internally
-    result.stdout.fnmatch_lines([
-        '*test_factorial*wish*SKIPPED',
-    ])
-
-    # make sure that that we get a '0' exit code for the testsuite
-    assert result.ret == 0
-
-
-def test_wish_modules(testdir):
-    """Make sure that pytest accepts our fixture."""
-
-    # create a temporary pytest test module
-    testdir.makepyfile(TEST_FACTORIAL_PY)
-
-    # run pytest with the following cmd args
+def test_pytest_generate_tests(testdir):
+    testdir.makepyfile(TEST_FACTORIAL_PY + TEST_PASS_PY)
     result = testdir.runpytest(
         '--wish-from-modules=math',
         '-v',
     )
+    result.stdout.fnmatch_lines([
+        '*test_factorial*math:factorial*XPASS',
+        '*test_pass*PASSED',
+    ])
+    assert result.ret == 0
 
-    # fnmatch_lines does an assertion internally
+    result = testdir.runpytest(
+        '--wish-from-modules=math',
+        '--wish-fail',
+        '-v',
+    )
+    result.stdout.fnmatch_lines([
+        '*test_factorial*math:factorial*PASSED',
+        '*test_pass*PASSED',
+    ])
+    assert result.ret == 1
+
+
+def test_pytest_terminal_summary(testdir):
+    testdir.makepyfile(TEST_PASS_PY)
+    result = testdir.runpytest(
+        '-v'
+    )
+    result.stdout.fnmatch_lines([
+        '*test_pass*PASSED',
+    ])
+    assert result.ret == 0
+
+    testdir.makepyfile(TEST_FACTORIAL_PY)
+    result = testdir.runpytest(
+        '--wish-from-modules=math',
+    )
+    result.stdout.fnmatch_lines([
+        '*test_factorial*math:factorial*HIT',
+    ])
+    assert result.ret == 0
+
+
+#
+# command line options
+#
+def test_pytest_run_no_wish(testdir):
+    """We didn't break pytest."""
+    testdir.makepyfile(TEST_PASS_PY)
+    result = testdir.runpytest(
+        '-v',
+    )
+    result.stdout.fnmatch_lines([
+        '*test_pass*PASSED',
+    ])
+    assert result.ret == 0
+
+
+def test_pytest_run_no_wish_option(testdir):
+    """Skip tests with the *wish* fixture if no ``--wish-*`` option is given."""
+    testdir.makepyfile(TEST_FACTORIAL_PY)
+    result = testdir.runpytest(
+        '-v',
+    )
+    result.stdout.fnmatch_lines([
+        '*test_factorial*wish*SKIPPED',
+    ])
+    assert result.ret == 0
+
+
+def test_pytest_run_from_modules(testdir):
+    testdir.makepyfile(TEST_FACTORIAL_PY)
+    result = testdir.runpytest(
+        '--wish-from-modules=math',
+        '-v',
+    )
     result.stdout.fnmatch_lines([
         '*test_factorial*math:fabs*xfail',
         '*test_factorial*math:factorial*XPASS',
     ])
-
-    # make sure that that we get a '0' exit code for the testsuite
     assert result.ret == 0
 
 
-def test_wish_modules_all(testdir):
+def test_pytest_run_from_specs(testdir):
     testdir.makepyfile(TEST_FACTORIAL_PY)
     result = testdir.runpytest(
         '--wish-from-specs=pip',
@@ -94,18 +143,18 @@ def test_wish_modules_all(testdir):
     assert result.ret == 0
 
 
-def test_wish_fail(testdir):
+def test_pytest_run_from_all(testdir):
     testdir.makepyfile(TEST_FACTORIAL_PY)
     result = testdir.runpytest(
-        '--wish-from-modules=math',
-        '--wish-fail',
+        '--wish-from-all',
+        '--wish-includes=math:factorial|pip.exceptions',
         '-v',
     )
     result.stdout.fnmatch_lines([
-        '*test_factorial*math:fabs*FAILED',
-        '*test_factorial*math:factorial*PASSED',
+        '*test_factorial*math:factorial*XPASS',
+        '*test_factorial*pip.exceptions:*xfail',
     ])
-    assert result.ret == 1
+    assert result.ret == 0
 
 
 def test_wish_modules_object_blacklist(testdir):
