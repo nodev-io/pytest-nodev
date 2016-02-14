@@ -11,21 +11,8 @@
    * credit contributors
    Anything else should go into docs.
 
-.. Badges are only useful when landing on GitHub, and not much even there.
-
-.. image:: https://api.travis-ci.org/alexamici/pytest-wish.svg?branch=master
-    :target: https://travis-ci.org/alexamici/pytest-wish/branches
-    :alt: Build Status on Travis CI
-
-.. image:: https://ci.appveyor.com/api/projects/status/github/alexamici/pytest-wish?branch=master
-    :target: https://ci.appveyor.com/project/alexamici/pytest-wish/branch/master
-    :alt: Build Status on AppVeyor
-
-.. image:: https://coveralls.io/repos/alexamici/pytest-wish/badge.svg?branch=master&service=github
-    :target: https://coveralls.io/github/alexamici/pytest-wish?branch=master
-    :alt: Coverage Status on Coveralls
-
 Development status: **beta**.
+
 
 New user FAQ
 ------------
@@ -136,6 +123,15 @@ Support       https://stackoverflow.com/search?q=pytest-wish
 Development   https://github.com/alexamici/pytest-wish
 Discussion    To be decided, see issue `#15 <https://github.com/alexamici/pytest-wish/issues/15>`_
 Download      https://pypi.python.org/pypi/pytest-wish
+Code quality  .. image:: https://api.travis-ci.org/alexamici/pytest-wish.svg?branch=master
+                :target: https://travis-ci.org/alexamici/pytest-wish/branches
+                :alt: Build Status on Travis CI
+              .. image:: https://ci.appveyor.com/api/projects/status/github/alexamici/pytest-wish?branch=master
+                :target: https://ci.appveyor.com/project/alexamici/pytest-wish/branch/master
+                :alt: Build Status on AppVeyor
+              .. image:: https://coveralls.io/repos/alexamici/pytest-wish/badge.svg?branch=master&service=github
+                :target: https://coveralls.io/github/alexamici/pytest-wish?branch=master
+                :alt: Coverage Status on Coveralls
 nodev blog    http://blog.nodev.io
 ============= ======================
 
