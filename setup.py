@@ -11,7 +11,7 @@ def read(fname):
     return codecs.open(file_path, encoding='utf-8').read()
 
 
-version = '0.9.0'
+version = '0.9.1.dev0'
 
 setup(
     name='pytest-wish',
