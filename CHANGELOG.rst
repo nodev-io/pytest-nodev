@@ -1,5 +1,5 @@
 
-0.9.1 (unreleased)
+0.9.1 (2016-02-16)
 ------------------
 
 - Rename the project to pytest-nodev (was pytest-wish).
