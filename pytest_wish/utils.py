@@ -26,23 +26,20 @@ from __future__ import absolute_import, unicode_literals
 from builtins import super
 
 import logging
-import re
 
 
 # regex impossible to match (even in re.MULTILINE mode)
 NOMATCH_PATTERN = r'.\A'
 
 
-def valid_name(name, include_pattern='', exclude_pattern=NOMATCH_PATTERN):
-    """Return true iff the include_pattern matches the name and the the exclude_pattern doesn't.
+def exclude_include_pattern(include_pattern='', exclude_pattern=NOMATCH_PATTERN):
+    """Return a pattern that matches ``include_pattern`` except matches of ``exclude_pattern``.
 
-    :param str name: The name to validate.
     :param str include_pattern: Include everything by default (r'').
     :param str exclude_pattern: Exclude nothing by default (r'.\A').
-    :rtype: bool
+    :rtype: str
     """
-    # NOTE: re auto-magically caches the compiled objects
-    return bool(re.match(include_pattern, name) and not re.match(exclude_pattern, name))
+    return '(?!%s)%s' % (exclude_pattern, include_pattern)
 
 
 class EmitHandler(logging.Handler):

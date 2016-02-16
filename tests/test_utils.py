@@ -3,6 +3,8 @@
 # Copyright (c) 2015-2016 Alessandro Amici
 #
 
+import re
+
 from pytest_wish import utils
 
 
@@ -12,16 +14,16 @@ def test_import_coverage():
     reload(utils)
 
 
-def test_valid_name():
-    assert utils.valid_name('math:factorial')
+def test_extended_match():
+    assert re.match(utils.exclude_include_pattern(), 'math:sin')
 
-    assert utils.valid_name('math:factorial', include_pattern='math')
-    assert utils.valid_name('math:factorial', include_pattern='.*:factorial$')
-    assert not utils.valid_name('math:factorial', include_pattern='abc')
+    assert re.match(utils.exclude_include_pattern('math'), 'math:sin')
+    assert re.match(utils.exclude_include_pattern('.*:sin$'), 'math:sin')
+    assert not re.match(utils.exclude_include_pattern('abc'), 'math:sin')
 
-    assert not utils.valid_name('math:factorial', exclude_pattern='math')
-    assert not utils.valid_name('math:factorial', exclude_pattern='.*:factorial$')
-    assert utils.valid_name('math:factorial', exclude_pattern='abc')
+    assert not re.match(utils.exclude_include_pattern(exclude_pattern='math'), 'math:sin')
+    assert not re.match(utils.exclude_include_pattern(exclude_pattern='.*:sin$'), 'math:sin')
+    assert re.match(utils.exclude_include_pattern(exclude_pattern='abc'), 'math:sin')
 
-    assert utils.valid_name('math:factorial', include_pattern='m', exclude_pattern='moo')
-    assert not utils.valid_name('math:factorial', include_pattern='m', exclude_pattern='math')
+    assert re.match(utils.exclude_include_pattern('m', exclude_pattern='moo'), 'math:sin')
+    assert not re.match(utils.exclude_include_pattern('m', exclude_pattern='math'), 'math:sin')
