@@ -14,13 +14,13 @@ def read(fname):
 version = '0.9.1.dev0'
 
 setup(
-    name='pytest-wish',
+    name='pytest-nodev',
     version=version,
     author='Alessandro Amici',
     author_email='alexamici@gmail.com',
     license='MIT',
-    url='https://github.com/alexamici/pytest-wish',
-    download_url='https://github.com/alexamici/pytest-wish/archive/%s.tar.gz' % version,
+    url='https://github.com/nodev-io/pytest-nodev',
+    download_url='https://github.com/nodev-io/pytest-nodev/archive/%s.tar.gz' % version,
     description="""Source code search-by-tests plugin for pytest.""",
     long_description=read('README.rst'),
     packages=find_packages(),
@@ -50,7 +50,7 @@ setup(
     keywords='source code search-by-tests nodev pytest plugin',
     entry_points={
         'pytest11': [
-            'wish = pytest_wish.plugin',
+            'nodev = pytest_nodev.plugin',
         ],
     },
 )

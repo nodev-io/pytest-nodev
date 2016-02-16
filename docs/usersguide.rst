@@ -9,10 +9,10 @@ Intended audience: python developers who've got better things to do than reinven
 Installation
 ------------
 
-Install the `latest version of pytest-wish <https://pypi.python.org/pypi/pytest-wish>`_
+Install the `latest version of pytest-nodev <https://pypi.python.org/pypi/pytest-nodev>`_
 from the Python Package Index::
 
-    $ pip install pytest-wish
+    $ pip install pytest-nodev
 
 
 Basic usage

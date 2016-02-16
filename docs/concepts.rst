@@ -36,7 +36,7 @@ Or is it?
 Source code search-by-tests
 -----------------------------
 
-pytest-wish is a pytest plugin that enables a software development strategy called
+pytest-nodev is a pytest plugin that enables a software development strategy called
 search-by-tests or *Test-Driven no-Development*,
 that is an extension of the *Test-Driven Development* paradigm.
 
@@ -53,7 +53,7 @@ with a generic signature.
 Tests validation
 ----------------
 
-Another use for "pytest-wish" is, with a bit of additional work, to validate a project test suite.
+Another use for "pytest-nodev" is, with a bit of additional work, to validate a project test suite.
 If a test passes when passed an unexpected object there are two possibilities,
 either the test is not strict enough and allows for false positives and needs update,
 or the *hit* is actually a function you could use instead of your implementation.

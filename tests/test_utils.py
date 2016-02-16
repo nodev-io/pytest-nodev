@@ -5,11 +5,11 @@
 
 import re
 
-from pytest_wish import utils
+from pytest_nodev import utils
 
 
 def test_import_coverage():
-    """Fix the coverage by pytest-cov, that may trigger after pytest_wish is already imported."""
+    """Fix the coverage by pytest-cov, that may trigger after pytest_nodev is already imported."""
     from imp import reload  # Python 2 and 3 reload
     reload(utils)
 

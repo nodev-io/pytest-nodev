@@ -3,7 +3,7 @@
 # Copyright (c) 2015-2016 Alessandro Amici
 #
 
-from pytest_wish import plugin
+from pytest_nodev import plugin
 
 
 TEST_PASS_PY = '''
@@ -25,7 +25,7 @@ math:factorial
 
 
 def test_import_coverage():
-    """Fix the coverage by pytest-cov, that may trigger after pytest_wish is already imported."""
+    """Fix the coverage by pytest-cov, that may trigger after pytest_nodev is already imported."""
     from imp import reload  # Python 2 and 3 reload
     reload(plugin)
 

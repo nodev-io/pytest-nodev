@@ -17,16 +17,16 @@ Development status: **beta**.
 New user FAQ
 ------------
 
-**What is pytest-wish?**
+**What is pytest-nodev?**
 
-pytest-wish is a simple search engine for live code,
+pytest-nodev is a simple search engine for live code,
 it finds classes and functions that match an expected behaviour.
 
-To be more precise pytest-wish is a `pytest <https://pytest.org>`_ plugin
+To be more precise pytest-nodev is a `pytest <https://pytest.org>`_ plugin
 that helps you execute specification tests on all objects
 in the Python standard library or in all the modules you have installed.
 
-**Who are pytest-wish users?**
+**Who are pytest-nodev users?**
 
 Python developers who've got better things to do than reinvent wheels.
 
@@ -42,12 +42,12 @@ Python developers who've got better things to do than reinvent wheels.
         assert parse_bool('TRUE')
         assert parse_bool('1')
 
-**Show me how searching with pytest-wish work.**
+**Show me how searching with pytest-nodev work.**
 
-First, install the `latest version of pytest-wish <https://pypi.python.org/pypi/pytest-wish>`_
+First, install the `latest version of pytest-nodev <https://pypi.python.org/pypi/pytest-nodev>`_
 from the Python Package Index::
 
-    $ pip install pytest-wish
+    $ pip install pytest-nodev
 
 Then copy your specification test to the ``test_parse_bool.py`` file and
 instrument it with the ``wish`` fixture::
@@ -63,7 +63,7 @@ instrument it with the ``wish`` fixture::
         assert parse_bool('TRUE')
         assert parse_bool('1')
 
-Finally, instruct pytest-wish to run your test on all functions in the Python standard library::
+Finally, instruct pytest-nodev to run your test on all functions in the Python standard library::
 
     $ py.test test_parse_bool.py --wish-from-stdlib
     ======================= test session starts ==========================
@@ -80,7 +80,7 @@ Finally, instruct pytest-wish to run your test on all functions in the Python st
 
     ==== 3258 xfailed, 1 xpassed, 27 pytest-warnings in 45.07 seconds ====
 
-In less than a minute pytest-wish collected more than 3000 functions from the standard library
+In less than a minute pytest-nodev collected more than 3000 functions from the standard library
 and run your specification test on all of them and you've got a HIT.
 The `strtobool`_ function in the distutils.util module passes the test, so
 now you should thoroughly review it and if you like it you may use it in your code,
@@ -107,30 +107,30 @@ BIG FAT WARNING!
 A lot of functions called with the wrong set of arguments may have unexpected consequences ranging
 from slightly annoying, think ``os.mkdir('false')``,
 to **utterly catastrophic**, think ``shutil.rmtree('/', True)``.
-Serious use of pytest-wish require operating-system level isolation,
+Serious use of pytest-nodev require operating-system level isolation,
 e.g. a dedicated user or even better a dedicated container.
 
-Discussion on how to best help users sandboxing pytest-wish is ongoing,
-see issue `#16 <https://github.com/alexamici/pytest-wish/issues/16>`_.
+Discussion on how to best help users sandboxing pytest-nodev is ongoing,
+see issue `#16 <https://github.com/nodev-io/pytest-nodev/issues/16>`_.
 
 
 Project resources
 -----------------
 
 ============= ======================
-Documentation http://pytest-wish.readthedocs.org
-Support       https://stackoverflow.com/search?q=pytest-wish
-Development   https://github.com/alexamici/pytest-wish
-Discussion    To be decided, see issue `#15 <https://github.com/alexamici/pytest-wish/issues/15>`_
-Download      https://pypi.python.org/pypi/pytest-wish
-Code quality  .. image:: https://api.travis-ci.org/alexamici/pytest-wish.svg?branch=master
-                :target: https://travis-ci.org/alexamici/pytest-wish/branches
+Documentation http://pytest-nodev.readthedocs.org
+Support       https://stackoverflow.com/search?q=pytest-nodev
+Development   https://github.com/nodev-io/pytest-nodev
+Discussion    To be decided, see issue `#15 <https://github.com/nodev-io/pytest-nodev/issues/15>`_
+Download      https://pypi.python.org/pypi/pytest-nodev
+Code quality  .. image:: https://api.travis-ci.org/nodev-io/pytest-nodev.svg?branch=master
+                :target: https://travis-ci.org/nodev-io/pytest-nodev/branches
                 :alt: Build Status on Travis CI
-              .. image:: https://ci.appveyor.com/api/projects/status/github/alexamici/pytest-wish?branch=master
-                :target: https://ci.appveyor.com/project/alexamici/pytest-wish/branch/master
+              .. image:: https://ci.appveyor.com/api/projects/status/github/nodev-io/pytest-nodev?branch=master
+                :target: https://ci.appveyor.com/project/nodev-io/pytest-nodev/branch/master
                 :alt: Build Status on AppVeyor
-              .. image:: https://coveralls.io/repos/alexamici/pytest-wish/badge.svg?branch=master&service=github
-                :target: https://coveralls.io/github/alexamici/pytest-wish?branch=master
+              .. image:: https://coveralls.io/repos/nodev-io/pytest-nodev/badge.svg?branch=master&service=github
+                :target: https://coveralls.io/github/nodev-io/pytest-nodev?branch=master
                 :alt: Coverage Status on Coveralls
 nodev website http://nodev.io
 ============= ======================
@@ -143,7 +143,7 @@ Contributions are very welcome. Please see the `CONTRIBUTING`_ document for
 the best way to help.
 If you encounter any problems, please file an issue along with a detailed description.
 
-.. _`CONTRIBUTING`: https://github.com/alexamici/pytest-wish/blob/master/CONTRIBUTING.rst
+.. _`CONTRIBUTING`: https://github.com/nodev-io/pytest-nodev/blob/master/CONTRIBUTING.rst
 
 Authors:
 
@@ -163,5 +163,5 @@ Sponsors:
 License
 -------
 
-pytest-wish is free and open source software
+pytest-nodev is free and open source software
 distributed under the terms of the `MIT <http://opensource.org/licenses/MIT>`_ license.

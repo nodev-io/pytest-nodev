@@ -5,12 +5,12 @@
 
 import pytest
 
-from pytest_wish import blacklists
-from pytest_wish import collect
+from pytest_nodev import blacklists
+from pytest_nodev import collect
 
 
 def test_import_coverage():
-    """Fix the coverage by pytest-cov, that may trigger after pytest_wish is already imported."""
+    """Fix the coverage by pytest-cov, that may trigger after pytest_nodev is already imported."""
     from imp import reload  # Python 2 and 3 reload
     reload(blacklists)
     reload(collect)
@@ -27,13 +27,13 @@ def test_collect_installed_distributions():
     installed_distributions = list(collect.collect_installed_distributions())
     assert len(installed_distributions) > 1
     for spec, module_names in installed_distributions:
-        if spec.startswith('pytest-wish'):
+        if spec.startswith('pytest-nodev'):
             break
-    assert module_names == ['pytest_wish']
+    assert module_names == ['pytest_nodev']
 
 
 def test_collect_distributions():
-    distributions = list(collect.collect_distributions(['pytest-wish']))
+    distributions = list(collect.collect_distributions(['pytest-nodev']))
     assert len(distributions) == 1
     _, module_names = distributions[0]
     assert len(module_names) == 1
@@ -41,19 +41,19 @@ def test_collect_distributions():
 
 
 def test_import_module():
-    assert collect.import_module('pytest_wish')
+    assert collect.import_module('pytest_nodev')
     with pytest.raises(ImportError):
-        collect.import_module('pytest_wish', module_blacklist_pattern='pytest_wish')
+        collect.import_module('pytest_nodev', module_blacklist_pattern='pytest_nodev')
     with pytest.raises(ImportError):
         collect.import_module('non_existent_module')
 
 
 def test_import_distributions():
-    distributions = [('pytest-wish', ['pytest_wish'])]
+    distributions = [('pytest-nodev', ['pytest_nodev'])]
     module_names = list(collect.import_distributions(distributions))
-    assert module_names == ['pytest_wish']
+    assert module_names == ['pytest_nodev']
 
-    distributions = [('pytest-wish', ['non_existent_module'])]
+    distributions = [('pytest-nodev', ['non_existent_module'])]
     module_names = list(collect.import_distributions(distributions))
     assert module_names == []
 
@@ -65,21 +65,21 @@ def test_generate_module_objects():
 
 def test_generate_objects_from_modules():
     import re
-    modules = {'pytest_wish.collection': collect, 're': re}
-    include_patterns = ['pytest_wish.collection:generate_objects_from_modules']
+    modules = {'pytest_nodev.collection': collect, 're': re}
+    include_patterns = ['pytest_nodev.collection:generate_objects_from_modules']
     objs = collect.generate_objects_from_modules(
         modules, include_patterns, module_blacklist_pattern='re')
     assert len(list(objs)) == 1
 
 
 def test_object_from_name():
-    object_ = collect.object_from_name('pytest_wish.collect:object_from_name')
+    object_ = collect.object_from_name('pytest_nodev.collect:object_from_name')
     assert object_ == collect.object_from_name
 
 
 def test_generate_objects_from_names():
     # normal path
-    names = ['pytest_wish.collect:generate_objects_from_names']
+    names = ['pytest_nodev.collect:generate_objects_from_names']
     assert len(list(collect.generate_objects_from_names(names))) == 1
     # error paths
     names = ['# comment', 'non_existent_module:', 'math:non_existent_object']

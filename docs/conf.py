@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #
-# pytest-wish documentation build configuration file, created by
+# pytest-nodev documentation build configuration file, created by
 # sphinx-quickstart on Thu Oct  1 00:43:18 2015.
 #
 # This file is execfile()d with the current directory set to its
@@ -50,7 +50,7 @@ source_suffix = '.rst'
 master_doc = 'index'
 
 # General information about the project.
-project = u'pytest-wish'
+project = u'pytest-nodev'
 copyright = u'2015-2016, Alessandro Amici'
 author = u'Alessandro Amici'
 
@@ -59,7 +59,7 @@ author = u'Alessandro Amici'
 # built documents.
 #
 # The full version, including alpha/beta/rc tags.
-release = pkg_resources.get_distribution("pytest-wish").version
+release = pkg_resources.get_distribution("pytest-nodev").version
 # The short X.Y version.
 version = '.'.join(release.split('.')[:2])
 
@@ -204,7 +204,7 @@ html_static_path = ['_static']
 #html_search_scorer = 'scorer.js'
 
 # Output file base name for HTML help builder.
-htmlhelp_basename = 'pytest-wish_namedoc'
+htmlhelp_basename = 'pytest-nodev_namedoc'
 
 # -- Options for LaTeX output ---------------------------------------------
 
@@ -226,7 +226,7 @@ latex_elements = {
 # (source start file, target name, title,
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
-  (master_doc, 'pytest-wish_name.tex', u'pytest-wish Documentation',
+  (master_doc, 'pytest-nodev_name.tex', u'pytest-nodev Documentation',
    u'Alessandro Amici', 'manual'),
 ]
 
@@ -256,7 +256,7 @@ latex_documents = [
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    (master_doc, 'pytest-wish_name', u'pytest-wish Documentation',
+    (master_doc, 'pytest-nodev_name', u'pytest-nodev Documentation',
      [author], 1)
 ]
 
@@ -270,8 +270,8 @@ man_pages = [
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-  (master_doc, 'pytest-wish_name', u'pytest-wish Documentation',
-   author, 'pytest-wish_name', 'One line description of project.',
+  (master_doc, 'pytest-nodev_name', u'pytest-nodev Documentation',
+   author, 'pytest-nodev_name', 'One line description of project.',
    'Miscellaneous'),
 ]
 
