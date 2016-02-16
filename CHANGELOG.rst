@@ -2,7 +2,7 @@
 0.9.1 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Rename the project to pytest-nodev (was pytest-wish).
 
 
 0.9.0 (2016-02-14)
