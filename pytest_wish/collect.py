@@ -95,7 +95,7 @@ def import_distributions(distribution_modules, module_blacklist_pattern=MODULE_B
     for spec, module_names in distribution_modules:
         for module_name in module_names:
             try:
-                import_module(module_name)
+                import_module(module_name, module_blacklist_pattern=module_blacklist_pattern)
                 imported_module_names.append(module_name)
             except:
                 logger.info("Failed to import module %r from package %r.", module_name, spec)
