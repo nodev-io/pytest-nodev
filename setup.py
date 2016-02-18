@@ -21,7 +21,7 @@ setup(
     license='MIT',
     url='https://github.com/nodev-io/pytest-nodev',
     download_url='https://github.com/nodev-io/pytest-nodev/archive/%s.tar.gz' % version,
-    description="""Source code search-by-tests plugin for pytest.""",
+    description="Test-driven source code search plugin for pytest.",
     long_description=read('README.rst'),
     packages=find_packages(),
     install_requires=[
@@ -32,7 +32,7 @@ setup(
     ],
     zip_safe=True,
     classifiers=[
-        'Development Status :: 3 - Alpha',
+        'Development Status :: 4 - Beta',
         'Intended Audience :: Developers',
         'Topic :: Software Development :: Testing',
         'Programming Language :: Python',
@@ -47,7 +47,7 @@ setup(
         'Operating System :: OS Independent',
         'License :: OSI Approved :: MIT License',
     ],
-    keywords='source code search-by-tests nodev pytest plugin',
+    keywords='test-driven source code search plugin pytest nodev',
     entry_points={
         'pytest11': [
             'nodev = pytest_nodev.plugin',

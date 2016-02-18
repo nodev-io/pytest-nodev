@@ -11,20 +11,19 @@
    * credit contributors
    Anything else should go into docs.
 
-Development status: **beta**.
+pytest-nodev is a simple test-driven search engine for live code,
+it finds classes and functions matching the behaviour specified by the given tests.
 
+Development status: **beta**.
 
 New user FAQ
 ------------
 
 **What is pytest-nodev?**
 
-pytest-nodev is a simple search engine for live code,
-it finds classes and functions that match an expected behaviour.
-
 To be more precise pytest-nodev is a `pytest <https://pytest.org>`_ plugin
 that helps you execute specification tests on all objects
-in the Python standard library or in all the modules you have installed.
+in the Python standard library and in all the modules you have installed.
 
 **Who are pytest-nodev users?**
 
