@@ -65,3 +65,15 @@ Keywords:
  * *Feature-specification test* and test suite or *Requirement-specification test*
  * search-by-tests or *Test-Driven no-Development*
 
+Bibliography
+------------
+
+- "CodeGenie: a tool for test-driven source code search", O.A. Lazzarini Lemos *et al*,
+  Companion to the 22nd ACM SIGPLAN conference on Object-oriented programming systems and applications companion,
+  917--918, **2007**, ACM, http://dx.doi.org/10.1145/1297846.1297944
+
+- "Code conjurer: Pulling reusable software out of thin air", O. Hummel *et al*,
+  IEEE Software, (25) 5 45-52, **2008**, IEEE, http://dx.doi.org/10.1109/MS.2008.110
+
+- "Test-Driven Reuse: Improving the Selection of Semantically Relevant Code", M. Nurolahzade,
+  Ph.D. thesis, **2014**, UNIVERSITY OF CALGARY, http://lsmr.org/docs/nurolahzade_phd_2014.pdf
