@@ -3,9 +3,12 @@
 pytest-nodev documentation
 ==========================
 
-Version: |release|
+:Version: |release|
+:Date: |today|
 
 .. warning:: This documentation is work in progress and there will be areas that are lacking.
+
+Test-driven source code search plugin for pytest.
 
 New to pytest-nodev? Jump to the :doc:`quickstart` for a 2 minutes hands-on overview.
 Curious about the search-by-tests technique? Head over to the :doc:`concepts` section or

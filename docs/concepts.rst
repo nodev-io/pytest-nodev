@@ -33,12 +33,11 @@ for the simple reason that **there is no way to search code by functionality**..
 Or is it?
 
 
-Source code search-by-tests
------------------------------
+Test-driven source code search
+------------------------------
 
 pytest-nodev is a pytest plugin that enables a software development strategy called
-search-by-tests or *Test-Driven no-Development*,
-that is an extension of the *Test-Driven Development* paradigm.
+*Test-Driven Reuse* or *nodev*, that is an extension of the *Test-Driven Development* paradigm.
 
 The idea is that once the developer has written the tests that define the behaviour of a new
 function to a degree sufficient to validate the implementation they are going to write
@@ -63,7 +62,7 @@ Keywords:
 
  * Source code *search by feature*, *search by functionality*, *search by specification* or *nodev*
  * *Feature-specification test* and test suite or *Requirement-specification test*
- * search-by-tests or *Test-Driven no-Development*
+ * *Test-driven reuse* or *Test-driven code search* or *Test-driven source code search*
 
 Bibliography
 ------------
