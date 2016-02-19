@@ -11,6 +11,8 @@
    * credit contributors
    Anything else should go into docs.
 
+.. NOTE: only the first line of the README is shown on GitHub mobile
+
 pytest-nodev is a simple test-driven search engine for live code,
 it finds classes and functions matching the behaviour specified by the given tests.
 

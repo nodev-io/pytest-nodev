@@ -1,5 +1,0 @@
-# useful for testing
-math:fabs
-math:factorial
-dummy:dummy
-math:dummy
