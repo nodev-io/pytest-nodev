@@ -47,8 +47,12 @@ Version goals
 pytest-nodev uses `semantic versioning <http://semver.org>`_.
 
 
-1.0.0 (upcoming)
-~~~~~~~~~~~~~~~~
+1.0.0 (upcoming release)
+~~~~~~~~~~~~~~~~~~~~~~~~
+
+Minimal set of features to be operationally useful and to showcase the nodev approach.
+Reasonably safe to test, but not safe to use without OS-level isolation.
+No completeness and no performance guarantees.
 
 - Search environment definition:
 
@@ -69,11 +73,22 @@ pytest-nodev uses `semantic versioning <http://semver.org>`_.
 
 - Report:
 
- - Report which objects pass each test. Breaks when using pytest-xdist.
+  - Report which objects pass each test. Breaks when using pytest-xdist.
 
-- Protection:
+- Safety:
 
- - Most hanging calls are interrupted using pytest-timeout.
+  - Interrupting hanging tests is delegated to pytest-timeout.
 
- - Blacklist potentially dangerous, crashing or annoying objects in the standard library,
-    so new users can test with ``--wish-from-stdlib`` without bothering with OS-level isolation.
+  - Internal modules and objects starting with an underscore are excluded.
+
+  - Potentially dangerous, crashing, hard hanging or simply annoying objects
+    belonging to the standard library are unconditionally blacklisted
+    so that new users can test ``--wish-from-stdlib`` without bothering with OS-level isolation.
+
+  - Limited use of ``--wish-from-imported`` and ``--wish-from-all``.
+
+- Documentation:
+
+  - Enough to inspire and raise interest in new users.
+
+  - Enough to use it effectively and safely. Give a strategy to get OS-level isolation.
