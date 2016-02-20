@@ -73,7 +73,7 @@ No completeness and no performance guarantees.
 
 - Report:
 
-  - Report which objects pass each test. Breaks when using pytest-xdist.
+  - Report which objects pass each test.
 
 - Safety:
 
