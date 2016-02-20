@@ -67,9 +67,6 @@ def pytest_addoption(parser):
              "defaults to ``builtins.callable``.")
     group.addoption('--wish-fail', action='store_true', help="Show wish failures.")
 
-    # delegate interrupting hanging tests to pytest-timeout
-    os.environ['PYTEST_TIMEOUT'] = os.environ.get('PYTEST_TIMEOUT', '1')
-
 
 def wish_ensuresession(config):
     if hasattr(config, '_wish_index_items'):
@@ -111,6 +108,9 @@ def wish_ensuresession(config):
 
     # store options
     config._wish_index_items = list(zip(*sorted(object_index.items()))) or [(), ()]
+
+    # delegate interrupting hanging tests to pytest-timeout
+    os.environ['PYTEST_TIMEOUT'] = os.environ.get('PYTEST_TIMEOUT', '1')
 
 
 def pytest_generate_tests(metafunc):
