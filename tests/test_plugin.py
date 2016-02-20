@@ -3,6 +3,8 @@
 # Copyright (c) 2015-2016 Alessandro Amici
 #
 
+import os
+
 from pytest_nodev import plugin
 
 
@@ -143,8 +145,30 @@ def test_pytest_run_from_specs(testdir):
     assert result.ret == 0
 
 
+def test_pytest_run_from_stdlib(testdir):
+    testdir.makepyfile(TEST_FACTORIAL_PY)
+    result = testdir.runpytest(
+        '--wish-from-stdlib',
+        '--wish-includes=math',
+        '-v',
+    )
+    result.stdout.fnmatch_lines([
+        '*test_factorial*math:fabs*xfail',
+        '*test_factorial*math:factorial*XPASS',
+    ])
+    assert result.ret == 0
+
+
 def test_pytest_run_from_all(testdir):
     testdir.makepyfile(TEST_FACTORIAL_PY)
+    result = testdir.runpytest(
+        '--wish-from-all',
+        '--wish-includes=math:factorial|pip.exceptions',
+        '-v',
+    )
+    assert result.ret == 1
+
+    os.environ['PYTEST_NODEV_MODE'] = 'FEARLESS'
     result = testdir.runpytest(
         '--wish-from-all',
         '--wish-includes=math:factorial|pip.exceptions',

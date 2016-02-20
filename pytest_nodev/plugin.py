@@ -72,6 +72,10 @@ def wish_ensuresession(config):
     if hasattr(config, '_wish_index_items'):
         return
 
+    from_installed = config.getoption('wish_from_installed') or config.getoption('wish_from_all')
+    if from_installed and os.environ.get('PYTEST_NODEV_MODE') != 'FEARLESS':
+        raise ValueError("Use of --wish-from-installed/all may be very dangerous, see the docs.")
+
     # take over collect logging
     collect.logger.propagate = False
     collect.logger.setLevel(logging.DEBUG)  # FIXME: loglevel should be configurable
@@ -83,7 +87,7 @@ def wish_ensuresession(config):
     if config.getoption('wish_from_stdlib') or config.getoption('wish_from_all'):
         distributions.update(collect.collect_stdlib_distributions())
 
-    if config.getoption('wish_from_installed') or config.getoption('wish_from_all'):
+    if from_installed:
         distributions.update(collect.collect_installed_distributions())
 
     distributions.update(collect.collect_distributions(config.getoption('wish_from_specs')))
