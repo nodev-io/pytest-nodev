@@ -70,7 +70,7 @@ Finally, instruct pytest-nodev to run your test on all functions in the Python s
     ======================= test session starts ==========================
     platform darwin -- Python 3.5.0, pytest-2.8.7, py-1.4.31, pluggy-0.3.1
     rootdir: /tmp, inifile: setup.cfg
-    plugins: wish-0.9.0, timeout-1.0.0
+    plugins: nodev-1.0.0, timeout-1.0.0
     collected 3259 items
 
     test_parse_bool.py xxxxxxxxxxxx[...]xxxxxxxxXxxxxxxxx[...]xxxxxxxxxxxx
