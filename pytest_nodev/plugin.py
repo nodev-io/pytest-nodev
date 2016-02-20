@@ -28,6 +28,7 @@ from builtins import dict, zip
 import argparse
 import collections
 import logging
+import os
 import sys
 
 import pytest
@@ -68,8 +69,10 @@ def pytest_addoption(parser):
         '--wish-predicate', default='builtins:callable',
         help="Full name of the predicate passed to ``inspect.getmembers``, "
              "defaults to ``builtins.callable``.")
-    group.addoption('--wish-timeout', default=1, help="Test timeout.")
     group.addoption('--wish-fail', action='store_true', help="Show wish failures.")
+
+    # delegate interrupting hanging tests to pytest-timeout
+    os.environ['PYTEST_TIMEOUT'] = os.environ.get('PYTEST_TIMEOUT', '1')
 
 
 def wish_ensuresession(config):
@@ -127,7 +130,6 @@ def pytest_generate_tests(metafunc):
 
     ids, params = config._wish_index_items
     metafunc.parametrize('wish', params, ids=ids, scope='module')
-    metafunc.function = pytest.mark.timeout(config.getoption('wish_timeout'))(metafunc.function)
     if not config.getoption('wish_fail'):
         metafunc.function = pytest.mark.xfail(metafunc.function)
 

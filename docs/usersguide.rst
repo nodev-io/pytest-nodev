@@ -61,7 +61,5 @@ The plugin adds the following options to pytest command line::
       --wish-predicate=WISH_PREDICATE
                             Full name of the predicate passed to
                             `inspect.getmembers`, defaults to `callable`.
-      --wish-timeout=WISH_TIMEOUT
-                            Test timeout.
       --wish-fail           Show wish failures.
 
