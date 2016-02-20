@@ -101,8 +101,6 @@ def wish_ensuresession(config):
     wish_excludes = config.getoption('wish_excludes')
     wish_predicate = config.getoption('wish_predicate')
 
-    config._warn('%r' % locals())
-
     # NOTE: 'copy' is needed here because indexing may unexpectedly trigger a module load
     modules = sys.modules.copy()
     object_index = dict(
