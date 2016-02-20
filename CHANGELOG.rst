@@ -1,5 +1,5 @@
 
-0.9.2 (unreleased)
+0.9.2 (2016-02-20)
 ------------------
 
 - Disable potentially dangerous ``--wish-from-installed/all`` by default.
