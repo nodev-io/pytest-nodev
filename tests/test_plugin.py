@@ -3,8 +3,6 @@
 # Copyright (c) 2015-2016 Alessandro Amici
 #
 
-import os
-
 from pytest_nodev import plugin
 
 
@@ -159,7 +157,7 @@ def test_pytest_run_from_stdlib(testdir):
     assert result.ret == 0
 
 
-def test_pytest_run_from_all(testdir):
+def test_pytest_run_from_all(testdir, monkeypatch):
     testdir.makepyfile(TEST_FACTORIAL_PY)
     result = testdir.runpytest(
         '--wish-from-all',
@@ -168,7 +166,7 @@ def test_pytest_run_from_all(testdir):
     )
     assert result.ret == 1
 
-    os.environ['PYTEST_NODEV_MODE'] = 'FEARLESS'
+    monkeypatch.setenv('PYTEST_NODEV_MODE', 'FEARLESS')
     result = testdir.runpytest(
         '--wish-from-all',
         '--wish-includes=math:factorial|pip.exceptions',
