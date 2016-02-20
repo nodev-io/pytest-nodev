@@ -33,11 +33,13 @@ for the simple reason that **there is no way to search code by functionality**..
 Or is it?
 
 
-Test-driven source code search
-------------------------------
+Test-driven code search
+-----------------------
 
-pytest-nodev is a pytest plugin that enables a software development strategy called
-*Test-Driven Reuse* or *nodev*, that is an extension of the *Test-Driven Development* paradigm.
+pytest-nodev is a pytest plugin that enables *test-driven code search* and
+consequently a software development strategy called
+*test-driven reuse* or TDR that we call *nodev*,
+that is an extension of the well known *test-driven development* or TDD.
 
 The idea is that once the developer has written the tests that define the behaviour of a new
 function to a degree sufficient to validate the implementation they are going to write
@@ -52,9 +54,9 @@ with a generic signature.
 Tests validation
 ----------------
 
-Another use for "pytest-nodev" is, with a bit of additional work, to validate a project test suite.
-If a test passes when passed an unexpected object there are two possibilities,
-either the test is not strict enough and allows for false positives and needs update,
+Another use for pytest-nodev is, with a bit of additional work, to validate a project test suite.
+If a test passes with an unexpected object there are two possibilities,
+either the test is not strict enough and allows for false positives and needs to be updated,
 or the *hit* is actually a function you could use instead of your implementation.
 
 
@@ -62,7 +64,8 @@ Keywords:
 
  * Source code *search by feature*, *search by functionality*, *search by specification* or *nodev*
  * *Feature-specification test* and test suite or *Requirement-specification test*
- * *Test-driven reuse* or *Test-driven code search* or *Test-driven source code search*
+ * *Test-driven reuse* or *test-driven code search* or *test-driven source code search*
+
 
 Bibliography
 ------------
@@ -72,7 +75,12 @@ Bibliography
   917--918, **2007**, ACM, http://dx.doi.org/10.1145/1297846.1297944
 
 - "Code conjurer: Pulling reusable software out of thin air", O. Hummel *et al*,
-  IEEE Software, (25) 5 45-52, **2008**, IEEE, http://dx.doi.org/10.1109/MS.2008.110
+  IEEE Software, (25) 5 45-52, **2008**, IEEE, http://dx.doi.org/10.1109/MS.2008.110 ---
+  `PDF <http://cosc612.googlecode.com/svn/Research%20Paper/Code%20Conjurer.pdf>`__
+
+- "Finding Source Code on the Web for Remix and Reuse", S.E. Sim *et al*, 251, **2013** ---
+  `PDF <http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.308.2645&rep=rep1&type=pdf>`__
 
 - "Test-Driven Reuse: Improving the Selection of Semantically Relevant Code", M. Nurolahzade,
-  Ph.D. thesis, **2014**, UNIVERSITY OF CALGARY, http://lsmr.org/docs/nurolahzade_phd_2014.pdf
+  Ph.D. thesis, **2014**, UNIVERSITY OF CALGARY ---
+  `PDF <http://lsmr.org/docs/nurolahzade_phd_2014.pdf>`__
