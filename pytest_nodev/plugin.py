@@ -25,7 +25,6 @@
 from __future__ import absolute_import, unicode_literals
 from builtins import dict, zip
 
-import argparse
 import collections
 import logging
 import os
@@ -62,9 +61,6 @@ def pytest_addoption(parser):
         '--wish-excludes', default=[collect.INTERNAL_USE_PATTERN], nargs='+',
         help="Space separated list of regexs matching full object names to exclude, "
              "defaults to match 'internal use' names %r" % collect.INTERNAL_USE_PATTERN)
-    group.addoption(
-        '--wish-objects-from', type=argparse.FileType('r'),
-        help="File name of full object names to include.")
     group.addoption(
         '--wish-predicate', default='builtins:callable',
         help="Full name of the predicate passed to ``inspect.getmembers``, "
@@ -112,10 +108,6 @@ def wish_ensuresession(config):
         collect.generate_objects_from_modules(modules, wish_includes, wish_excludes,
                                               wish_predicate)
     )
-
-    wish_objects_from = config.getoption('wish_objects_from')
-    if wish_objects_from is not None:
-        object_index.update(collect.generate_objects_from_names(wish_objects_from))
 
     # store options
     config._wish_index_items = list(zip(*sorted(object_index.items()))) or [(), ()]

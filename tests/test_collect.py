@@ -75,12 +75,3 @@ def test_generate_objects_from_modules():
 def test_object_from_name():
     object_ = collect.object_from_name('pytest_nodev.collect:object_from_name')
     assert object_ == collect.object_from_name
-
-
-def test_generate_objects_from_names():
-    # normal path
-    names = ['pytest_nodev.collect:generate_objects_from_names']
-    assert len(list(collect.generate_objects_from_names(names))) == 1
-    # error paths
-    names = ['# comment', 'non_existent_module:', 'math:non_existent_object']
-    assert len(list(collect.generate_objects_from_names(names))) == 0

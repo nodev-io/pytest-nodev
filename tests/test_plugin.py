@@ -165,19 +165,3 @@ def test_wish_modules_object_blacklist(testdir):
         '-v',
     )
     assert result.ret == 0
-
-
-def test_wish_objects(testdir):
-    objects_txt = testdir.tmpdir.join('objects_txt')
-    objects_txt.write(TEST_FACTORIAL_TXT)
-    testdir.makepyfile(TEST_FACTORIAL_PY)
-    result = testdir.runpytest(
-        '--wish-include=NOTHING',
-        '--wish-objects-from={}'.format(objects_txt),
-        '-v',
-    )
-    result.stdout.fnmatch_lines([
-        '*test_factorial*math:fabs*xfail',
-        '*test_factorial*math:factorial*XPASS',
-    ])
-    assert result.ret == 0
