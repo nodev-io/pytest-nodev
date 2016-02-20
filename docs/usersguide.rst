@@ -31,7 +31,7 @@ Advanced usage
 Use of ``--wish-from-installed`` and ``--wish-from-all`` may be very dangerous
 and it is disabled by default.
 Enable it only after you have understood the risks and set up appropriate mitigation strategies
-by setting the ``PYTEST_NODEV_MODE`` environment variable to ``FEARLESS``:
+by setting the ``PYTEST_NODEV_MODE`` environment variable to ``FEARLESS``::
 
     $ PYTEST_NODEV_MODE=FEARLESS py.test --wish-from-installed --wish-includes .*util -- test_example.py
 
