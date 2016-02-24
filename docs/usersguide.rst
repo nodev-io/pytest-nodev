@@ -30,7 +30,23 @@ Advanced usage
 
 Use of ``--wish-from-installed`` and ``--wish-from-all`` may be very dangerous
 and it is disabled by default.
-Enable it only after you have understood the risks and set up appropriate mitigation strategies
+
+In order to search safely in all modules we suggest to use docker for OS-level isolation.
+To kickstart your advanced usage downlaod the nodev-tutorial::
+
+    $ git clone https://github.com/nodev-io/nodev-tutorial.git
+    $ cd nodev-tutorial
+
+build the nodev docker image with all module from requirements.txt installed:
+
+    $ docker build -t nodev .
+
+and run tests with:
+
+    $ docker run --rm -it -v `pwd`:/home/pytest nodev --wish-from-all
+
+Alternatively you can enable it on your regular user only after you have understood the risks
+and set up appropriate mitigation strategies
 by setting the ``PYTEST_NODEV_MODE`` environment variable to ``FEARLESS``::
 
     $ PYTEST_NODEV_MODE=FEARLESS py.test --wish-from-installed --wish-includes .*util -- test_example.py
