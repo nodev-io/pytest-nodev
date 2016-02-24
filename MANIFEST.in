@@ -1,5 +1,6 @@
 include LICENSE
 include tox.ini
+include Dockerfile
 include *.txt
 include *.rst
 include *.yml
