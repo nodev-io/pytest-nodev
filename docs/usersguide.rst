@@ -37,11 +37,11 @@ To kickstart your advanced usage downlaod the nodev-tutorial::
     $ git clone https://github.com/nodev-io/nodev-tutorial.git
     $ cd nodev-tutorial
 
-build the nodev docker image with all module from requirements.txt installed:
+build the nodev docker image with all module from requirements.txt installed::
 
     $ docker build -t nodev .
 
-and run tests with:
+and run tests with::
 
     $ docker run --rm -it -v `pwd`:/home/pytest nodev --wish-from-all tests/test_factorial.py
 
