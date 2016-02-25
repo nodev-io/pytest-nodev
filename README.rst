@@ -108,7 +108,8 @@ BIG FAT WARNING!
 A lot of functions called with the wrong set of arguments may have unexpected consequences ranging
 from slightly annoying, think ``os.mkdir('false')``,
 to **utterly catastrophic**, think ``shutil.rmtree('/', True)``.
-Serious use of pytest-nodev require operating-system level isolation,
+Serious use of pytest-nodev, in particular using ``--wish-from-all``,
+require operating-system level isolation,
 e.g. a dedicated user or even better a dedicated container.
 
 Discussion on how to best help users sandboxing pytest-nodev is ongoing,

@@ -28,7 +28,7 @@ e.g. to search in the Python standard library::
 Advanced usage
 --------------
 
-Use of ``--wish-from-installed`` and ``--wish-from-all`` may be very dangerous
+Use of ``--wish-from-all`` may be very dangerous
 and it is disabled by default.
 
 In order to search safely in all modules we suggest to use docker for OS-level isolation.
@@ -49,7 +49,7 @@ Alternatively you can enable it on your regular user only after you have underst
 and set up appropriate mitigation strategies
 by setting the ``PYTEST_NODEV_MODE`` environment variable to ``FEARLESS``::
 
-    $ PYTEST_NODEV_MODE=FEARLESS py.test --wish-from-installed --wish-includes .*util -- test_example.py
+    $ PYTEST_NODEV_MODE=FEARLESS py.test --wish-from-all --wish-includes .*util -- test_example.py
 
 
 Command line reference
