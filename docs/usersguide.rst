@@ -43,7 +43,7 @@ build the nodev docker image with all module from requirements.txt installed:
 
 and run tests with:
 
-    $ docker run --rm -it -v `pwd`:/home/pytest nodev --wish-from-all
+    $ docker run --rm -it -v `pwd`:/home/pytest nodev --wish-from-all tests/test_factorial.py
 
 Alternatively you can enable it on your regular user only after you have understood the risks
 and set up appropriate mitigation strategies
