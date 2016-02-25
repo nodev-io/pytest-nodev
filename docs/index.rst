@@ -1,7 +1,7 @@
 
-==========================
-pytest-nodev documentation
-==========================
+============
+pytest-nodev
+============
 
 :Version: |release|
 :Date: |today|
