@@ -38,8 +38,6 @@ from . import blacklists
 from . import utils
 
 
-# regex matching full object names of 'internal use' modules and objects
-INTERNAL_USE_PATTERN = '_|.*[.:]_'
 # regex representation of blacklists
 MODULE_BLACKLIST_PATTERN = '|'.join(blacklists.MODULE_BLACKLIST) or utils.NOMATCH_PATTERN
 OBJECT_BLACKLIST_PATTERN = '|'.join(blacklists.OBJECT_BLACKLIST) or utils.NOMATCH_PATTERN
@@ -116,7 +114,7 @@ def generate_module_objects(module, predicate=None):
 
 def generate_objects_from_modules(
         modules, include_patterns,
-        exclude_patterns=[INTERNAL_USE_PATTERN],
+        exclude_patterns=[],
         predicate_name=None,
         module_blacklist_pattern=MODULE_BLACKLIST_PATTERN,
         object_blacklist_pattern=OBJECT_BLACKLIST_PATTERN,

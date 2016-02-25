@@ -47,6 +47,10 @@ MODULE_BLACKLIST = {
 }
 
 OBJECT_BLACKLIST = {
+    # underscore 'internal use' modules and objects
+    '_|.*\._',
+    '.*:_',
+
     # pytest internals
     '_pytest.runner:exit',
     '_pytest.runner:skip',

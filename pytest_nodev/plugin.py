@@ -56,9 +56,8 @@ def pytest_addoption(parser):
         help="Space separated list of regexs matching full object names to include, "
              "defaults to include all objects collected via `--wish-from-*`.")
     group.addoption(
-        '--wish-excludes', default=[collect.INTERNAL_USE_PATTERN], nargs='+',
-        help="Space separated list of regexs matching full object names to exclude, "
-             "defaults to match 'internal use' names %r" % collect.INTERNAL_USE_PATTERN)
+        '--wish-excludes', default=[], nargs='+',
+        help="Space separated list of regexs matching full object names to exclude.")
     group.addoption(
         '--wish-predicate', default='builtins:callable',
         help="Full name of the predicate passed to `inspect.getmembers`, "
