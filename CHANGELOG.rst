@@ -2,13 +2,15 @@
 0.9.3 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Simplified command line interface.
+- Added docs on how to run inside a docker container.
+- Bug-fixes and performance improvements.
 
 
 0.9.2 (2016-02-20)
 ------------------
 
-- Disable potentially dangerous ``--wish-from-installed/all`` by default.
+- Disable potentially dangerous ``--wish-from-all`` by default.
 
 
 0.9.1 (2016-02-16)
