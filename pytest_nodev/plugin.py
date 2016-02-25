@@ -42,11 +42,9 @@ def pytest_addoption(parser):
         '--wish-from-stdlib', action='store_true',
         help="Collects objects form the Python standard library.")
     group.addoption(
-        '--wish-from-installed', action='store_true',
-        help="Collects objects form all installed packages.")
-    group.addoption(
         '--wish-from-all', action='store_true',
-        help="Collects objects form the Python standard library and all installed packages.")
+        help="Collects objects form the Python standard library and all installed packages. "
+             "Disabled by default, see the docs.")
     group.addoption(
         '--wish-from-specs', default=[], nargs='+',
         help="Collects objects from installed packages. Space separated list of ``pip`` specs.")
@@ -72,9 +70,8 @@ def wish_ensuresession(config):
     if hasattr(config, '_wish_index_items'):
         return
 
-    from_installed = config.getoption('wish_from_installed') or config.getoption('wish_from_all')
-    if from_installed and os.environ.get('PYTEST_NODEV_MODE') != 'FEARLESS':
-        raise ValueError("Use of --wish-from-installed/all may be very dangerous, see the docs.")
+    if config.getoption('wish_from_all') and os.environ.get('PYTEST_NODEV_MODE') != 'FEARLESS':
+        raise ValueError("Use of --wish-from-all may be very dangerous, see the docs.")
 
     # take over collect logging
     collect.logger.propagate = False
@@ -87,7 +84,7 @@ def wish_ensuresession(config):
     if config.getoption('wish_from_stdlib') or config.getoption('wish_from_all'):
         distributions.update(collect.collect_stdlib_distributions())
 
-    if from_installed:
+    if config.getoption('wish_from_all'):
         distributions.update(collect.collect_installed_distributions())
 
     distributions.update(collect.collect_distributions(config.getoption('wish_from_specs')))
