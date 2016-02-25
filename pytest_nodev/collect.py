@@ -121,10 +121,9 @@ def generate_objects_from_modules(
         module_blacklist_pattern=MODULE_BLACKLIST_PATTERN,
         object_blacklist_pattern=OBJECT_BLACKLIST_PATTERN,
 ):
-    exclude_patterns = exclude_patterns + [object_blacklist_pattern]
+    assert len(include_patterns) < 100 and len(exclude_patterns) < 100, "Silent re.match bug!"
     include_pattern = '|'.join(include_patterns) or utils.NOMATCH_PATTERN
     exclude_pattern = '|'.join(exclude_patterns) or utils.NOMATCH_PATTERN
-    match_pattern = utils.exclude_include_pattern(include_pattern, exclude_pattern)
     predicate = object_from_name(predicate_name) if predicate_name else None
     for module_name, module in modules.items():
         if re.match(module_blacklist_pattern, module_name):
@@ -133,7 +132,9 @@ def generate_objects_from_modules(
         for object_name, object_ in generate_module_objects(module, predicate):
             full_object_name = '{}:{}'.format(module_name, object_name)
             # NOTE: re auto-magically caches the compiled objects
-            if re.match(match_pattern, full_object_name):
+            if re.match(include_pattern, full_object_name) \
+                    and not re.match(exclude_pattern, full_object_name) \
+                    and not re.match(object_blacklist_pattern, full_object_name):
                 yield full_object_name, object_
 
 

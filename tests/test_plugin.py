@@ -183,7 +183,7 @@ def test_wish_modules_object_blacklist(testdir):
     testdir.makepyfile(TEST_FACTORIAL_PY)
     result = testdir.runpytest(
         '--wish-from-modules=posix',
-        '--wish-includes=.*exit',
+        '--wish-includes=.*fork',
         '-v',
     )
     assert result.ret == 0
