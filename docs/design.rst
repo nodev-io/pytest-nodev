@@ -85,7 +85,7 @@ No completeness and no performance guarantees.
     belonging to the standard library are unconditionally blacklisted
     so that new users can test ``--wish-from-stdlib`` without bothering with OS-level isolation.
 
-  - Limited use of ``--wish-from-imported`` and ``--wish-from-all``.
+  - Limited use of ``--wish-from-all``.
 
 - Documentation:
 
