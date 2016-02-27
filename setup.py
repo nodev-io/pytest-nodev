@@ -21,7 +21,7 @@ setup(
     license='MIT',
     url='https://github.com/nodev-io/pytest-nodev',
     download_url='https://github.com/nodev-io/pytest-nodev/archive/%s.tar.gz' % version,
-    description="Test-driven source code search plugin for pytest.",
+    description="Test-driven source code search for Python.",
     long_description=read('README.rst'),
     packages=find_packages(),
     install_requires=[
