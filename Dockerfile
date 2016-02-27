@@ -13,7 +13,9 @@ COPY . /src
 WORKDIR /src
 
 # setup the python and pytest environments
-RUN pip install --upgrade pip setuptools -r requirements-tests.txt
+RUN pip install --upgrade pip setuptools \
+        -r requirements-dev.txt \
+        -r requirements-tests.txt
 RUN python setup.py develop
 
 # fix up broken stdlib-list permissions, see:
