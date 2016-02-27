@@ -93,7 +93,9 @@ def wish_ensuresession(config):
 
     imported_module_names = collect.import_distributions(distributions.items())
 
-    wish_includes = config.getoption('wish_includes') or imported_module_names
+    wish_includes = config.getoption('wish_includes')
+    if not wish_includes:
+        wish_includes = ['.'] if config.getoption('wish_from_all') else imported_module_names
     wish_excludes = config.getoption('wish_excludes')
     wish_predicate = config.getoption('wish_predicate')
 
