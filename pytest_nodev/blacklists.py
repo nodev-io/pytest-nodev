@@ -33,6 +33,7 @@ MODULE_BLACKLIST = {
     'tests?\.',
     'xml.etree.ElementTree',
     'pycallgraph',
+    'queue',
 
     # hangs
     'itertools',
@@ -81,10 +82,16 @@ OBJECT_BLACKLIST = {
 
     # uninterruptable hang
     'compiler.ast:AugAssign',
+    'IPython.core.getipython:get_ipython',
+    'IPython.terminal.embed:InteractiveShellEmbed',
+    'IPython.terminal.interactiveshell:TerminalInteractiveShell',
     'itertools:cycle',
     'itertools:permutations',
     'itertools:repeat',
     'pydoc:apropos',
+    'logging.config:listen',
+    'multiprocessing.dummy.connection:Listener',
+    'multiprocessing.dummy.connection:Pipe',
 
     # dangerous
     'os.mkdir',
