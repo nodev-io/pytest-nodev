@@ -119,7 +119,6 @@ def generate_objects_from_modules(
         module_blacklist_pattern=MODULE_BLACKLIST_PATTERN,
         object_blacklist_pattern=OBJECT_BLACKLIST_PATTERN,
 ):
-    assert len(include_patterns) < 100 and len(exclude_patterns) < 100, "Silent re.match bug!"
     include_pattern = '|'.join(include_patterns) or utils.NOMATCH_PATTERN
     exclude_pattern = '|'.join(exclude_patterns) or utils.NOMATCH_PATTERN
     predicate = object_from_name(predicate_name) if predicate_name else None
