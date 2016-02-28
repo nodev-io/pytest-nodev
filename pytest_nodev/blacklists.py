@@ -42,6 +42,7 @@ MODULE_BLACKLIST = [
     'subprocess',
 
     # annoying
+    'antigravity',  # not sure about this one :)
     'pydoc',
     'tkinter',
     'turtle'
