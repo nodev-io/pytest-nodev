@@ -47,14 +47,15 @@ logger = logging.getLogger('wish')
 
 
 def collect_stdlib_distributions():
+    """Yield a conventional spec and the names of all top_level standard library modules."""
     distribution_spec = 'Python==%d.%d.%d' % sys.version_info[:3]
     stdlib_path = sysconfig.get_python_lib(standard_lib=True)
-    distribution_module_names = [name for _, name, _ in pkgutil.iter_modules(path=[stdlib_path])]
-    distribution_module_names += list(sys.builtin_module_names)
-    yield distribution_spec, distribution_module_names
+    distribution_top_level = [name for _, name, _ in pkgutil.iter_modules(path=[stdlib_path])]
+    distribution_top_level += list(sys.builtin_module_names)
+    yield distribution_spec, distribution_top_level
 
 
-def guess_module_names(distribution):
+def guess_top_level(distribution):
     if distribution.has_metadata('top_level.txt'):
         module_names = distribution.get_metadata('top_level.txt').splitlines()
     else:
@@ -65,13 +66,15 @@ def guess_module_names(distribution):
 
 
 def collect_installed_distributions():
+    """Yield the normalized spec and the names of top_level modules of all installed packages."""
     for distribution in pkg_resources.working_set:
         distribution_spec = str(distribution.as_requirement())
-        distribution_module_names = guess_module_names(distribution)
-        yield distribution_spec, distribution_module_names
+        distribution_top_level = guess_top_level(distribution)
+        yield distribution_spec, distribution_top_level
 
 
 def collect_distributions(specs):
+    """Yield the normalized spec and the names of top_level modules of the requested specs."""
     for spec in specs:
         try:
             distribution = pkg_resources.get_distribution(spec)
@@ -79,8 +82,8 @@ def collect_distributions(specs):
             logger.info("Failed to find a distribution matching the spec: %r.", spec)
             continue
         distribution_spec = str(distribution.as_requirement())
-        distribution_module_names = guess_module_names(distribution)
-        yield distribution_spec, distribution_module_names
+        distribution_top_level = guess_top_level(distribution)
+        yield distribution_spec, distribution_top_level
 
 
 def import_module(module_name, module_blacklist_pattern=MODULE_BLACKLIST_PATTERN):
