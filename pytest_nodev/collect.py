@@ -96,15 +96,17 @@ def import_module(module_name, module_blacklist_pattern=MODULE_BLACKLIST_PATTERN
 
 
 def import_distributions(distribution_modules, module_blacklist_pattern=MODULE_BLACKLIST_PATTERN):
-    imported_module_names = []
+    top_level_modules = set()
     for spec, module_names in distribution_modules:
         for module_name in module_names:
             try:
                 import_module(module_name, module_blacklist_pattern=module_blacklist_pattern)
-                imported_module_names.append(module_name)
+                # non-top_level module_names only add the first part, e.g. 'xml.dom' -> 'xml'
+                top_level_modules.add(module_name.partition('.')[0])
             except:
                 logger.info("Failed to import module %r from package %r.", module_name, spec)
-    return imported_module_names
+
+    return top_level_modules
 
 
 def generate_module_objects(module, predicate=None):

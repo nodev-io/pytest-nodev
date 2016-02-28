@@ -91,11 +91,11 @@ def wish_ensuresession(config):
     if config.getoption('wish_from_modules'):
         distributions['unknown distribution'] = config.getoption('wish_from_modules')
 
-    imported_module_names = collect.import_distributions(distributions.items())
+    top_level_modules = collect.import_distributions(distributions.items())
 
     wish_includes = config.getoption('wish_includes')
     if not wish_includes:
-        wish_includes = ['.'] if config.getoption('wish_from_all') else imported_module_names
+        wish_includes = ['.'] if config.getoption('wish_from_all') else sorted(top_level_modules)
     wish_excludes = config.getoption('wish_excludes')
     wish_predicate = config.getoption('wish_predicate')
 
