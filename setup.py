@@ -29,7 +29,6 @@ setup(
         'future',
         'pytest>=2.8.1',
         'pytest-timeout',
-        'stdlib-list',
     ],
     zip_safe=True,
     classifiers=[

@@ -25,14 +25,15 @@
 from __future__ import absolute_import, unicode_literals
 from builtins import str
 
+from distutils import sysconfig
 import importlib
 import inspect
 import logging
 import re
+import pkgutil
 import sys
 
 import pkg_resources
-import stdlib_list
 
 from . import blacklists
 from . import utils
@@ -46,10 +47,10 @@ logger = logging.getLogger('wish')
 
 
 def collect_stdlib_distributions():
-    # use Python long version number in distribution_spec
     distribution_spec = 'Python==%d.%d.%d' % sys.version_info[:3]
-    # use Python short version number for stdlib_list as it supports only a few long versions
-    distribution_module_names = stdlib_list.stdlib_list('%d.%d' % sys.version_info[:2])
+    stdlib_path = sysconfig.get_python_lib(standard_lib=True)
+    distribution_module_names = [name for _, name, _ in pkgutil.iter_modules(path=[stdlib_path])]
+    distribution_module_names += list(sys.builtin_module_names)
     yield distribution_spec, distribution_module_names
 
 
