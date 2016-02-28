@@ -26,11 +26,15 @@ from __future__ import unicode_literals
 
 
 MODULE_BLACKLIST = [
+    # underscore 'internal use' modules and objects
+    r'_|.*\._',
+
     # crash
     'icopen',
     'ntpath',
     'tests?$',
     r'tests?\.',
+    r'.*\.tests?\.',
     'xml.etree.ElementTree',
     'pycallgraph',
     'queue',
@@ -81,6 +85,7 @@ OBJECT_BLACKLIST = [
     'getpass:getpass',
     'getpass:unix_getpass',
     'ensurepip:_run_pip',
+    'idlelib.rpc:SocketIO',
 
     # uninterruptable hang
     'compiler.ast:AugAssign',
@@ -103,4 +108,5 @@ OBJECT_BLACKLIST = [
     'posix:popen',
     'shutil.rmtree',
     'turtle.write_docstringdict',
+    'multiprocessing.semaphore_tracker:main',
 ]
