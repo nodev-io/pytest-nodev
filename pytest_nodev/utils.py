@@ -28,10 +28,6 @@ from builtins import super
 import logging
 
 
-# regex impossible to match (even in re.MULTILINE mode)
-NOMATCH_PATTERN = r'.\A'
-
-
 class EmitHandler(logging.Handler):
     """Send logging output via a custom callable."""
     def __init__(self, emit_callable, **kwargs):

@@ -36,12 +36,14 @@ import sys
 import pkg_resources
 
 from . import blacklists
-from . import utils
 
+
+# regex impossible to match (even in re.MULTILINE mode)
+NOMATCH_PATTERN = r'.\A'
 
 # regex representation of blacklists
-MODULE_BLACKLIST_PATTERN = '|'.join(blacklists.MODULE_BLACKLIST) or utils.NOMATCH_PATTERN
-OBJECT_BLACKLIST_PATTERN = '|'.join(blacklists.OBJECT_BLACKLIST) or utils.NOMATCH_PATTERN
+MODULE_BLACKLIST_PATTERN = '|'.join(blacklists.MODULE_BLACKLIST) or NOMATCH_PATTERN
+OBJECT_BLACKLIST_PATTERN = '|'.join(blacklists.OBJECT_BLACKLIST) or NOMATCH_PATTERN
 
 logger = logging.getLogger('wish')
 
@@ -123,8 +125,8 @@ def generate_objects_from_modules(
         module_blacklist_pattern=MODULE_BLACKLIST_PATTERN,
         object_blacklist_pattern=OBJECT_BLACKLIST_PATTERN,
 ):
-    include_pattern = '|'.join(include_patterns) or utils.NOMATCH_PATTERN
-    exclude_pattern = '|'.join(exclude_patterns) or utils.NOMATCH_PATTERN
+    include_pattern = '|'.join(include_patterns) or NOMATCH_PATTERN
+    exclude_pattern = '|'.join(exclude_patterns) or NOMATCH_PATTERN
     predicate = object_from_name(predicate_name) if predicate_name else None
     for module_name, module in modules.items():
         if re.match(module_blacklist_pattern, module_name):
