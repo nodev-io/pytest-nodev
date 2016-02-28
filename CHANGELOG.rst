@@ -2,7 +2,8 @@
 0.9.4 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Fixed the frequent "AssertionError: Silent re.match bug!", issue #24.
+- Added more problem objects to the blacklist.
 
 
 0.9.3 (2016-02-25)
