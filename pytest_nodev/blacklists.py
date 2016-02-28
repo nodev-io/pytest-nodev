@@ -25,7 +25,7 @@
 from __future__ import unicode_literals
 
 
-MODULE_BLACKLIST = {
+MODULE_BLACKLIST = [
     # crash
     'icopen',
     'ntpath',
@@ -45,9 +45,9 @@ MODULE_BLACKLIST = {
     'pydoc',
     'tkinter',
     'turtle'
-}
+]
 
-OBJECT_BLACKLIST = {
+OBJECT_BLACKLIST = [
     # underscore 'internal use' modules and objects
     '_|.*\._',
     '.*:_',
@@ -56,6 +56,7 @@ OBJECT_BLACKLIST = {
     '_pytest.runner:exit',
     '_pytest.runner:skip',
     '_pytest.skipping:xfail',
+    'pytest_timeout:timeout_timer',
 
     # unconditional exit
     'faulthandler:_sigsegv',
@@ -101,4 +102,4 @@ OBJECT_BLACKLIST = {
     'posix:popen',
     'shutil.rmtree',
     'turtle.write_docstringdict',
-}
+]
