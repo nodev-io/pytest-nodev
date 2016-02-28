@@ -30,7 +30,7 @@ MODULE_BLACKLIST = [
     'icopen',
     'ntpath',
     'tests?$',
-    'tests?\.',
+    r'tests?\.',
     'xml.etree.ElementTree',
     'pycallgraph',
     'queue',
@@ -50,7 +50,7 @@ MODULE_BLACKLIST = [
 
 OBJECT_BLACKLIST = [
     # underscore 'internal use' modules and objects
-    '_|.*\._',
+    r'_|.*\._',
     '.*:_',
 
     # pytest internals

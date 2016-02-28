@@ -3,6 +3,10 @@
 # Copyright (c) 2015-2016 Alessandro Amici
 #
 
+# python 2 support via python-future
+from __future__ import absolute_import, unicode_literals
+from builtins import list
+
 import pytest
 
 from pytest_nodev import blacklists

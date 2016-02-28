@@ -23,7 +23,7 @@
 
 # python 2 support via python-future
 from __future__ import absolute_import, unicode_literals
-from builtins import str
+from builtins import list, str
 
 from distutils import sysconfig
 import importlib
@@ -120,7 +120,7 @@ def generate_module_objects(module, predicate=None):
 
 def generate_objects_from_modules(
         modules, include_patterns,
-        exclude_patterns=[],
+        exclude_patterns=(),
         predicate_name=None,
         module_blacklist_pattern=MODULE_BLACKLIST_PATTERN,
         object_blacklist_pattern=OBJECT_BLACKLIST_PATTERN,
