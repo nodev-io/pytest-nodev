@@ -129,7 +129,7 @@ Code quality  .. image:: https://api.travis-ci.org/nodev-io/pytest-nodev.svg?bra
                 :target: https://travis-ci.org/nodev-io/pytest-nodev/branches
                 :alt: Build Status on Travis CI
               .. image:: https://ci.appveyor.com/api/projects/status/github/nodev-io/pytest-nodev?branch=master
-                :target: https://ci.appveyor.com/project/nodev-io/pytest-nodev/branch/master
+                :target: https://ci.appveyor.com/project/alexamici/pytest-nodev/branch/master
                 :alt: Build Status on AppVeyor
               .. image:: https://coveralls.io/repos/nodev-io/pytest-nodev/badge.svg?branch=master&service=github
                 :target: https://coveralls.io/github/nodev-io/pytest-nodev?branch=master
