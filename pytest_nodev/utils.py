@@ -32,16 +32,6 @@ import logging
 NOMATCH_PATTERN = r'.\A'
 
 
-def exclude_include_pattern(include_pattern='', exclude_pattern=NOMATCH_PATTERN):
-    """Return a pattern that matches ``include_pattern`` except matches of ``exclude_pattern``.
-
-    :param str include_pattern: Include everything by default (r'').
-    :param str exclude_pattern: Exclude nothing by default (r'.\A').
-    :rtype: str
-    """
-    return '(?!%s)%s' % (exclude_pattern, include_pattern)
-
-
 class EmitHandler(logging.Handler):
     """Send logging output via a custom callable."""
     def __init__(self, emit_callable, **kwargs):
