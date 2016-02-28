@@ -1,5 +1,5 @@
 
-0.9.4 (unreleased)
+0.9.4 (2016-02-28)
 ------------------
 
 - Fixed the frequent "AssertionError: Silent re.match bug!", issue #24.
