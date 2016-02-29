@@ -18,10 +18,6 @@ RUN pip install --upgrade pip setuptools \
         -r requirements-tests.txt
 RUN python setup.py develop
 
-# fix up broken stdlib-list permissions, see:
-#   https://github.com/jackmaney/python-stdlib-list/issues/2
-RUN chmod go+r -R /usr/local/lib/python3.5/site-packages/stdlib*
-
 # setup entry point
 USER pytest
 ENTRYPOINT ["py.test"]
