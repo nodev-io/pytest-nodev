@@ -48,6 +48,18 @@ OBJECT_BLACKLIST_PATTERN = '|'.join(blacklists.OBJECT_BLACKLIST) or NOMATCH_PATT
 logger = logging.getLogger('wish')
 
 
+def recurse_import_path(path=None, prefix='', spec='UNKOWN'):
+    """Inspired to pkgutil.walk_packages with custom import logic and logging."""
+    for _, name, ispkg in pkgutil.iter_modules(path, prefix):
+        try:
+            module = import_module(name)
+        except BaseException as ex:  # catches Exception and SystemExit
+            logger.info("Not imported module %r from package %r: %s", name, spec, ex)
+        else:
+            if ispkg:
+                recurse_import_path(path=module.__path__, prefix=name + '.', spec=spec)
+
+
 def collect_stdlib_distributions():
     """Yield a conventional spec and the names of all top_level standard library modules."""
     distribution_spec = 'Python==%d.%d.%d' % sys.version_info[:3]
@@ -90,22 +102,24 @@ def collect_distributions(specs):
 
 def import_module(module_name, module_blacklist_pattern=MODULE_BLACKLIST_PATTERN):
     if re.match(module_blacklist_pattern, module_name):
-        raise ImportError("Not importing blacklisted module: %r.", module_name)
+        raise ImportError("module %r blacklisted." % module_name)
     else:
         return importlib.import_module(module_name)
 
 
-def import_distributions(distribution_modules, module_blacklist_pattern=MODULE_BLACKLIST_PATTERN):
+def import_distributions(distribution_modules):
     top_level_modules = set()
     for spec, module_names in distribution_modules:
         for module_name in module_names:
             try:
-                import_module(module_name, module_blacklist_pattern=module_blacklist_pattern)
+                module = import_module(module_name)
+            except BaseException as ex:  # catches Exception and SystemExit
+                logger.info("Not imported top level %r from package %r: %s", module_name, spec, ex)
+            else:
+                path = getattr(module, '__path__', [])
+                recurse_import_path(path=path, prefix=module_name + '.', spec=spec)
                 # non-top_level module_names only add the first part, e.g. 'xml.dom' -> 'xml'
                 top_level_modules.add(module_name.partition('.')[0])
-            except:
-                logger.info("Failed to import module %r from package %r.", module_name, spec)
-
     return top_level_modules
 
 
