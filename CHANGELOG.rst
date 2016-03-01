@@ -2,8 +2,10 @@
 0.9.5 (unreleased)
 ------------------
 
-- Better sub-module discovery logic for packages. Really find all installed modules.
+- Really find all installed modules thanks to a better sub-module discovery logic for packages.
   Issue `#2 <https://github.com/nodev-io/pytest-nodev/issues/2>`_.
+- Drop stdlib-list and its bloated dependency tree,
+  issue `#23 <https://github.com/nodev-io/pytest-nodev/issues/23>`_.
 
 
 0.9.4 (2016-02-28)
