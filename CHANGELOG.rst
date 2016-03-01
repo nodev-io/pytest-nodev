@@ -2,7 +2,7 @@
 0.9.5 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Better sub-module discovery logic for packages. Really find all installed modules. Issue #2.
 
 
 0.9.4 (2016-02-28)
