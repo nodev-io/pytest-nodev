@@ -21,6 +21,10 @@ def test_factorial(wish):
     assert factorial(1) == 1
     assert factorial(21) == 51090942171709440000
 '''
+TEST_POW_PY = '''
+def test_pow(wish):
+    assert wish(2, 9, 47) == 42
+'''
 
 
 def test_import_coverage():
@@ -130,7 +134,7 @@ def test_pytest_run_from_modules(testdir):
 
 
 def test_pytest_run_from_modules_twice(testdir):
-    testdir.makepyfile(TEST_FACTORIAL_PY + TEST_PASS_PY)
+    testdir.makepyfile(TEST_FACTORIAL_PY + TEST_POW_PY)
     result = testdir.runpytest(
         '--wish-from-modules=math',
         '-v',
