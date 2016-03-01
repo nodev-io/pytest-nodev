@@ -54,7 +54,7 @@ def recurse_import_path(path=None, prefix='', spec='UNKOWN'):
         try:
             module = import_module(name)
         except BaseException as ex:  # catches Exception and SystemExit
-            logger.info("Not imported module %r from package %r: %s", name, spec, ex)
+            logger.info("Not imported sub-module %r from package %r: %s", name, spec, ex)
         else:
             if ispkg:
                 recurse_import_path(path=module.__path__, prefix=name + '.', spec=spec)
@@ -92,8 +92,8 @@ def collect_distributions(specs):
     for spec in specs:
         try:
             distribution = pkg_resources.get_distribution(spec)
-        except:
-            logger.info("Failed to find a distribution matching the spec: %r.", spec)
+        except Exception as ex:
+            logger.info("Failed to find a distribution matching %r: %s", spec, ex)
             continue
         distribution_spec = str(distribution.as_requirement())
         distribution_top_level = guess_top_level(distribution)
@@ -126,8 +126,8 @@ def import_distributions(distribution_modules):
 def generate_module_objects(module, predicate=None):
     try:
         module_members = inspect.getmembers(module, predicate)
-    except:
-        logger.info("Failed to get member list from module %r.", module)
+    except Exception as ex:
+        logger.info("Failed to get members of module %r: %s", module, ex)
         raise StopIteration
     for object_name, object_ in module_members:
         if inspect.getmodule(object_) is module:
