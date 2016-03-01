@@ -1,5 +1,5 @@
 
-0.9.5 (unreleased)
+0.9.5 (2016-03-01)
 ------------------
 
 - Really find all installed modules thanks to a better sub-module discovery logic for packages.
