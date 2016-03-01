@@ -21,11 +21,6 @@ def test_factorial(wish):
     assert factorial(1) == 1
     assert factorial(21) == 51090942171709440000
 '''
-TEST_FACTORIAL_TXT = '''
-# test
-math:fabs # comment
-math:factorial
-'''
 
 
 def test_import_coverage():
@@ -123,6 +118,19 @@ def test_pytest_run_no_wish_option(testdir):
 
 def test_pytest_run_from_modules(testdir):
     testdir.makepyfile(TEST_FACTORIAL_PY)
+    result = testdir.runpytest(
+        '--wish-from-modules=math',
+        '-v',
+    )
+    result.stdout.fnmatch_lines([
+        '*test_factorial*math:fabs*xfail',
+        '*test_factorial*math:factorial*XPASS',
+    ])
+    assert result.ret == 0
+
+
+def test_pytest_run_from_modules_twice(testdir):
+    testdir.makepyfile(TEST_FACTORIAL_PY + TEST_PASS_PY)
     result = testdir.runpytest(
         '--wish-from-modules=math',
         '-v',
