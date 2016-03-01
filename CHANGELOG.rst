@@ -3,13 +3,14 @@
 ------------------
 
 - Better sub-module discovery logic for packages. Really find all installed modules.
-  Issue nodev-io/pytest-nodev#2.
+  Issue `#2 <https://github/nodev-io/pytest-nodev#2>`_.
 
 
 0.9.4 (2016-02-28)
 ------------------
 
-- Fixed the frequent "AssertionError: Silent re.match bug!", issue nodev-io/pytest-nodev#24.
+- Fixed the frequent "AssertionError: Silent re.match bug!",
+  issue `#24 <https://github/nodev-io/pytest-nodev#24>`_.
 - Added more problem objects to the blacklist.
 
 
