@@ -32,12 +32,13 @@ MODULE_BLACKLIST = [
     # crash
     'icopen',
     'ntpath',
-    'tests?$',
-    r'tests?\.',
-    r'.*\.tests?\.',
+    'tests?',
+    r'.*\.tests?',
+    r'.*\.testing',
     'xml.etree.ElementTree',
     'pycallgraph',
     'queue',
+    'idlelib',
 
     # hangs
     'itertools',
@@ -47,9 +48,10 @@ MODULE_BLACKLIST = [
 
     # annoying
     'antigravity',  # not sure about this one :)
+    'this',  # and about this one too!
     'pydoc',
     'tkinter',
-    'turtle'
+    'turtle',
 ]
 
 OBJECT_BLACKLIST = [
