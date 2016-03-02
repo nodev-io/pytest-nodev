@@ -2,7 +2,7 @@
 User's Guide
 ============
 
-.. warning:: This documentation is work in progress and there will be areas that are lacking.
+.. warning:: This section is work in progress and there will be areas that are lacking.
 
 Intended audience: python developers who've got better things to do than reinvent wheels.
 
