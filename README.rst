@@ -13,26 +13,21 @@
 
 .. NOTE: only the first line of the README is shown on GitHub mobile
 
-pytest-nodev is a simple test-driven search engine for live code,
-it finds classes and functions matching the behaviour specified by the given tests.
+pytest-nodev is a simple test-driven search engine for Python code,
+it finds classes and functions that match the behaviour specified by the given tests.
 
-Development status: **beta**.
-
-New user FAQ
-------------
-
-**What is pytest-nodev?**
+**How does "test-driven code search" work?**
 
 To be more precise pytest-nodev is a `pytest <https://pytest.org>`_ plugin
-that helps you execute specification tests on all objects
+that helps you execute feature specification tests on all objects
 in the Python standard library and in all the modules you have installed.
 
 **Who are pytest-nodev users?**
 
-Python developers who've got better things to do than reinvent wheels.
+Python developers who've got better things to do than reinvent existing wheels.
 
-**Sounds interesting, I need a function that robustly parses a boolean value from a string.**
-**Here's my specification test**::
+**I need to write a `parse_bool` function that robustly parses a boolean value from a string.**
+**Here is the test I intend to use to validate my own implementation once I write it.**::
 
     def test_parse_bool():
         assert not parse_bool('false')
@@ -43,7 +38,7 @@ Python developers who've got better things to do than reinvent wheels.
         assert parse_bool('TRUE')
         assert parse_bool('1')
 
-**Show me how searching with pytest-nodev work.**
+**Show me how I search for a ready-made implementation with pytest-nodev.**
 
 First, install the `latest version of pytest-nodev <https://pypi.python.org/pypi/pytest-nodev>`_
 from the Python Package Index::
@@ -53,8 +48,8 @@ from the Python Package Index::
 Then copy your specification test to the ``test_parse_bool.py`` file and
 instrument it with the ``wish`` fixture::
 
-    def test_parse_bool(wish):
-        parse_bool = wish
+    def test_parse_bool(wish):         # <--- change here...
+        parse_bool = wish              # <--- ... and here
 
         assert not parse_bool('false')
         assert not parse_bool('FALSE')
@@ -64,7 +59,7 @@ instrument it with the ``wish`` fixture::
         assert parse_bool('TRUE')
         assert parse_bool('1')
 
-Finally, instruct pytest-nodev to run your test on all functions in the Python standard library::
+Finally, instruct pytest to run your test on all functions in the Python standard library::
 
     $ py.test test_parse_bool.py --wish-from-stdlib
     ======================= test session starts ==========================
@@ -92,7 +87,7 @@ no need to write your own implementation.
 **Wow! Does it work so well all the times?**
 
 To be honest strtobool is a little known gem of the Python standard library that
-is just perfect for illustrating all the benefits of the search-by-tests strategy.
+is just perfect for illustrating all the benefits of test-driven code search.
 Here are some of them in rough order of importance:
 
 - a function imported is a one less function coded---and tested, documented, debugged,
@@ -102,6 +97,7 @@ Here are some of them in rough order of importance:
 - it gives you additional useful functionality---for free on top of that
 - it's in the Python standard library---no additional dependency required
 
+
 BIG FAT WARNING!
 ----------------
 
@@ -109,11 +105,9 @@ A lot of functions called with the wrong set of arguments may have unexpected co
 from slightly annoying, think ``os.mkdir('false')``,
 to **utterly catastrophic**, think ``shutil.rmtree('/', True)``.
 Serious use of pytest-nodev, in particular using ``--wish-from-all``,
-require operating-system level isolation,
-e.g. a dedicated user or even better a dedicated container.
-
-Discussion on how to best help users sandboxing pytest-nodev is ongoing,
-see issue `#16 <https://github.com/nodev-io/pytest-nodev/issues/16>`_.
+require running the tests with operating-system level isolation,
+e.g. as a dedicated user or even better inside a dedicated container.
+The `:doc:usersguide` documents how to run pytest-nodev safely and efficiently.
 
 
 Project resources

@@ -11,7 +11,7 @@ it is intended for developers contributing to the project.
 Mission and vision
 ------------------
 
-The project mission is to enable test-driven code search with pytest.
+The project mission is to enable test-driven code search for Python with pytest.
 
 Target use cases:
 
@@ -22,7 +22,7 @@ Project goals:
 
 #. collect all possible python live objects (modules, functions, classes, singletons, constants...)
 #. enable flexible search space definition
-#. enable change of normal tests to specification tests, and vice versa, with minimal effort
+#. let users turn normal tests into specification tests, and vice versa, with minimal effort
 
 Project non-goals:
 
@@ -44,7 +44,7 @@ Logical components:
 Version goals
 -------------
 
-pytest-nodev uses `semantic versioning <http://semver.org>`_.
+pytest-nodev strives to adhere to `semantic versioning <http://semver.org>`_.
 
 
 1.0.0 (upcoming release)
