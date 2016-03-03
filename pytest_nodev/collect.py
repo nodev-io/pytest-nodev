@@ -20,6 +20,9 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 #
+"""
+Helpers to import modules, collect modules top level objects and select/filter/blacklist them.
+"""
 
 # python 2 support via python-future
 from __future__ import absolute_import, unicode_literals
