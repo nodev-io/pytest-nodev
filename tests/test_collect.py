@@ -78,4 +78,8 @@ def test_generate_objects_from_modules():
 
 def test_object_from_name():
     object_ = collect.object_from_name('pytest_nodev.collect:object_from_name')
-    assert object_ == collect.object_from_name
+    assert object_ is collect.object_from_name
+
+    # instance methods compare by equality, see http://stackoverflow.com/questions/15977808
+    object_ = collect.object_from_name('pytest_nodev.collect:NOMATCH_PATTERN.upper')
+    assert object_ == collect.NOMATCH_PATTERN.upper

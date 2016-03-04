@@ -161,6 +161,11 @@ def generate_objects_from_modules(
 
 
 def object_from_name(full_object_name):
+    """Return an object from its PEP3155 fully qualified name in the form "module:qualname".
+
+    Inspired to how pkg_resources:EntryPoint.parse and pkg_resources:EntryPoint.load work."""
     module_name, _, object_name = full_object_name.partition(':')
-    module = importlib.import_module(module_name)
-    return getattr(module, object_name)
+    object_ = importlib.import_module(module_name)
+    for attr_name in object_name.split('.'):
+        object_ = getattr(object_, attr_name)
+    return object_
