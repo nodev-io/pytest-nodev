@@ -1,5 +1,5 @@
 
-User's Guide
+User's guide
 ============
 
 .. warning:: This section is work in progress and there will be areas that are lacking.

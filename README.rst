@@ -107,7 +107,8 @@ to **utterly catastrophic**, think ``shutil.rmtree('/', True)``.
 Serious use of pytest-nodev, in particular using ``--wish-from-all``,
 require running the tests with operating-system level isolation,
 e.g. as a dedicated user or even better inside a dedicated container.
-The `:doc:usersguide` documents how to run pytest-nodev safely and efficiently.
+The `User's guide <http://pytest-nodev.readthedocs.org/en/stable/usersguide.html>`_
+documents how to run pytest-nodev safely and efficiently.
 
 
 Project resources
