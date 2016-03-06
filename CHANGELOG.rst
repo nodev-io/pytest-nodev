@@ -1,5 +1,5 @@
 
-0.9.6 (unreleased)
+0.9.6 (2016-03-06)
 ------------------
 
 - Mostly documentation improvements and fixes.
