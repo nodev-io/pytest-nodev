@@ -11,7 +11,7 @@
    * credit contributors
    Anything else should go into docs.
 
-.. NOTE: only the first line of the README is shown on GitHub mobile
+.. NOTE: only the first couple of lines of the README are shown on GitHub mobile
 
 pytest-nodev is a simple test-driven search engine for Python code,
 it finds classes and functions that match the behaviour specified by the given tests.
@@ -107,7 +107,8 @@ to **utterly catastrophic**, think ``shutil.rmtree('/', True)``.
 Serious use of pytest-nodev, in particular using ``--wish-from-all``,
 require running the tests with operating-system level isolation,
 e.g. as a dedicated user or even better inside a dedicated container.
-The `:doc:usersguide` documents how to run pytest-nodev safely and efficiently.
+The `User's guide <http://pytest-nodev.readthedocs.org/en/stable/usersguide.html>`_
+documents how to run pytest-nodev safely and efficiently.
 
 
 Project resources
