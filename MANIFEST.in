@@ -7,5 +7,6 @@ include *.yml
 recursive-include docs *.py
 recursive-include docs *.rst
 recursive-include tests *.py
+recursive-include specs *.py
 recursive-include examples *.py
 recursive-include examples *.txt
