@@ -36,6 +36,22 @@ Or is it?
 Test-driven code search
 -----------------------
 
+When developing new functionalities developers spend significant efforts searching for
+code to reuse, mainly via keyword-based searches, e.g. on StackOverflow and Google.
+Keyword-based search is quite effective in finding code that is explicitly designed and
+documented to be reused, e.g. libraries and frameworks,
+but typically fails to identify reusable functions and classes in the large corpus of
+auxiliary code of software projects.
+
+TDR aims to address the limits of keyword-based search with test-driven code search
+that focuses instead on code behaviour and semantics.
+Developing a new feature in TDR starts with the developer writing the tests
+that will validate candidate implementations of the desired functionality.
+Before writing any functional code the tests are run against all functions
+and classes of all available projects.
+Any code passing the tests is presented to the developer
+as a candidate implementation for the target feature.
+
 pytest-nodev is a pytest plugin that enables *test-driven code search* and
 consequently a software development strategy called
 *test-driven reuse* or TDR that we call *nodev*,
