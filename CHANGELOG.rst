@@ -2,7 +2,7 @@
 0.9.6 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Mostly documentation improvements and fixes.
 
 
 0.9.5 (2016-03-01)
