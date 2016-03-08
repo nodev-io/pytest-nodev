@@ -46,11 +46,10 @@ from the Python Package Index::
     $ pip install pytest-nodev
 
 Then copy your specification test to the ``test_parse_bool.py`` file and
-instrument it with the ``wish`` fixture::
+decorate it with ``pytest_nodev.search`` as follows::
 
-    def test_parse_bool(wish):         # <--- change here...
-        parse_bool = wish              # <--- ... and here
-
+    @pytest_nodev.search('parse_bool')
+    def test_parse_bool():
         assert not parse_bool('false')
         assert not parse_bool('FALSE')
         assert not parse_bool('0')
