@@ -1,0 +1,6 @@
+setuptools==20.2.2
+pip==8.1.0
+future==0.15.2
+py==1.4.31
+pytest==2.9.0
+pytest-timeout==1.0.0

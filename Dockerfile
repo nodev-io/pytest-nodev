@@ -7,17 +7,18 @@
 #
 FROM python:3
 
-# setup pytest user
-RUN adduser --disabled-password --gecos "" --uid 7357 pytest
+# setup workdir
 COPY . /src
 WORKDIR /src
 
 # setup the python and pytest environments
-RUN pip install --upgrade pip setuptools \
-        -r requirements-dev.txt \
-        -r requirements-tests.txt
-RUN python setup.py develop
+RUN pip install --upgrade -r requirements.txt
+RUN pip install --upgrade -r requirements-tests.txt
+RUN pip install -e .
+
+# setup pytest user
+RUN adduser --disabled-password --gecos "" --uid 7357 pytest
+USER pytest
 
 # setup entry point
-USER pytest
 ENTRYPOINT ["py.test"]
