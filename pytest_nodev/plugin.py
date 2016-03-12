@@ -65,64 +65,62 @@ def pytest_addoption(parser):
     group.addoption('--wish-fail', action='store_true', help="Show wish failures.")
 
 
-def wish_ensuresession(config):
-    if hasattr(config, '_wish_index_items'):
-        return
-
+def make_wish_index(config):
     if config.getoption('wish_from_all') and os.environ.get('PYTEST_NODEV_MODE') != 'FEARLESS':
         raise ValueError("Use of --wish-from-all may be very dangerous, see the docs.")
 
-    # take over collect logging
-    collect.logger.propagate = False
-    collect.logger.setLevel(logging.DEBUG)  # FIXME: loglevel should be configurable
-    collect.logger.addHandler(utils.EmitHandler(config._warn))
+    if not hasattr(config, '_wish_index_items'):
+        # take over collect logging
+        collect.logger.propagate = False
+        collect.logger.setLevel(logging.DEBUG)  # FIXME: loglevel should be configurable
+        collect.logger.addHandler(utils.EmitHandler(config._warn))
 
-    # build the object index
-    distributions = collections.OrderedDict()
+        # delegate interrupting hanging tests to pytest-timeout
+        os.environ['PYTEST_TIMEOUT'] = os.environ.get('PYTEST_TIMEOUT', '1')
 
-    if config.getoption('wish_from_stdlib') or config.getoption('wish_from_all'):
-        distributions.update(collect.collect_stdlib_distributions())
+        # build the object index
+        distributions = collections.OrderedDict()
 
-    if config.getoption('wish_from_all'):
-        distributions.update(collect.collect_installed_distributions())
+        if config.getoption('wish_from_stdlib') or config.getoption('wish_from_all'):
+            distributions.update(collect.collect_stdlib_distributions())
 
-    distributions.update(collect.collect_distributions(config.getoption('wish_from_specs')))
+        if config.getoption('wish_from_all'):
+            distributions.update(collect.collect_installed_distributions())
 
-    if config.getoption('wish_from_modules'):
-        distributions['unknown distribution'] = config.getoption('wish_from_modules')
+        distributions.update(collect.collect_distributions(config.getoption('wish_from_specs')))
 
-    top_level_modules = collect.import_distributions(distributions.items())
+        if config.getoption('wish_from_modules'):
+            distributions['unknown distribution'] = config.getoption('wish_from_modules')
 
-    wish_includes = config.getoption('wish_includes')
-    if not wish_includes:
-        wish_includes = ['.'] if config.getoption('wish_from_all') else sorted(top_level_modules)
-    wish_excludes = config.getoption('wish_excludes')
-    wish_predicate = config.getoption('wish_predicate')
+        top_level_modules = collect.import_distributions(distributions.items())
 
-    # NOTE: 'copy' is needed here because indexing may unexpectedly trigger a module load
-    modules = sys.modules.copy()
-    object_index = dict(
-        collect.generate_objects_from_modules(modules, wish_includes, wish_excludes,
-                                              wish_predicate)
-    )
+        includes = config.getoption('wish_includes')
+        if not includes:
+            includes = ['.'] if config.getoption('wish_from_all') else sorted(top_level_modules)
+        excludes = config.getoption('wish_excludes')
+        predicate = config.getoption('wish_predicate')
 
-    # store options
-    config._wish_index_items = list(zip(*sorted(object_index.items()))) or [(), ()]
+        # NOTE: 'copy' is needed here because indexing may unexpectedly trigger a module load
+        modules = sys.modules.copy()
+        object_index = dict(
+            collect.generate_objects_from_modules(modules, includes, excludes,
+                                                  predicate)
+        )
 
-    # delegate interrupting hanging tests to pytest-timeout
-    os.environ['PYTEST_TIMEOUT'] = os.environ.get('PYTEST_TIMEOUT', '1')
+        # store index
+        config._wish_index_items = list(zip(*sorted(object_index.items()))) or [(), ()]
+
+    return config._wish_index_items
 
 
 def pytest_generate_tests(metafunc):
     if 'wish' not in metafunc.fixturenames:
         return
 
-    config = metafunc.config
-    wish_ensuresession(config)
-
-    ids, params = config._wish_index_items
+    ids, params = make_wish_index(metafunc.config)
     metafunc.parametrize('wish', params, ids=ids, scope='module')
-    if not config.getoption('wish_fail'):
+
+    if not metafunc.config.getoption('wish_fail'):
         metafunc.function = pytest.mark.xfail(metafunc.function)
 
 
