@@ -65,9 +65,9 @@ def pytest_addoption(parser):
     group.addoption('--wish-fail', action='store_true', help="Show wish failures.")
 
 
-def wish_ensuresession(config):
+def make_wish_index(config):
     if hasattr(config, '_wish_index_items'):
-        return
+        return config._wish_index_items
 
     if config.getoption('wish_from_all') and os.environ.get('PYTEST_NODEV_MODE') != 'FEARLESS':
         raise ValueError("Use of --wish-from-all may be very dangerous, see the docs.")
@@ -112,17 +112,17 @@ def wish_ensuresession(config):
     # delegate interrupting hanging tests to pytest-timeout
     os.environ['PYTEST_TIMEOUT'] = os.environ.get('PYTEST_TIMEOUT', '1')
 
+    return config._wish_index_items
+
 
 def pytest_generate_tests(metafunc):
     if 'wish' not in metafunc.fixturenames:
         return
 
-    config = metafunc.config
-    wish_ensuresession(config)
-
-    ids, params = config._wish_index_items
+    ids, params = make_wish_index(metafunc.config)
     metafunc.parametrize('wish', params, ids=ids, scope='module')
-    if not config.getoption('wish_fail'):
+
+    if not metafunc.config.getoption('wish_fail'):
         metafunc.function = pytest.mark.xfail(metafunc.function)
 
 
