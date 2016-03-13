@@ -1,5 +1,5 @@
 
-0.9.7 (unreleased)
+0.9.7 (2016-03-13)
 ------------------
 
 - Add the `pytest_nodev.search` decorator for simpler test instrumentation.
