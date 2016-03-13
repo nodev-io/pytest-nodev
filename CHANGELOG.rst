@@ -2,7 +2,8 @@
 0.9.7 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Add the `pytest_nodev.search` decorator for simpler test instrumentation.
+  Issue `#19 <https://github.com/nodev-io/pytest-nodev/issues/19>`_.
 
 
 0.9.6 (2016-03-06)
