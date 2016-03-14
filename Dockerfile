@@ -12,6 +12,7 @@ COPY . /src
 WORKDIR /src
 
 # setup the python and pytest environments
+RUN pip install --upgrade pip setuptools
 RUN pip install --upgrade -r requirements.txt
 RUN pip install --upgrade -r requirements-tests.txt
 RUN pip install -e .
