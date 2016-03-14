@@ -1,6 +1,7 @@
 
 import os
 
+import pytest
 import pytest_nodev
 
 
@@ -12,7 +13,7 @@ def test_object_from_name_simple():
     assert object_from_name('builtins:open') is open
 
 
-@pytest_nodev.search('object_from_name')
+@pytest.mark.search('object_from_name')
 def test_object_from_name_pep3155():
     # instance methods compare by equality, see http://stackoverflow.com/questions/15977808
     assert object_from_name('os:O_CREAT.bit_length') == os.O_CREAT.bit_length

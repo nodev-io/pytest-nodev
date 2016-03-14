@@ -26,6 +26,7 @@ from __future__ import absolute_import, unicode_literals
 from builtins import dict, list, zip
 
 import collections
+import inspect
 import logging
 import os
 import sys
@@ -114,8 +115,25 @@ def make_wish_index(config):
 
 
 def pytest_generate_tests(metafunc):
-    if 'wish' not in metafunc.fixturenames:
+    search_marker = getattr(metafunc.function, 'search', None)
+    if 'wish' not in metafunc.fixturenames and not search_marker:
         return
+
+    if search_marker:
+        # setup the free variables for the wrapper closure
+        target_name = search_marker.args[0]
+        test_func = metafunc.function
+
+        def wish_wrapper(wish, monkeypatch, *args, **kwargs):
+            if '.' in target_name:
+                monkeypatch.setattr(target_name, wish, raising=False)
+            else:
+                monkeypatch.setattr(inspect.getmodule(test_func), target_name, wish, raising=False)
+            return test_func(*args, **kwargs)
+
+        # trying to make a hand-made test decorator
+        metafunc.function = wish_wrapper
+        metafunc.fixturenames.insert(0, 'wish')
 
     ids, params = make_wish_index(metafunc.config)
     metafunc.parametrize('wish', params, ids=ids, scope='module')
