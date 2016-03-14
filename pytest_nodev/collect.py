@@ -131,7 +131,7 @@ def generate_module_objects(module, predicate=None):
         module_members = inspect.getmembers(module, predicate)
     except Exception as ex:
         logger.info("Failed to get members of module %r: %s", module, ex)
-        raise StopIteration
+        return
     for object_name, object_ in module_members:
         if inspect.getmodule(object_) is module:
             yield object_name, object_
