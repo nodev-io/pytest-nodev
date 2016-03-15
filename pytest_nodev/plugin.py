@@ -115,9 +115,9 @@ def make_wish_index(config):
 
 
 def pytest_pycollect_makeitem(collector, name, obj):
-    search_marker = getattr(obj, 'search', None)
-    if search_marker and getattr(search_marker, 'args', []):
-        target_name = search_marker.args[0]
+    target_marker = getattr(obj, 'target', None)
+    if target_marker and getattr(target_marker, 'args', []):
+        target_name = target_marker.args[0]
 
         def wrapper(wish, monkeypatch, *args, **kwargs):
             if '.' in target_name:

@@ -2,7 +2,8 @@
 0.9.8 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Add the `pytest.mark.target` marker in the place of `pytest_nodev.search`.
+  Issue `#28 <https://github.com/nodev-io/pytest-nodev/issues/28>`_.
 
 
 0.9.7 (2016-03-13)

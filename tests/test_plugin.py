@@ -23,7 +23,7 @@ def test_factorial(wish):
 '''
 TEST_POW_PY = '''
 import pytest
-@pytest.mark.search('pow')
+@pytest.mark.target('pow')
 def test_pow():
     assert pow(2, 9, 47) == 42
 '''
