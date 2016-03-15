@@ -114,26 +114,23 @@ def make_wish_index(config):
     return config._wish_index_items
 
 
-def pytest_generate_tests(metafunc):
-    search_marker = getattr(metafunc.function, 'search', None)
-    if 'wish' not in metafunc.fixturenames and not search_marker:
-        return
-
-    if search_marker:
-        # setup the free variables for the wrapper closure
+def pytest_pycollect_makeitem(collector, name, obj):
+    search_marker = getattr(obj, 'search', None)
+    if search_marker and getattr(search_marker, 'args', []):
         target_name = search_marker.args[0]
-        test_func = metafunc.function
-
-        def wish_wrapper(wish, monkeypatch, *args, **kwargs):
+        def wrapper(wish, monkeypatch, *args, **kwargs):
             if '.' in target_name:
                 monkeypatch.setattr(target_name, wish, raising=False)
             else:
-                monkeypatch.setattr(inspect.getmodule(test_func), target_name, wish, raising=False)
-            return test_func(*args, **kwargs)
+                monkeypatch.setattr(inspect.getmodule(obj), target_name, wish, raising=False)
+            return obj(*args, **kwargs)
+        wrapper.__dict__ = obj.__dict__
+        return list(collector._genfunctions(name, wrapper))
 
-        # trying to make a hand-made test decorator
-        metafunc.function = wish_wrapper
-        metafunc.fixturenames.insert(0, 'wish')
+
+def pytest_generate_tests(metafunc):
+    if 'wish' not in metafunc.fixturenames:
+        return
 
     ids, params = make_wish_index(metafunc.config)
     metafunc.parametrize('wish', params, ids=ids, scope='module')

@@ -2,10 +2,9 @@
 import os
 
 import pytest
-import pytest_nodev
 
 
-@pytest_nodev.search('object_from_name')
+@pytest.mark.search('object_from_name')
 def test_object_from_name_simple():
     assert object_from_name('os:O_CREAT') is os.O_CREAT
     assert object_from_name('os.path:join') is os.path.join
