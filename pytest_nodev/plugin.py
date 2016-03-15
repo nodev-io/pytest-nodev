@@ -118,12 +118,14 @@ def pytest_pycollect_makeitem(collector, name, obj):
     search_marker = getattr(obj, 'search', None)
     if search_marker and getattr(search_marker, 'args', []):
         target_name = search_marker.args[0]
+
         def wrapper(wish, monkeypatch, *args, **kwargs):
             if '.' in target_name:
                 monkeypatch.setattr(target_name, wish, raising=False)
             else:
                 monkeypatch.setattr(inspect.getmodule(obj), target_name, wish, raising=False)
             return obj(*args, **kwargs)
+
         wrapper.__dict__ = obj.__dict__
         return list(collector._genfunctions(name, wrapper))
 

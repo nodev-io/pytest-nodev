@@ -22,8 +22,10 @@ def test_factorial(wish):
     assert factorial(21) == 51090942171709440000
 '''
 TEST_POW_PY = '''
-def test_pow(wish):
-    assert wish(2, 9, 47) == 42
+import pytest
+@pytest.mark.search('pow')
+def test_pow():
+    assert pow(2, 9, 47) == 42
 '''
 
 
