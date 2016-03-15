@@ -38,7 +38,7 @@ from . import utils
 
 
 def pytest_addoption(parser):
-    group = parser.getgroup('wish')
+    group = parser.getgroup('nodev')
     group.addoption(
         '--wish-from-stdlib', action='store_true',
         help="Collects objects form the Python standard library.")
@@ -66,11 +66,11 @@ def pytest_addoption(parser):
     group.addoption('--wish-fail', action='store_true', help="Show wish failures.")
 
 
-def make_wish_index(config):
+def make_candidate_index(config):
     if config.getoption('wish_from_all') and os.environ.get('PYTEST_NODEV_MODE') != 'FEARLESS':
         raise ValueError("Use of --wish-from-all may be very dangerous, see the docs.")
 
-    if not hasattr(config, '_wish_index_items'):
+    if not hasattr(config, '_candicate_index'):
         # take over collect logging
         collect.logger.propagate = False
         collect.logger.setLevel(logging.DEBUG)  # FIXME: loglevel should be configurable
@@ -109,9 +109,9 @@ def make_wish_index(config):
         )
 
         # store index
-        config._wish_index_items = list(zip(*sorted(object_index.items()))) or [(), ()]
+        config._candicate_index = list(zip(*sorted(object_index.items()))) or [(), ()]
 
-    return config._wish_index_items
+    return config._candicate_index
 
 
 def pytest_pycollect_makeitem(collector, name, obj):
@@ -119,11 +119,11 @@ def pytest_pycollect_makeitem(collector, name, obj):
     if target_marker and getattr(target_marker, 'args', []):
         target_name = target_marker.args[0]
 
-        def wrapper(wish, monkeypatch, *args, **kwargs):
+        def wrapper(candidate, monkeypatch, *args, **kwargs):
             if '.' in target_name:
-                monkeypatch.setattr(target_name, wish, raising=False)
+                monkeypatch.setattr(target_name, candidate, raising=False)
             else:
-                monkeypatch.setattr(inspect.getmodule(obj), target_name, wish, raising=False)
+                monkeypatch.setattr(inspect.getmodule(obj), target_name, candidate, raising=False)
             return obj(*args, **kwargs)
 
         wrapper.__dict__ = obj.__dict__
@@ -131,18 +131,18 @@ def pytest_pycollect_makeitem(collector, name, obj):
 
 
 def pytest_generate_tests(metafunc):
-    if 'wish' not in metafunc.fixturenames:
+    if 'candidate' not in metafunc.fixturenames:
         return
 
-    ids, params = make_wish_index(metafunc.config)
-    metafunc.parametrize('wish', params, ids=ids, scope='module')
+    ids, params = make_candidate_index(metafunc.config)
+    metafunc.parametrize('candidate', params, ids=ids, scope='module')
 
     if not metafunc.config.getoption('wish_fail'):
         metafunc.function = pytest.mark.xfail(metafunc.function)
 
 
 def pytest_terminal_summary(terminalreporter):
-    if not hasattr(terminalreporter.config, '_wish_index_items'):
+    if not hasattr(terminalreporter.config, '_candicate_index'):
         return
 
     hit_state = 'passed' if terminalreporter.config.getoption('wish_fail') else 'xpassed'

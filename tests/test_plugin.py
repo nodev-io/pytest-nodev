@@ -15,8 +15,8 @@ def test_pass():
     assert True
 '''
 TEST_FACTORIAL_PY = '''
-def test_factorial(wish):
-    factorial = wish
+def test_factorial(candidate):
+    factorial = candidate
     assert factorial(0) == 1
     assert factorial(1) == 1
     assert factorial(21) == 51090942171709440000
@@ -45,7 +45,7 @@ def test_pytest_addoption(testdir):
     )
     # fnmatch_lines does an assertion internally
     result.stdout.fnmatch_lines([
-        'wish:',
+        'nodev:',
         '*--wish-from-stdlib*',
         '*--wish-fail*',
     ])
@@ -111,13 +111,13 @@ def test_pytest_run_no_wish(testdir):
 
 
 def test_pytest_run_no_wish_option(testdir):
-    """Skip tests with the *wish* fixture if no ``--wish-*`` option is given."""
+    """Skip tests with the *candidate* fixture if no ``--wish-*`` option is given."""
     testdir.makepyfile(TEST_FACTORIAL_PY)
     result = testdir.runpytest(
         '-v',
     )
     result.stdout.fnmatch_lines([
-        '*test_factorial*wish*SKIPPED',
+        '*test_factorial*candidate*SKIPPED',
     ])
     assert result.ret == 0
 
