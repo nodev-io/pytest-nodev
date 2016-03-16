@@ -2,8 +2,11 @@
 0.9.8 (unreleased)
 ------------------
 
-- Add the `pytest.mark.target` marker in the place of `pytest_nodev.search`.
+- Add the ``pytest.mark.candidate`` marker in the place of ``pytest_nodev.search``.
   Issue `#28 <https://github.com/nodev-io/pytest-nodev/issues/28>`_.
+- Rename main fixture to ``candidate`` from ``wish``.
+  Issue `#30 <https://github.com/nodev-io/pytest-nodev/issues/30>`_.
+  So long, and thanks for all the fish.
 
 
 0.9.7 (2016-03-13)
@@ -47,7 +50,7 @@
 0.9.2 (2016-02-20)
 ------------------
 
-- Disable potentially dangerous ``--wish-from-all`` by default.
+- Disable potentially dangerous ``--candidates-from-all`` by default.
 
 
 0.9.1 (2016-02-16)

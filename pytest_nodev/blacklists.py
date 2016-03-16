@@ -25,7 +25,7 @@ Regex's that blacklist problem modules and objects.
 
 Potentially dangerous, crashing, hard hanging or simply annoying objects
 belonging to the standard library and to and the pytest-nodev dependencies
-are unconditionally blacklisted so that new users can test ``--wish-from-stdlib``
+are unconditionally blacklisted so that new users can test ``--candidates-from-stdlib``
 without bothering with OS-level isolation.
 """
 

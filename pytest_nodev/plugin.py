@@ -38,39 +38,39 @@ from . import utils
 
 
 def pytest_addoption(parser):
-    group = parser.getgroup('wish')
+    group = parser.getgroup('nodev')
     group.addoption(
-        '--wish-from-stdlib', action='store_true',
-        help="Collects objects form the Python standard library.")
+        '--candidates-from-stdlib', action='store_true',
+        help="Collects candidates form the Python standard library.")
     group.addoption(
-        '--wish-from-all', action='store_true',
-        help="Collects objects form the Python standard library and all installed packages. "
+        '--candidates-from-all', action='store_true',
+        help="Collects candidates form the Python standard library and all installed packages. "
              "Disabled by default, see the docs.")
     group.addoption(
-        '--wish-from-specs', default=[], nargs='+',
-        help="Collects objects from installed packages. Space separated list of `pip` specs.")
+        '--candidates-from-specs', default=[], nargs='+',
+        help="Collects candidates from installed packages. Space separated list of `pip` specs.")
     group.addoption(
-        '--wish-from-modules', default=[], nargs='+',
-        help="Collects objects from installed modules. Space separated list of module names.")
+        '--candidates-from-modules', default=[], nargs='+',
+        help="Collects candidates from installed modules. Space separated list of module names.")
     group.addoption(
-        '--wish-includes', nargs='+',
+        '--candidates-includes', nargs='+',
         help="Space separated list of regexs matching full object names to include, "
-             "defaults to include all objects collected via `--wish-from-*`.")
+             "defaults to include all objects collected via `--candidates-from-*`.")
     group.addoption(
-        '--wish-excludes', default=[], nargs='+',
+        '--candidates-excludes', default=[], nargs='+',
         help="Space separated list of regexs matching full object names to exclude.")
     group.addoption(
-        '--wish-predicate', default='builtins:callable',
+        '--candidates-predicate', default='builtins:callable',
         help="Full name of the predicate passed to `inspect.getmembers`, "
              "defaults to `builtins.callable`.")
-    group.addoption('--wish-fail', action='store_true', help="Show wish failures.")
+    group.addoption('--candidates-fail', action='store_true', help="Show candidates failures.")
 
 
-def make_wish_index(config):
-    if config.getoption('wish_from_all') and os.environ.get('PYTEST_NODEV_MODE') != 'FEARLESS':
-        raise ValueError("Use of --wish-from-all may be very dangerous, see the docs.")
+def make_candidate_index(config):
+    if config.getoption('candidates_from_all') and os.environ.get('PYTEST_NODEV_MODE') != 'FEARLESS':
+        raise ValueError("Use of --candidates-from-all may be very dangerous, see the docs.")
 
-    if not hasattr(config, '_wish_index_items'):
+    if not hasattr(config, '_candicate_index'):
         # take over collect logging
         collect.logger.propagate = False
         collect.logger.setLevel(logging.DEBUG)  # FIXME: loglevel should be configurable
@@ -82,48 +82,47 @@ def make_wish_index(config):
         # build the object index
         distributions = collections.OrderedDict()
 
-        if config.getoption('wish_from_stdlib') or config.getoption('wish_from_all'):
+        if config.getoption('candidates_from_stdlib') or config.getoption('candidates_from_all'):
             distributions.update(collect.collect_stdlib_distributions())
 
-        if config.getoption('wish_from_all'):
+        if config.getoption('candidates_from_all'):
             distributions.update(collect.collect_installed_distributions())
 
-        distributions.update(collect.collect_distributions(config.getoption('wish_from_specs')))
+        distributions.update(collect.collect_distributions(config.getoption('candidates_from_specs')))
 
-        if config.getoption('wish_from_modules'):
-            distributions['unknown distribution'] = config.getoption('wish_from_modules')
+        if config.getoption('candidates_from_modules'):
+            distributions['unknown distribution'] = config.getoption('candidates_from_modules')
 
         top_level_modules = collect.import_distributions(distributions.items())
 
-        includes = config.getoption('wish_includes')
+        includes = config.getoption('candidates_includes')
         if not includes:
-            includes = ['.'] if config.getoption('wish_from_all') else sorted(top_level_modules)
-        excludes = config.getoption('wish_excludes')
-        predicate = config.getoption('wish_predicate')
+            includes = ['.'] if config.getoption('candidates_from_all') else sorted(top_level_modules)
+        excludes = config.getoption('candidates_excludes')
+        predicate = config.getoption('candidates_predicate')
 
         # NOTE: 'copy' is needed here because indexing may unexpectedly trigger a module load
         modules = sys.modules.copy()
         object_index = dict(
-            collect.generate_objects_from_modules(modules, includes, excludes,
-                                                  predicate)
+            collect.generate_objects_from_modules(modules, includes, excludes, predicate)
         )
 
         # store index
-        config._wish_index_items = list(zip(*sorted(object_index.items()))) or [(), ()]
+        config._candicate_index = list(zip(*sorted(object_index.items()))) or [(), ()]
 
-    return config._wish_index_items
+    return config._candicate_index
 
 
 def pytest_pycollect_makeitem(collector, name, obj):
-    target_marker = getattr(obj, 'target', None)
-    if target_marker and getattr(target_marker, 'args', []):
-        target_name = target_marker.args[0]
+    candidate_marker = getattr(obj, 'candidate', None)
+    if candidate_marker and getattr(candidate_marker, 'args', []):
+        candidate_name = candidate_marker.args[0]
 
-        def wrapper(wish, monkeypatch, *args, **kwargs):
-            if '.' in target_name:
-                monkeypatch.setattr(target_name, wish, raising=False)
+        def wrapper(candidate, monkeypatch, *args, **kwargs):
+            if '.' in candidate_name:
+                monkeypatch.setattr(candidate_name, candidate, raising=False)
             else:
-                monkeypatch.setattr(inspect.getmodule(obj), target_name, wish, raising=False)
+                monkeypatch.setattr(inspect.getmodule(obj), candidate_name, candidate, raising=False)
             return obj(*args, **kwargs)
 
         wrapper.__dict__ = obj.__dict__
@@ -131,21 +130,21 @@ def pytest_pycollect_makeitem(collector, name, obj):
 
 
 def pytest_generate_tests(metafunc):
-    if 'wish' not in metafunc.fixturenames:
+    if 'candidate' not in metafunc.fixturenames:
         return
 
-    ids, params = make_wish_index(metafunc.config)
-    metafunc.parametrize('wish', params, ids=ids, scope='module')
+    ids, params = make_candidate_index(metafunc.config)
+    metafunc.parametrize('candidate', params, ids=ids, scope='module')
 
-    if not metafunc.config.getoption('wish_fail'):
+    if not metafunc.config.getoption('candidates_fail'):
         metafunc.function = pytest.mark.xfail(metafunc.function)
 
 
 def pytest_terminal_summary(terminalreporter):
-    if not hasattr(terminalreporter.config, '_wish_index_items'):
+    if not hasattr(terminalreporter.config, '_candicate_index'):
         return
 
-    hit_state = 'passed' if terminalreporter.config.getoption('wish_fail') else 'xpassed'
+    hit_state = 'passed' if terminalreporter.config.getoption('candidates_fail') else 'xpassed'
     hits = terminalreporter.getreports(hit_state)
     terminalreporter.write_sep('=', '%d hit' % len(hits), bold=True)
     terminalreporter.write_line('')

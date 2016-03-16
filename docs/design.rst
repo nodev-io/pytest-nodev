@@ -56,10 +56,10 @@ No completeness and no performance guarantees.
 
 - Search environment definition:
 
-  - Support defining which modules to search. Command line ``--wish-from-*`` options.
+  - Support defining which modules to search. Command line ``--candidates-from-*`` options.
 
   - Support defining which objects to include/exclude by name or via a predicate test function.
-    Command line ``--wish-includes/excludes/predicate`` options.
+    Command line ``--candidates-includes/excludes/predicate`` options.
 
 - Object collection:
 
@@ -67,8 +67,8 @@ No completeness and no performance guarantees.
 
 - Test execution:
 
-  - Execute tests instrumented with the ``wish`` fixture once for every object collected.
-    The tests are marked ``xfail`` unless the ``--wish-fail`` command line option is given to
+  - Execute tests instrumented with the ``candidate`` fixture once for every object collected.
+    The tests are marked ``xfail`` unless the ``--candidates-fail`` command line option is given to
     make standard pytest reporting the most useful.
 
 - Report:
@@ -83,9 +83,9 @@ No completeness and no performance guarantees.
 
   - Potentially dangerous, crashing, hard hanging or simply annoying objects
     belonging to the standard library are unconditionally blacklisted
-    so that new users can test ``--wish-from-stdlib`` without bothering with OS-level isolation.
+    so that new users can test ``--candidates-from-stdlib`` without bothering with OS-level isolation.
 
-  - Limited use of ``--wish-from-all``.
+  - Limited use of ``--candidates-from-all``.
 
 - Documentation:
 

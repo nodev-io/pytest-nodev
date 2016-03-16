@@ -18,17 +18,17 @@ from the Python Package Index::
 Basic usage
 -----------
 
-Write a specification test instrumented with the ``wish`` fixture in the ``test_example.py`` file.
-Run pytest with one of the ``--wish-from-*`` options to select the search space,
+Write a specification test instrumented with the ``candidate`` fixture in the ``test_example.py`` file.
+Run pytest with one of the ``--candidates-from-*`` options to select the search space,
 e.g. to search in the Python standard library::
 
-    $ py.test --wish-from-stdlib test_example.py
+    $ py.test --candidates-from-stdlib test_example.py
 
 
 Advanced usage
 --------------
 
-Use of ``--wish-from-all`` may be very dangerous
+Use of ``--candidates-from-all`` may be very dangerous
 and it is disabled by default.
 
 In order to search safely in all modules we suggest to use docker for OS-level isolation.
@@ -43,13 +43,13 @@ build the nodev docker image with all module from requirements.txt installed::
 
 and run tests with::
 
-    $ docker run --rm -it -v `pwd`:/home/pytest nodev --wish-from-all tests/test_factorial.py
+    $ docker run --rm -it -v `pwd`:/home/pytest nodev --candidates-from-all tests/test_factorial.py
 
 Alternatively you can enable it on your regular user only after you have understood the risks
 and set up appropriate mitigation strategies
 by setting the ``PYTEST_NODEV_MODE`` environment variable to ``FEARLESS``::
 
-    $ PYTEST_NODEV_MODE=FEARLESS py.test --wish-from-all --wish-includes .*util -- test_example.py
+    $ PYTEST_NODEV_MODE=FEARLESS py.test --candidates-from-all --candidates-includes .*util -- test_example.py
 
 
 Command line reference
@@ -57,26 +57,27 @@ Command line reference
 
 The plugin adds the following options to pytest command line::
 
-    wish:
-      --wish-from-stdlib    Collects objects form the Python standard library.
-      --wish-from-all       Collects objects form the Python standard library and
-                            all installed packages. Disabled by default, see the
-                            docs.
-      --wish-from-specs=WISH_FROM_SPECS=[WISH_FROM_SPECS=...]
-                            Collects objects from installed packages. Space
+    nodev:
+      --candidates-from-stdlib
+                            Collects candidates form the Python standard library.
+      --candidates-from-all
+                            Collects candidates form the Python standard library
+                            and all installed packages. Disabled by default, see
+                            the docs.
+      --candidates-from-specs=CANDIDATES_FROM_SPECS=[CANDIDATES_FROM_SPECS=...]
+                            Collects candidates from installed packages. Space
                             separated list of `pip` specs.
-      --wish-from-modules=WISH_FROM_MODULES=[WISH_FROM_MODULES=...]
-                            Collects objects from installed modules. Space
+      --candidates-from-modules=CANDIDATES_FROM_MODULES=[CANDIDATES_FROM_MODULES=...]
+                            Collects candidates from installed modules. Space
                             separated list of module names.
-      --wish-includes=WISH_INCLUDES=[WISH_INCLUDES=...]
+      --candidates-includes=CANDIDATES_INCLUDES=[CANDIDATES_INCLUDES=...]
                             Space separated list of regexs matching full object
                             names to include, defaults to include all objects
-                            collected via `--wish-from-*`.
-      --wish-excludes=WISH_EXCLUDES=[WISH_EXCLUDES=...]
+                            collected via `--candidates-from-*`.
+      --candidates-excludes=CANDIDATES_EXCLUDES=[CANDIDATES_EXCLUDES=...]
                             Space separated list of regexs matching full object
                             names to exclude.
-      --wish-predicate=WISH_PREDICATE
+      --candidates-predicate=CANDIDATES_PREDICATE
                             Full name of the predicate passed to
                             `inspect.getmembers`, defaults to `builtins.callable`.
-      --wish-fail           Show wish failures.
-
+      --candidates-fail     Show candidates failures.

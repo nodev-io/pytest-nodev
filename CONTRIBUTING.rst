@@ -15,5 +15,9 @@ along with a detailed description.
 Submit a pull request
 ---------------------
 
+Contributors are invited to review the
+`product high level design <https://pytest-nodev.readthedocs.org/en/stable/design.html>`_
+and the `short term planning <https://github.com/nodev-io/pytest-nodev/milestones>`_.
+
 Tests can be run with `pytest <https://pytest.org>`_ and `tox <https://tox.readthedocs.org>`_,
 please ensure the coverage at least stays the same before you submit a pull request.
