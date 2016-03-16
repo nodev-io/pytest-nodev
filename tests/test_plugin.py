@@ -23,7 +23,7 @@ def test_factorial(candidate):
 '''
 TEST_POW_PY = '''
 import pytest
-@pytest.mark.target('pow')
+@pytest.mark.candidate('pow')
 def test_pow():
     assert pow(2, 9, 47) == 42
 '''
@@ -46,15 +46,15 @@ def test_pytest_addoption(testdir):
     # fnmatch_lines does an assertion internally
     result.stdout.fnmatch_lines([
         'nodev:',
-        '*--wish-from-stdlib*',
-        '*--wish-fail*',
+        '*--candidates-from-stdlib*',
+        '*--candidates-fail*',
     ])
 
 
 def test_pytest_generate_tests(testdir):
     testdir.makepyfile(TEST_FACTORIAL_PY + TEST_PASS_PY)
     result = testdir.runpytest(
-        '--wish-from-modules=math',
+        '--candidates-from-modules=math',
         '-v',
     )
     result.stdout.fnmatch_lines([
@@ -64,8 +64,8 @@ def test_pytest_generate_tests(testdir):
     assert result.ret == 0
 
     result = testdir.runpytest(
-        '--wish-from-modules=math',
-        '--wish-fail',
+        '--candidates-from-modules=math',
+        '--candidates-fail',
         '-v',
     )
     result.stdout.fnmatch_lines([
@@ -87,7 +87,7 @@ def test_pytest_terminal_summary(testdir):
 
     testdir.makepyfile(TEST_FACTORIAL_PY)
     result = testdir.runpytest(
-        '--wish-from-modules=math',
+        '--candidates-from-modules=math',
     )
     result.stdout.fnmatch_lines([
         '*test_factorial*math:factorial*HIT',
@@ -98,7 +98,7 @@ def test_pytest_terminal_summary(testdir):
 #
 # command line options
 #
-def test_pytest_run_no_wish(testdir):
+def test_pytest_run_no_candidate(testdir):
     """We didn't break pytest."""
     testdir.makepyfile(TEST_PASS_PY)
     result = testdir.runpytest(
@@ -110,8 +110,8 @@ def test_pytest_run_no_wish(testdir):
     assert result.ret == 0
 
 
-def test_pytest_run_no_wish_option(testdir):
-    """Skip tests with the *candidate* fixture if no ``--wish-*`` option is given."""
+def test_pytest_run_no_candidate_option(testdir):
+    """Skip tests with the *candidate* fixture if no ``--candidates-*`` option is given."""
     testdir.makepyfile(TEST_FACTORIAL_PY)
     result = testdir.runpytest(
         '-v',
@@ -125,7 +125,7 @@ def test_pytest_run_no_wish_option(testdir):
 def test_pytest_run_from_modules(testdir):
     testdir.makepyfile(TEST_FACTORIAL_PY)
     result = testdir.runpytest(
-        '--wish-from-modules=math',
+        '--candidates-from-modules=math',
         '-v',
     )
     result.stdout.fnmatch_lines([
@@ -138,7 +138,7 @@ def test_pytest_run_from_modules(testdir):
 def test_pytest_run_from_modules_twice(testdir):
     testdir.makepyfile(TEST_FACTORIAL_PY + TEST_POW_PY)
     result = testdir.runpytest(
-        '--wish-from-modules=math',
+        '--candidates-from-modules=math',
         '-v',
     )
     result.stdout.fnmatch_lines([
@@ -151,8 +151,8 @@ def test_pytest_run_from_modules_twice(testdir):
 def test_pytest_run_from_specs(testdir):
     testdir.makepyfile(TEST_FACTORIAL_PY)
     result = testdir.runpytest(
-        '--wish-from-specs=pip',
-        '--wish-includes=pip.exceptions',
+        '--candidates-from-specs=pip',
+        '--candidates-includes=pip.exceptions',
         '-v',
     )
     result.stdout.fnmatch_lines([
@@ -164,8 +164,8 @@ def test_pytest_run_from_specs(testdir):
 def test_pytest_run_from_stdlib(testdir):
     testdir.makepyfile(TEST_FACTORIAL_PY)
     result = testdir.runpytest(
-        '--wish-from-stdlib',
-        '--wish-includes=math',
+        '--candidates-from-stdlib',
+        '--candidates-includes=math',
         '-v',
     )
     result.stdout.fnmatch_lines([
@@ -178,16 +178,16 @@ def test_pytest_run_from_stdlib(testdir):
 def test_pytest_run_from_all(testdir, monkeypatch):
     testdir.makepyfile(TEST_FACTORIAL_PY)
     result = testdir.runpytest(
-        '--wish-from-all',
-        '--wish-includes=math:factorial|pip.exceptions',
+        '--candidates-from-all',
+        '--candidates-includes=math:factorial|pip.exceptions',
         '-v',
     )
     assert result.ret == 1
 
     monkeypatch.setenv('PYTEST_NODEV_MODE', 'FEARLESS')
     result = testdir.runpytest(
-        '--wish-from-all',
-        '--wish-includes=math:factorial|pip.exceptions',
+        '--candidates-from-all',
+        '--candidates-includes=math:factorial|pip.exceptions',
         '-v',
     )
     result.stdout.fnmatch_lines([
@@ -197,11 +197,11 @@ def test_pytest_run_from_all(testdir, monkeypatch):
     assert result.ret == 0
 
 
-def test_wish_modules_object_blacklist(testdir):
+def test_candidate_modules_object_blacklist(testdir):
     testdir.makepyfile(TEST_FACTORIAL_PY)
     result = testdir.runpytest(
-        '--wish-from-modules=posix',
-        '--wish-includes=.*fork',
+        '--candidates-from-modules=posix',
+        '--candidates-includes=.*fork',
         '-v',
     )
     assert result.ret == 0

@@ -60,7 +60,7 @@ decorate it with ``pytest.mark.target`` as follows::
 
 Finally, instruct pytest to run your test on all functions in the Python standard library::
 
-    $ py.test test_parse_bool.py --wish-from-stdlib
+    $ py.test test_parse_bool.py --candidates-from-stdlib
     ======================= test session starts ==========================
     platform darwin -- Python 3.5.0, pytest-2.8.7, py-1.4.31, pluggy-0.3.1
     rootdir: /tmp, inifile: setup.cfg
@@ -103,7 +103,7 @@ BIG FAT WARNING!
 A lot of functions called with the wrong set of arguments may have unexpected consequences ranging
 from slightly annoying, think ``os.mkdir('false')``,
 to **utterly catastrophic**, think ``shutil.rmtree('/', True)``.
-Serious use of pytest-nodev, in particular using ``--wish-from-all``,
+Serious use of pytest-nodev, in particular using ``--candidates-from-all``,
 require running the tests with operating-system level isolation,
 e.g. as a dedicated user or even better inside a dedicated container.
 The `User's guide <http://pytest-nodev.readthedocs.org/en/stable/usersguide.html>`_
