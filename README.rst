@@ -22,7 +22,7 @@ To be more precise pytest-nodev is a `pytest <https://pytest.org>`_ plugin
 that lets you execute a set of tests that specify the expected behaviour of a class or a function
 on all objects in the Python standard library and in all the modules you have installed.
 
-**I need to write a ``parse_bool`` function that robustly parses a boolean value from a string.**
+**I need to write a** ``parse_bool`` **function that robustly parses a boolean value from a string.**
 **Here is the test I intend to use to validate my own implementation once I write it.**::
 
     def test_parse_bool():
