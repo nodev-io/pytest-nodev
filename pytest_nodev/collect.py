@@ -48,7 +48,7 @@ NOMATCH_PATTERN = r'.\A'
 MODULE_BLACKLIST_PATTERN = '|'.join(blacklists.MODULE_BLACKLIST) or NOMATCH_PATTERN
 OBJECT_BLACKLIST_PATTERN = '|'.join(blacklists.OBJECT_BLACKLIST) or NOMATCH_PATTERN
 
-logger = logging.getLogger('wish')
+logger = logging.getLogger('nodev')
 
 
 def recurse_import_path(path=None, prefix='', spec='UNKOWN'):
