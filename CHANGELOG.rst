@@ -18,7 +18,7 @@
 0.9.7 (2016-03-13)
 ------------------
 
-- Add the `pytest_nodev.search` decorator for simpler test instrumentation.
+- Add the ``pytest_nodev.search`` decorator for simpler test instrumentation.
   Issue `#19 <https://github.com/nodev-io/pytest-nodev/issues/19>`_.
 
 
