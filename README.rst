@@ -19,12 +19,8 @@ it finds classes and functions that match the behaviour specified by the given t
 **How does "test-driven code search" work?**
 
 To be more precise pytest-nodev is a `pytest <https://pytest.org>`_ plugin
-that helps you execute feature specification tests on all objects
-in the Python standard library and in all the modules you have installed.
-
-**Who are pytest-nodev users?**
-
-Python developers who've got better things to do than reinvent existing wheels.
+that lets you execute a set of tests that specify the expected behaviour of a class or a function
+on all objects in the Python standard library and in all the modules you have installed.
 
 **I need to write a `parse_bool` function that robustly parses a boolean value from a string.**
 **Here is the test I intend to use to validate my own implementation once I write it.**::
@@ -58,7 +54,7 @@ decorate it with ``pytest.mark.candidate`` as follows::
         assert parse_bool('TRUE')
         assert parse_bool('1')
 
-Finally, instruct pytest to run your test on all functions in the Python standard library::
+Finally, instruct pytest to run your test on all candidate callables in the Python standard library::
 
     $ py.test test_parse_bool.py --candidates-from-stdlib
     ======================= test session starts ==========================
