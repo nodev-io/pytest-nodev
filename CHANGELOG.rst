@@ -1,5 +1,5 @@
 
-0.9.8 (unreleased)
+0.9.8 (2016-03-16)
 ------------------
 
 - Add the ``pytest.mark.candidate`` marker in the place of ``pytest_nodev.search``.
