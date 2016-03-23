@@ -37,8 +37,8 @@ Software architecture
 
 Logical components:
 
-- the object collector with filtering
-- the pytest plugin interface
+- the collector of candidate objects, with filtering
+- the test runner, via the pytest plugin interface
 
 
 Version goals
