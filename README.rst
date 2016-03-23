@@ -46,9 +46,9 @@ from the Python Package Index::
     $ pip install pytest-nodev
 
 Then copy your specification test to the ``test_parse_bool.py`` file and
-decorate it with ``pytest.mark.target`` as follows::
+decorate it with ``pytest.mark.candidate`` as follows::
 
-    @pytest.mark.target('parse_bool')
+    @pytest.mark.candidate('parse_bool')
     def test_parse_bool():
         assert not parse_bool('false')
         assert not parse_bool('FALSE')
