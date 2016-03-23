@@ -21,3 +21,14 @@ and the `short term planning <https://github.com/nodev-io/pytest-nodev/milestone
 
 Tests can be run with `pytest <https://pytest.org>`_ and `tox <https://tox.readthedocs.org>`_,
 please ensure the coverage at least stays the same before you submit a pull request.
+
+
+Documentation
+-------------
+
+The documentation is in `reStructuredText <http://www.sphinx-doc.org/en/stable/rest.html>`_ format,
+you can build a local copy with::
+
+    $ sphinx-build docs docs/html
+    $ open docs/html/index.html
+
