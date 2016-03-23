@@ -23,6 +23,7 @@ https://github.com/nodev-io/pytest-nodev
     :caption: Table of Contents
 
     quickstart
-    concepts
+    tutorial
     usersguide
+    concepts
     design
