@@ -1,5 +1,11 @@
 
-0.9.8 (unreleased)
+0.9.9 (unreleased)
+------------------
+
+- Nothing changed yet.
+
+
+0.9.8 (2016-03-16)
 ------------------
 
 - Add the ``pytest.mark.candidate`` marker in the place of ``pytest_nodev.search``.
@@ -12,7 +18,7 @@
 0.9.7 (2016-03-13)
 ------------------
 
-- Add the `pytest_nodev.search` decorator for simpler test instrumentation.
+- Add the ``pytest_nodev.search`` decorator for simpler test instrumentation.
   Issue `#19 <https://github.com/nodev-io/pytest-nodev/issues/19>`_.
 
 

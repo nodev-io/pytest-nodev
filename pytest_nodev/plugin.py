@@ -70,7 +70,7 @@ def make_candidate_index(config):
     if config.getoption('candidates_from_all') and os.environ.get('PYTEST_NODEV_MODE') != 'FEARLESS':
         raise ValueError("Use of --candidates-from-all may be very dangerous, see the docs.")
 
-    if not hasattr(config, '_candicate_index'):
+    if not hasattr(config, '_candidate_index'):
         # take over collect logging
         collect.logger.propagate = False
         collect.logger.setLevel(logging.DEBUG)  # FIXME: loglevel should be configurable
@@ -108,9 +108,9 @@ def make_candidate_index(config):
         )
 
         # store index
-        config._candicate_index = list(zip(*sorted(object_index.items()))) or [(), ()]
+        config._candidate_index = list(zip(*sorted(object_index.items()))) or [(), ()]
 
-    return config._candicate_index
+    return config._candidate_index
 
 
 def pytest_pycollect_makeitem(collector, name, obj):
@@ -141,7 +141,7 @@ def pytest_generate_tests(metafunc):
 
 
 def pytest_terminal_summary(terminalreporter):
-    if not hasattr(terminalreporter.config, '_candicate_index'):
+    if not hasattr(terminalreporter.config, '_candidate_index'):
         return
 
     hit_state = 'passed' if terminalreporter.config.getoption('candidates_fail') else 'xpassed'
