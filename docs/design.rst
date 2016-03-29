@@ -44,7 +44,7 @@ Logical components:
 Version goals
 -------------
 
-pytest-nodev strives to adhere to `semantic versioning <http://semver.org>`_.
+This project strives to adhere to `semantic versioning <http://semver.org>`_.
 
 
 1.0.0 (upcoming release)

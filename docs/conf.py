@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 #
-# pytest-nodev documentation build configuration file, created by
-# sphinx-quickstart on Thu Oct  1 00:43:18 2015.
+# pytest-nodev documentation build configuration file
 #
 # This file is execfile()d with the current directory set to its
 # containing dir.
@@ -14,7 +13,6 @@
 
 # import sys
 # import os
-# import shlex
 import pkg_resources
 import sphinx_rtd_theme
 
@@ -44,6 +42,10 @@ sphinx.environment.BuildEnvironment.warn_node = _warn_node
 # ones.
 extensions = [
     'sphinx.ext.ifconfig',
+    'sphinx.ext.autodoc',
+    'sphinx.ext.doctest',
+    'sphinx.ext.coverage',
+    'sphinx.ext.viewcode',
 ]
 
 # Add any paths that contain templates here, relative to this directory.
