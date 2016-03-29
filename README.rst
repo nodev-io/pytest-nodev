@@ -48,6 +48,8 @@ from the Python Package Index::
 Then copy your specification test to the ``test_parse_bool.py`` file and
 decorate it with ``pytest.mark.candidate`` as follows::
 
+    import pytest
+
     @pytest.mark.candidate('parse_bool')
     def test_parse_bool():
         assert not parse_bool('false')
@@ -126,7 +128,7 @@ Code quality  .. image:: https://api.travis-ci.org/nodev-io/pytest-nodev.svg?bra
                 :target: https://ci.appveyor.com/project/alexamici/pytest-nodev/branch/master
                 :alt: Build Status on AppVeyor
               .. image:: https://coveralls.io/repos/nodev-io/pytest-nodev/badge.svg?branch=master&service=github
-                :target: https://coveralls.io/github/nodev-io/pytest-nodev?branch=master
+                :target: https://coveralls.io/github/nodev-io/pytest-nodev
                 :alt: Coverage Status on Coveralls
 nodev website http://nodev.io
 ============= ======================
@@ -147,6 +149,7 @@ Authors:
 
 Contributors:
 
+- `@calmomau <https://github.com/calmomau>`_
 - `@kr1 <https://github.com/kr1>`_
 
 Sponsors:
