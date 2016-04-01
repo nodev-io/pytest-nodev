@@ -11,7 +11,7 @@ Use of ``--candidates-from-all`` may be very dangerous
 and it is disabled by default.
 
 In order to search safely in all modules we suggest to use docker for OS-level isolation.
-To kickstart your advanced usage downlaod the nodev-starter-kit::
+To kickstart your advanced usage download the nodev-starter-kit::
 
     $ git clone https://github.com/nodev-io/nodev-starter-kit.git
     $ cd nodev-starter-kit
