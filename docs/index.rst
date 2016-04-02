@@ -1,4 +1,8 @@
 
+.. meta::
+    :google-site-verification: ZIP5xNwuKRRt42w2Y3QIctBTNDG2BMbyc7_SQEyUb74
+
+
 ============
 pytest-nodev
 ============
