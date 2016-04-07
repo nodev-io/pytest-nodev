@@ -50,6 +50,7 @@ MODULE_BLACKLIST = [
 
     # hangs
     'itertools',
+    'bsddb',
 
     # dangerous
     'subprocess',
