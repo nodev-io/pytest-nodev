@@ -104,7 +104,7 @@ to **utterly catastrophic**, think ``shutil.rmtree('/', True)``.
 Serious use of pytest-nodev, in particular using ``--candidates-from-all``,
 require running the tests with operating-system level isolation,
 e.g. as a dedicated user or even better inside a dedicated container.
-The `User's guide <http://pytest-nodev.readthedocs.org/en/stable/usersguide.html>`_
+The `User's guide <http://pytest-nodev.readthedocs.io/en/stable/usersguide.html>`_
 documents how to run pytest-nodev safely and efficiently.
 
 
@@ -112,7 +112,7 @@ Project resources
 -----------------
 
 ============= ======================
-Documentation http://pytest-nodev.readthedocs.org
+Documentation http://pytest-nodev.readthedocs.io
 Support       https://stackoverflow.com/search?q=pytest-nodev
 Development   https://github.com/nodev-io/pytest-nodev
 Discussion    To be decided, see issue `#15 <https://github.com/nodev-io/pytest-nodev/issues/15>`_

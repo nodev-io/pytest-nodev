@@ -20,7 +20,7 @@ setup(
     author='Alessandro Amici',
     author_email='alexamici@gmail.com',
     license='MIT',
-    url='http://pytest-nodev.readthedocs.org',
+    url='http://pytest-nodev.readthedocs.io',
     download_url='https://github.com/nodev-io/pytest-nodev/archive/%s.tar.gz' % version,
     description="Test-driven source code search for Python.",
     long_description=read('README.rst'),

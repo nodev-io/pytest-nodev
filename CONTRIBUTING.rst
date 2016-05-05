@@ -16,11 +16,23 @@ Submit a pull request
 ---------------------
 
 Contributors are invited to review the
-`product high level design <https://pytest-nodev.readthedocs.org/en/stable/design.html>`_
+`product high level design <https://pytest-nodev.readthedocs.io/en/stable/design.html>`_
 and the `short term planning <https://github.com/nodev-io/pytest-nodev/milestones>`_.
 
-Tests can be run with `pytest <https://pytest.org>`_ and `tox <https://tox.readthedocs.org>`_,
-please ensure the coverage at least stays the same before you submit a pull request.
+Tests can be run with `pytest <https://pytest.org>`_ with:
+
+    $ py.test -v --timeout=0 --pep8 --flakes --mccabe --cov=pytest_nodev --cov-report=html \
+        --cache-clear pytest_nodev tests
+
+coverage is can be checked with:
+
+    $ open htmlcov/index.html
+
+the complete python versions tests can be run via `tox <https://tox.readthedocs.io>`_ with:
+
+    $ tox
+
+Please ensure the coverage at least stays the same before you submit a pull request.
 
 
 Documentation
