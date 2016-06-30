@@ -150,7 +150,7 @@ Contributors:
 
 Sponsors:
 
-- .. image:: http://services.bopen.eu/bopen-logo.png
+- .. image:: http://www.bopen.it/wp-content/uploads/2016/01/logo-no-back.png
       :target: http://bopen.eu/
       :alt: B-Open Solutions srl
 
