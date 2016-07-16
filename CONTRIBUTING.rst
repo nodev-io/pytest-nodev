@@ -17,7 +17,7 @@ Submit a pull request
 
 Contributors are invited to review the
 `product high level design <https://pytest-nodev.readthedocs.io/en/stable/design.html>`_
-and the `short term planning <https://github.com/nodev-io/pytest-nodev/milestones>`_.
+and the `short term product planning <https://github.com/nodev-io/pytest-nodev/milestones>`_.
 
 Tests can be run with `pytest <https://pytest.org>`_ with:
 

@@ -75,7 +75,7 @@ Finally, instruct pytest to run your test on all candidate callables in the Pyth
 In just over a minute pytest-nodev collected 4000 functions from the standard library,
 run your specification test on all of them and
 reported that the `strtobool`_ function in the distutils.util module
-is the only one that passes your test.
+is the only candidate that passes your test.
 
 Now you can review it and if you like it you may use it in your code.
 No need to write your own implementation!
@@ -99,6 +99,7 @@ Here are some of them in rough order of importance:
 BIG FAT WARNING!
 ----------------
 
+Searching code with pytest-nodev looks very much like running arbitrary callables with random arguments.
 A lot of functions called with the wrong set of arguments may have unexpected consequences ranging
 from slightly annoying, think ``os.mkdir('false')``,
 to **utterly catastrophic**, think ``shutil.rmtree('/', True)``.
