@@ -12,7 +12,7 @@ def read(fname):
     return codecs.open(file_path, encoding='utf-8').read()
 
 
-version = '0.9.9.dev0'
+version = '0.9.9'
 
 setup(
     name='pytest-nodev',

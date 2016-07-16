@@ -1,5 +1,5 @@
 
-0.9.9 (unreleased)
+0.9.9 (2016-07-16)
 ------------------
 
 - Reduce test run noise by blacklisting annoying stdlib objects.
