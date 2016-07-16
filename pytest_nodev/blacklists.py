@@ -137,4 +137,8 @@ OBJECT_BLACKLIST = [
     'tempfile:TemporaryFile',
     'urllib.robotparser:RobotFileParser',
     'wave:Wave_write',
+    'tempfile:mkdtemp',
+    'tempfile:mkstemp',
+    'tempfile:mktemp',
+    'multiprocessing.util',
 ]
