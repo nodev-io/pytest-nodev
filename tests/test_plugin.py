@@ -90,7 +90,7 @@ def test_pytest_terminal_summary(testdir):
         '--candidates-from-modules=math',
     )
     result.stdout.fnmatch_lines([
-        '*test_factorial*math:factorial*HIT',
+        '*test_factorial*math:factorial*PASSED',
     ])
     assert result.ret == 0
 

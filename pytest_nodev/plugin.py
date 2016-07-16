@@ -144,11 +144,11 @@ def pytest_terminal_summary(terminalreporter):
     if not hasattr(terminalreporter.config, '_candidate_index'):
         return
 
-    hit_state = 'passed' if terminalreporter.config.getoption('candidates_fail') else 'xpassed'
-    hits = terminalreporter.getreports(hit_state)
-    terminalreporter.write_sep('=', '%d hit' % len(hits), bold=True)
+    passed_state = 'passed' if terminalreporter.config.getoption('candidates_fail') else 'xpassed'
+    passed_reports = terminalreporter.getreports(passed_state)
+    terminalreporter.write_sep('=', 'pytest_nodev: %d passed' % len(passed_reports), bold=True)
     terminalreporter.write_line('')
-    for report in hits:
+    for report in passed_reports:
         terminalreporter.write(report.nodeid)
-        terminalreporter.write_line(' HIT', bold=True, green=True)
+        terminalreporter.write_line(' PASSED', bold=True, green=True)
     terminalreporter.write_line('')

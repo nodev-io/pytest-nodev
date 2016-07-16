@@ -15,7 +15,8 @@ Test-driven source code search for Python.
 New to the concept of *test-driven code search*?
 Jump to the :doc:`quickstart` for a 2 minutes hands-on overview.
 Curious about the technique?
-Head over to the :doc:`concepts` section.
+Head over to the :doc:`concepts` section
+or go through our :doc:`tutorial`.
 The :doc:`usersguide` documents pytest-nodev usage in details and
 covers a few more examples.
 
