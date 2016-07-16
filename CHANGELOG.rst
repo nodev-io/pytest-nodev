@@ -2,7 +2,10 @@
 0.9.9 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Reduce test run noise by blacklisting annoying stdlib objects.
+  Issue `#12 <https://github.com/nodev-io/pytest-nodev/issues/12>`_.
+- Report object that pass a test as **PASSED**, phase out HIT concept altogether.
+- Get docs and dependencies in shape for the 1.0.0 release.
 
 
 0.9.8 (2016-03-16)
