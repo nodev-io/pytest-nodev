@@ -61,6 +61,7 @@ MODULE_BLACKLIST = [
     'pydoc',
     'tkinter',
     'turtle',
+    'asyncio',
 ]
 
 OBJECT_BLACKLIST = [
@@ -120,4 +121,20 @@ OBJECT_BLACKLIST = [
     'shutil.rmtree',
     'turtle.write_docstringdict',
     'multiprocessing.semaphore_tracker:main',
+
+    # annoying
+    'urllib.request:URLopener',
+    'urllib.request:FancyURLopener',
+    'urllib.request:urlopen',
+    'urllib.response:addbase',
+    'aifc.Error',
+    'aifc.Aifc_write',
+    'asyncore:file_dispatcher',
+    'asyncore:file_wrapper',
+    'sunau:open',
+    'sunau:Error',
+    'sunau:Au_write',
+    'tempfile:TemporaryFile',
+    'urllib.robotparser:RobotFileParser',
+    'wave:Wave_write',
 ]
