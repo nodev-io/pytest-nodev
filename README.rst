@@ -22,6 +22,7 @@ To be more precise pytest-nodev is a `pytest <https://pytest.org>`_ plugin
 that lets you execute a set of tests that specify the expected behaviour of a class or a function
 on all objects in the Python standard library and in all the modules you have installed.
 
+**Show me how it works in practice.**
 **I need to write a** ``parse_bool`` **function that robustly parses a boolean value from a string.**
 **Here is the test I intend to use to validate my own implementation once I write it.**::
 
@@ -33,8 +34,6 @@ on all objects in the Python standard library and in all the modules you have in
         assert parse_bool('true')
         assert parse_bool('TRUE')
         assert parse_bool('1')
-
-**Show me how I search for a ready-made implementation with pytest-nodev.**
 
 First, install the `latest version of pytest-nodev <https://pypi.python.org/pypi/pytest-nodev>`_
 from the Python Package Index::
@@ -58,7 +57,7 @@ decorate it with ``pytest.mark.candidate`` as follows::
 
 Finally, instruct pytest to run your test on all candidate callables in the Python standard library::
 
-    $ py.test test_parse_bool.py --candidates-from-stdlib
+    $ py.test --candidates-from-stdlib test_parse_bool.py
     ======================= test session starts ==========================
     platform darwin -- Python 3.5.0, pytest-2.8.7, py-1.4.31, pluggy-0.3.1
     rootdir: /tmp, inifile: setup.cfg
@@ -67,17 +66,19 @@ Finally, instruct pytest to run your test on all candidate callables in the Pyth
 
     test_parse_bool.py xxxxxxxxxxxx[...]xxxxxxxxXxxxxxxxx[...]xxxxxxxxxxxx
 
-    ============================== 1 hit =================================
+    ============================ 1 passed ================================
 
-    test_parse_bool.py::test_parse_bool[distutils.util:strtobool] HIT
+    test_parse_bool.py::test_parse_bool[distutils.util:strtobool] PASSED
 
     ==== 3258 xfailed, 1 xpassed, 27 pytest-warnings in 45.07 seconds ====
 
-In less than a minute pytest-nodev collected more than 3000 functions from the standard library
-and run your specification test on all of them and you've got a HIT.
-The `strtobool`_ function in the distutils.util module passes the test, so
-now you should thoroughly review it and if you like it you may use it in your code,
-no need to write your own implementation.
+In less than a minute pytest-nodev collected more than 3000 functions from the standard library,
+run your specification test on all of them and
+reported that the `strtobool`_ function in the distutils.util module
+is the only one that passes your test.
+
+Now you can review it and if you like it you may use it in your code.
+No need to write your own implementation.
 
 .. _`strtobool`: https://docs.python.org/3/distutils/apiref.html#distutils.util.strtobool
 
@@ -126,7 +127,6 @@ Code quality  .. image:: https://api.travis-ci.org/nodev-io/pytest-nodev.svg?bra
               .. image:: https://coveralls.io/repos/nodev-io/pytest-nodev/badge.svg?branch=master&service=github
                 :target: https://coveralls.io/github/nodev-io/pytest-nodev
                 :alt: Coverage Status on Coveralls
-nodev website http://nodev.io
 ============= ======================
 
 

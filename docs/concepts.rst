@@ -60,7 +60,7 @@ that is an extension of the well known *test-driven development* or TDD.
 The idea is that once the developer has written the tests that define the behaviour of a new
 function to a degree sufficient to validate the implementation they are going to write
 it is good enough to validate
-any implementation. Running the tests on a large set of functions may result in a *hit*, that is
+any implementation. Running the tests on a large set of functions may result in a *passed*, that is
 a function that already implements their feature.
 
 Due to its nature the approach is better suited for discovering smaller functions
@@ -73,7 +73,7 @@ Tests validation
 Another use for pytest-nodev is, with a bit of additional work, to validate a project test suite.
 If a test passes with an unexpected object there are two possibilities,
 either the test is not strict enough and allows for false positives and needs to be updated,
-or the *hit* is actually a function you could use instead of your implementation.
+or the *passed* is actually a function you could use instead of your implementation.
 
 
 Keywords:
