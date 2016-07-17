@@ -24,7 +24,7 @@ on all objects in the Python standard library and in all the modules you have in
 
 **Show me how it works in practice.**
 **I need to write a** ``parse_bool`` **function that robustly parses a boolean value from a string.**
-**Here is the test I intend to use to validate my own implementation once I write it.**::
+**Here is the test I intend to use to validate my own implementation once I write it**::
 
     def test_parse_bool():
         assert not parse_bool('false')

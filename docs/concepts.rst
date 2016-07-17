@@ -1,8 +1,6 @@
 
-Concepts
-========
-
-.. warning:: This section is work in progress and there will be areas that are lacking.
+Test-driven code search concepts
+================================
 
 Motivation
 ----------
@@ -19,10 +17,11 @@ On the *custom* side of the spectrum there is all the code that defines the
 features of the software and all the choices of its implementation. That one is code that need
 to be written.
 
-On the other hand a seasoned software developer is trained to spot
+On the other hand seasoned software developers are trained to spot
 pieces of functionality that lie far enough on the *generic* side of the range
-that with high probability a library already implements it
-**and documents it well enough to be discovered with an internet search**.
+that with high probability are already implemented in a **librariy** or a **framework**
+and that are documented well enough to be discovered with a
+**keyword-based search**, e.g. on StackOverflow and Google.
 
 In between the two extremes there is a huge gray area populated by pieces of functionality
 that are not *generic* enough to obviously deserve a place in a library, but are
@@ -36,51 +35,51 @@ Or is it?
 Test-driven code search
 -----------------------
 
-When developing new functionalities developers spend significant efforts searching for
-code to reuse, mainly via keyword-based searches, e.g. on StackOverflow and Google.
-Keyword-based search is quite effective in finding code that is explicitly designed and
-documented to be reused, e.g. libraries and frameworks,
-but typically fails to identify reusable functions and classes in the large corpus of
-auxiliary code of software projects.
+To address the limits of keyword-based search *test-driven code search*
+focuses on code behaviour and semantics instead.
 
-TDR aims to address the limits of keyword-based search with test-driven code search
-that focuses instead on code behaviour and semantics.
-Developing a new feature in TDR starts with the developer writing the tests
-that will validate candidate implementations of the desired functionality.
-Before writing any functional code the tests are run against all functions
-and classes of all available projects.
-Any code passing the tests is presented to the developer
-as a candidate implementation for the target feature.
-
-pytest-nodev is a pytest plugin that enables *test-driven code search* and
-consequently a software development strategy called
-*test-driven reuse* or TDR that we call *nodev*,
-that is an extension of the well known *test-driven development* or TDD.
-
-The idea is that once the developer has written the tests that define the behaviour of a new
-function to a degree sufficient to validate the implementation they are going to write
-it is good enough to validate
-any implementation. Running the tests on a large set of functions may result in a *passed*, that is
-a function that already implements their feature.
+The **search query** is a test function that is executed once for every
+candidate class or function available to the **search engine**
+and the **search result** is the list of candidates that pass the test.
 
 Due to its nature the approach is better suited for discovering smaller functions
 with a generic signature.
 
+*pytest-nodev* is a pytest plugin that enables *test-driven code search* for Python.
 
-Tests validation
-----------------
 
-Another use for pytest-nodev is, with a bit of additional work, to validate a project test suite.
+Test-driven code reuse
+----------------------
+
+*Test-driven reuse* (TDR) is an extension of the well known *test-driven development* (TDD)
+development practice.
+
+Developing a new feature in TDR starts with the developer writing the tests
+that will validate the correct implementation of the desired functionality.
+
+Before writing any functional code the tests are run against all functions
+and classes of all available projects.
+
+Any code passing the tests is presented to the developer
+as a candidate implementation for the target feature:
+
+
+- if nothing passes the tests the developer need to implement the feature and TDR reduces to TDD
+- if any code passes the tests the developer can:
+
+  - **import**: accept code as a dependency and use the class / function directly
+  - **fork**: copy the code and the related tests into their project
+  - **study**: use the code and the related tests as guidelines for their implementation,
+    in particular identifyng corner cases and optimizations
+
+
+Unit tests validation
+---------------------
+
+An independent use case for test-driven code search is unit tests validation.
 If a test passes with an unexpected object there are two possibilities,
 either the test is not strict enough and allows for false positives and needs to be updated,
-or the *passed* is actually a function you could use instead of your implementation.
-
-
-Keywords:
-
- * Source code *search by feature*, *search by functionality*, *search by specification* or *nodev*
- * *Feature-specification test* and test suite or *Requirement-specification test*
- * *Test-driven reuse* or *test-driven code search* or *test-driven source code search*
+or the *PASSED* is actually a function you could use instead of your implementation.
 
 
 Bibliography

@@ -98,6 +98,7 @@ OBJECT_BLACKLIST = [
     'getpass:unix_getpass',
     'ensurepip:_run_pip',
     'idlelib.rpc:SocketIO',
+    'numpy.core.multiarray_tests',
 
     # uninterruptable hang
     'compiler.ast:AugAssign',
