@@ -13,6 +13,8 @@
 
 .. NOTE: only the first couple of lines of the README are shown on GitHub mobile
 
+.. highlight:: console
+
 pytest-nodev is a simple test-driven search engine for Python code,
 it finds classes and functions that match the behaviour specified by the given tests.
 
@@ -24,7 +26,9 @@ on all objects in the Python standard library and in all the modules you have in
 
 **Show me how it works in practice.**
 **I need to write a** ``parse_bool`` **function that robustly parses a boolean value from a string.**
-**Here is the test I intend to use to validate my own implementation once I write it.**::
+**Here is the test I intend to use to validate my own implementation once I write it**:
+
+.. code-block:: python
 
     def test_parse_bool():
         assert not parse_bool('false')
@@ -41,7 +45,9 @@ from the Python Package Index::
     $ pip install pytest-nodev
 
 Then copy your specification test to the ``test_parse_bool.py`` file and
-decorate it with ``pytest.mark.candidate`` as follows::
+decorate it with ``pytest.mark.candidate`` as follows:
+
+.. code-block:: python
 
     import pytest
 
@@ -75,7 +81,7 @@ Finally, instruct pytest to run your test on all candidate callables in the Pyth
 In just over a minute pytest-nodev collected 4000 functions from the standard library,
 run your specification test on all of them and
 reported that the `strtobool`_ function in the distutils.util module
-is the only one that passes your test.
+is the only candidate that passes your test.
 
 Now you can review it and if you like it you may use it in your code.
 No need to write your own implementation!
@@ -99,14 +105,15 @@ Here are some of them in rough order of importance:
 BIG FAT WARNING!
 ----------------
 
+Searching code with pytest-nodev looks very much like running arbitrary callables with random arguments.
 A lot of functions called with the wrong set of arguments may have unexpected consequences ranging
 from slightly annoying, think ``os.mkdir('false')``,
 to **utterly catastrophic**, think ``shutil.rmtree('/', True)``.
 Serious use of pytest-nodev, in particular using ``--candidates-from-all``,
 require running the tests with operating-system level isolation,
 e.g. as a dedicated user or even better inside a dedicated container.
-The `User's guide <http://pytest-nodev.readthedocs.io/en/stable/usersguide.html>`_
-documents how to run pytest-nodev safely and efficiently.
+The `Starter kit <http://pytest-nodev.readthedocs.io/en/stable/starterkit.html>`_
+guide documents how to run pytest-nodev safely and efficiently.
 
 
 Project resources
