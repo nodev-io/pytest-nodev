@@ -1,6 +1,6 @@
 
-0.9.10 (unreleased)
--------------------
+1.0.0 (2016-07-18)
+------------------
 
 - Mostly documentation updates. The documentation is promoted to *good enough*.
   Issue `#17 <https://github.com/nodev-io/pytest-nodev/issues/17>`_.
