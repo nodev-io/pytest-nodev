@@ -16,7 +16,7 @@ New to the concept of *test-driven code search*?
 Jump to the :doc:`quickstart` for a 2 minutes hands-on overview.
 Curious about the technique?
 Head over to the :doc:`concepts` section
-or go through our :doc:`tutorial`.
+or download our :doc:`starterkit`.
 The :doc:`usersguide` documents pytest-nodev usage in details and
 covers a few more examples.
 
@@ -28,7 +28,7 @@ https://github.com/nodev-io/pytest-nodev
     :caption: Table of Contents
 
     quickstart
-    tutorial
+    starterkit
     usersguide
     concepts
     contributing

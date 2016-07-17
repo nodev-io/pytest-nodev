@@ -30,28 +30,14 @@ e.g. to search in the Python standard library::
 Advanced usage
 --------------
 
-Use of ``--candidates-from-all`` may be very dangerous
-and it is disabled by default.
+Use of ``--candidates-from-all`` may be very dangerous and it is disabled by default and
+the preferred way to search safely and efficiently is documented in the :doc:`starterkit` section.
 
-In order to search safely in all modules we suggest to use docker for OS-level isolation.
-To kickstart your advanced usage downlaod the nodev-tutorial::
-
-    $ git clone https://github.com/nodev-io/nodev-tutorial.git
-    $ cd nodev-tutorial
-
-build the nodev docker image with all module from requirements.txt installed::
-
-    $ docker build -t nodev .
-
-and run tests with::
-
-    $ docker run --rm -it -v `pwd`:/home/pytest nodev --candidates-from-all tests/test_factorial.py
-
-Alternatively you can enable it on your regular user only after you have understood the risks
-and set up appropriate mitigation strategies
+If you are sure you understand the risks and you have set up appropriate mitigation strategies
+you can enable ``--candidates-from-all``
 by setting the ``PYTEST_NODEV_MODE`` environment variable to ``FEARLESS``::
 
-    $ PYTEST_NODEV_MODE=FEARLESS py.test --candidates-from-all --candidates-includes .*util -- test_example.py
+    $ PYTEST_NODEV_MODE=FEARLESS py.test --candidates-from-all test_example.py
 
 
 Command line reference
