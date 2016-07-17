@@ -31,4 +31,5 @@ https://github.com/nodev-io/pytest-nodev
     tutorial
     usersguide
     concepts
+    contributing
     design

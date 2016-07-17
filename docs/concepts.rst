@@ -1,6 +1,6 @@
 
-Test-driven code search concepts
-================================
+Concepts
+========
 
 Motivation
 ----------

@@ -1,4 +1,6 @@
 
+.. highlight:: console
+
 Tutorial
 ========
 

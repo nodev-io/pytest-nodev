@@ -1,4 +1,6 @@
 
+.. highlight:: console
+
 User's guide
 ============
 
@@ -57,6 +59,8 @@ Command line reference
 
 The plugin adds the following options to pytest command line::
 
+    $ py.test --help
+    [...]
     nodev:
       --candidates-from-stdlib
                             Collects candidates form the Python standard library.
@@ -81,3 +85,4 @@ The plugin adds the following options to pytest command line::
                             Full name of the predicate passed to
                             `inspect.getmembers`, defaults to `builtins.callable`.
       --candidates-fail     Show candidates failures.
+    [...]
