@@ -53,7 +53,7 @@ Only on Ubuntu 16.04 you can use the script we provide::
 
 And test your setup with::
 
-    $ sudo docker info
+    $ docker info
 
 Refer to the official Docker documentation for trouble-shooting and additional configurations.
 
@@ -69,7 +69,7 @@ With an editor fill the requirements.txt file with the packages to be installed 
 
 Build the docker image with::
 
-    $ sudo docker build -t nodev .
+    $ docker build -t nodev .
 
 
 Execute a search
@@ -77,7 +77,7 @@ Execute a search
 
 Run the search engine container on a local docker-engine server, e.g. with::
 
-    $ sudo docker run --rm -it -v `pwd`:/src nodev --candidates-from-stdlib tests/test_parse_bool.py
+    $ docker run --rm -it -v `pwd`:/src nodev --candidates-from-stdlib tests/test_parse_bool.py
 
 Or alternatively after having set the ``DOCKER_HOST`` environment variable, e.g. with::
 
