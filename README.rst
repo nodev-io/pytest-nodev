@@ -13,8 +13,6 @@
 
 .. NOTE: only the first couple of lines of the README are shown on GitHub mobile
 
-.. highlight:: console
-
 pytest-nodev is a simple test-driven search engine for Python code,
 it finds classes and functions that match the behaviour specified by the given tests.
 
@@ -40,7 +38,9 @@ on all objects in the Python standard library and in all the modules you have in
         assert parse_bool('1')
 
 First, install the `latest version of pytest-nodev <https://pypi.python.org/pypi/pytest-nodev>`_
-from the Python Package Index::
+from the Python Package Index:
+
+.. code-block:: console
 
     $ pip install pytest-nodev
 
@@ -61,7 +61,9 @@ decorate it with ``pytest.mark.candidate`` as follows:
         assert parse_bool('TRUE')
         assert parse_bool('1')
 
-Finally, instruct pytest to run your test on all candidate callables in the Python standard library::
+Finally, instruct pytest to run your test on all candidate callables in the Python standard library:
+
+.. code-block:: console
 
     $ py.test --candidates-from-stdlib test_parse_bool.py
     ======================= test session starts ==========================
