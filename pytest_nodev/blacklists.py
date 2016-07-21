@@ -54,6 +54,7 @@ MODULE_BLACKLIST = [
 
     # dangerous
     'subprocess',
+    'smtpd',
 
     # annoying
     'antigravity',  # not sure about this one :)
@@ -83,6 +84,7 @@ OBJECT_BLACKLIST = [
     'posix:forkpty',
     'pty:fork',
     '_signal:default_int_handler',
+    'signal:default_int_handler',
     'atexit.register',
 
     # low level crashes
@@ -99,6 +101,7 @@ OBJECT_BLACKLIST = [
     'ensurepip:_run_pip',
     'idlelib.rpc:SocketIO',
     'numpy.core.multiarray_tests',
+    '.*base64.*code',
 
     # uninterruptable hang
     'compiler.ast:AugAssign',
