@@ -31,6 +31,7 @@ without bothering with OS-level isolation.
 
 # python 2 support via python-future
 from __future__ import unicode_literals
+from builtins import open, FileNotFoundError
 
 
 MODULE_BLACKLIST = [
@@ -146,3 +147,11 @@ OBJECT_BLACKLIST = [
     'tempfile:mktemp',
     'multiprocessing.util',
 ]
+
+
+# FIXME: this is a (hopefully!) temporary hack to permit adding to the object blacklist
+try:
+    with open('object_blacklist.txt') as fp:
+        OBJECT_BLACKLIST += [line.rstrip('\n') for line in fp if line.strip()]
+except FileNotFoundError:
+    pass
