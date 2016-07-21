@@ -31,7 +31,7 @@ without bothering with OS-level isolation.
 
 # python 2 support via python-future
 from __future__ import unicode_literals
-from builtins import open, FileNotFoundError
+from builtins import open
 
 
 MODULE_BLACKLIST = [
@@ -153,5 +153,5 @@ OBJECT_BLACKLIST = [
 try:
     with open('object_blacklist.txt') as fp:
         OBJECT_BLACKLIST += [line.rstrip('\n') for line in fp if line.strip()]
-except FileNotFoundError:
+except IOError:
     pass
