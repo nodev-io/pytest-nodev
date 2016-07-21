@@ -31,6 +31,7 @@ without bothering with OS-level isolation.
 
 # python 2 support via python-future
 from __future__ import unicode_literals
+from builtins import open
 
 
 MODULE_BLACKLIST = [
@@ -54,6 +55,7 @@ MODULE_BLACKLIST = [
 
     # dangerous
     'subprocess',
+    'smtpd',
 
     # annoying
     'antigravity',  # not sure about this one :)
@@ -83,6 +85,7 @@ OBJECT_BLACKLIST = [
     'posix:forkpty',
     'pty:fork',
     '_signal:default_int_handler',
+    'signal:default_int_handler',
     'atexit.register',
 
     # low level crashes
@@ -99,6 +102,7 @@ OBJECT_BLACKLIST = [
     'ensurepip:_run_pip',
     'idlelib.rpc:SocketIO',
     'numpy.core.multiarray_tests',
+    '.*base64.*code',
 
     # uninterruptable hang
     'compiler.ast:AugAssign',
@@ -143,3 +147,11 @@ OBJECT_BLACKLIST = [
     'tempfile:mktemp',
     'multiprocessing.util',
 ]
+
+
+# FIXME: this is a (hopefully!) temporary hack to permit adding to the object blacklist
+try:
+    with open('object_blacklist.txt') as fp:
+        OBJECT_BLACKLIST += [line.rstrip('\n') for line in fp if line.strip()]
+except IOError:
+    pass
