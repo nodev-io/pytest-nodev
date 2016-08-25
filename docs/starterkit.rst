@@ -27,7 +27,7 @@ we choose docker as the best trade-off between safety, reproducibility and easin
 Install nodev-starter-kit
 -------------------------
 
-To install *nodev-starter-kit* clone the `official repo <https://github.com/nodev-io/nodev-startet-kit>`_::
+To install *nodev-starter-kit* clone the `official repo <https://github.com/nodev-io/nodev-starter-kit>`_::
 
     $ git clone https://github.com/nodev-io/nodev-starter-kit.git
     $ cd nodev-starter-kit
